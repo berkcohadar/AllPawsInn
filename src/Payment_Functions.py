@@ -250,10 +250,9 @@ class PaymentFunctions(MainWindow):
                 total =self.ui.pay_total_balance.text()
                 newbalance = float(total) - float(received)
                 print(clientId)
-                object.SetClientAccountBalance(int(clientId),float(newbalance))
+                object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
                 PaymentFunctions.DisplayDetail(self)
                 self.ui.pay_services_amt_recieved.clear()
-                #self.ui.pay_list_widget.clear()
                 self.ui.pay_total_balance.clear()
                 self.ui.pay_total_charge.clear()
                 
@@ -284,9 +283,10 @@ class PaymentFunctions(MainWindow):
 
                 canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
                 canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
-
                 canvas.save()
-
+                
+                self.ui.pay_list_widget.clear()
+                
                 TotalCharges = 0 
                 clients=[]
                 self.ui.pay_search_list.clear()
