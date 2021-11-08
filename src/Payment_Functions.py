@@ -71,7 +71,7 @@ class PaymentFunctions(MainWindow):
         self.ui.pay_client_address.setText(clientAddress)
         self.ui.pay_client_cellphone.setText(clientCell)
         self.ui.pay_client_notes.setText(clientNotes)
-        self.ui.pay_client_balance.setText(str(clientBalance))
+        self.ui.pay_client_balance.setText("{:.2f}".format(clientBalance))
 
         servicesinfo= object.GetDayCareRateAndTax(4)
 
@@ -81,8 +81,8 @@ class PaymentFunctions(MainWindow):
             tax = service[1]
          
 
-        self.ui.pay_daycare_rate.setText(str(daycarerate))
-        self.ui.pay_nys_tax.setText(str(tax))
+        self.ui.pay_daycare_rate.setText("{:.2f}".format(daycarerate))
+        self.ui.pay_nys_tax.setText("{:.2f}".format(tax))
         PaymentFunctions.AddServices(self)
        
     def AddServices(self):
@@ -140,7 +140,7 @@ class PaymentFunctions(MainWindow):
         x = Decimal(totalCharges)
         output = round(x,2)
         print(output)
-        self.ui.pay_subtotal.setText(str(output))
+        self.ui.pay_subtotal.setText("{:.2f}".format(output))
 
     def AddToList(self):
         global clients
@@ -161,7 +161,7 @@ class PaymentFunctions(MainWindow):
                             animalName= item[0]
 
 
-                        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([ animalName,str(sub)] ))
+                        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([ animalName, str(sub)] ))
                         # sub : animal name subtotal 
                         
                         TotalCharges += float(sub)
@@ -172,8 +172,8 @@ class PaymentFunctions(MainWindow):
                         totalBalance = TotalCharges + float(balance)
                         totalBalance = round(totalBalance,2)
 
-                        self.ui.pay_total_balance.setText(str(totalBalance))
-                        self.ui.pay_total_charge.setText(str(TotalCharges))
+                        self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
+                        self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
                         break
                     else:
                         MainWindow.show_popup(self,"Wrong Client!","Client are not same.")
@@ -201,8 +201,37 @@ class PaymentFunctions(MainWindow):
                 totalBalance = TotalCharges + float(balance)
                 totalBalance = round(totalBalance,2)
 
-                self.ui.pay_total_balance.setText(str(totalBalance))
-                self.ui.pay_total_charge.setText(str(TotalCharges))
+                self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
+                self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
+        else:
+            MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
+
+    def removeFromList(self):
+        # ADD =>
+        # ` self.ui.BUTTON_NAME.clicked.connect(lambda: PaymentFunctions.removeFromList(self)) `
+        # to main.py
+        global clients
+        global TotalCharges 
+        if(self.ui.pay_search_list.currentItem()):
+            if (self.ui.pay_list_widget.currentItem()):
+                sub = self.ui.pay_list_widget.currentItem().text(1) # this is the subtotal that will be reducted from total charge.
+
+                # find item and remove it from list.
+                index = self.ui.pay_list_widget.indexOfTopLevelItem(self.ui.pay_list_widget.currentItem()) # this is the index of desired row.
+                item = self.ui.pay_list_widget.takeTopLevelItem(index)
+
+                # subtract sub_total from total charges.
+                TotalCharges -= float(sub)
+                TotalCharges = round(TotalCharges,2)
+                
+                # calculate total balance again.
+                balance =self.ui.pay_client_balance.text()
+                totalBalance = TotalCharges + float(balance)
+                totalBalance = round(totalBalance,2)
+                self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
+                self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
+            else:
+                MainWindow.show_popup(self,"Missing item!","Please choose an item from list and try again!")
         else:
             MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
 
@@ -227,9 +256,6 @@ class PaymentFunctions(MainWindow):
                 self.ui.pay_total_balance.clear()
                 self.ui.pay_total_charge.clear()
                 
-                
-
-                
                 name =self.ui.pay_search_list.currentItem().text(0)
                 canvas = Canvas(name+" receipt.pdf")
                 canvas.drawString(100, 500, "name")
@@ -240,7 +266,7 @@ class PaymentFunctions(MainWindow):
                 canvas.drawString(200, 500, name)
 
                 canvas.drawString(200, 490, received)
-                canvas.drawString(200, 480, str(newbalance))  
+                canvas.drawString(200, 480, "{:.2f}".format(newbalance))  
                 canvas.save()
 
                 TotalCharges = 0 
@@ -272,29 +298,4 @@ class PaymentFunctions(MainWindow):
             MainWindow.show_popup(self,"Missing Arguments!","Please enter amount of received")
        # object = Database_Class()
        # object.SubmitPayment(row)
-
-    def removeFromList(self):
-        # ADD =>
-        # ` self.ui.BUTTON_NAME.clicked.connect(lambda: PaymentFunctions.removeFromList(self)) `
-        # to main.py
-
-        global TotalCharges 
-        sub = self.ui.pay_list_widget.currentItem().text(1) # this is the subtotal that will be reducted from total charge.
-
-        # find item and remove it from list.
-        index = self.ui.pay_list_widget.indexOfTopLevelItem(self.ui.pay_list_widget.currentItem()) # this is the index of desired row.
-        item = self.ui.pay_list_widget.takeTopLevelItem(index)
-
-        # subtract sub_total from total charges.
-        TotalCharges -= float(sub)
-        TotalCharges = round(TotalCharges,2)
-        
-        # calculate total balance again.
-        balance =self.ui.pay_client_balance.text()
-        totalBalance = TotalCharges + float(balance)
-        totalBalance = round(totalBalance,2)
-        self.ui.pay_total_balance.setText(str(totalBalance))
-        self.ui.pay_total_charge.setText(str(TotalCharges))
-
-
         

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'allpawsinn2.ui'
+# Form implementation generated from reading ui file 'allpawsinn.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -4670,9 +4670,9 @@ class Ui_MainWindow(object):
         self.payment_page_title.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.payment_page_title.setFrameShadow(QtWidgets.QFrame.Raised)
         self.payment_page_title.setObjectName("payment_page_title")
-        self.verticalLayout_88 = QtWidgets.QVBoxLayout(self.payment_page_title)
-        self.verticalLayout_88.setContentsMargins(-1, 0, -1, 0)
-        self.verticalLayout_88.setObjectName("verticalLayout_88")
+        self.horizontalLayout_52 = QtWidgets.QHBoxLayout(self.payment_page_title)
+        self.horizontalLayout_52.setContentsMargins(-1, 0, -1, 0)
+        self.horizontalLayout_52.setObjectName("horizontalLayout_52")
         self.home_page_title_2 = QtWidgets.QLabel(self.payment_page_title)
         self.home_page_title_2.setMinimumSize(QtCore.QSize(200, 40))
         font = QtGui.QFont()
@@ -4687,7 +4687,7 @@ class Ui_MainWindow(object):
         self.home_page_title_2.setTextFormat(QtCore.Qt.RichText)
         self.home_page_title_2.setAlignment(QtCore.Qt.AlignCenter)
         self.home_page_title_2.setObjectName("home_page_title_2")
-        self.verticalLayout_88.addWidget(self.home_page_title_2, 0, QtCore.Qt.AlignHCenter)
+        self.horizontalLayout_52.addWidget(self.home_page_title_2)
         self.verticalLayout_21.addWidget(self.payment_page_title)
         self.frame_19 = QtWidgets.QFrame(self.frame_17)
         self.frame_19.setMaximumSize(QtCore.QSize(609, 400))
@@ -5104,8 +5104,9 @@ class Ui_MainWindow(object):
         self.frame_211.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_211.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_211.setObjectName("frame_211")
+        self.verticalLayout_35 = QtWidgets.QVBoxLayout(self.frame_211)
+        self.verticalLayout_35.setObjectName("verticalLayout_35")
         self.home_page_title_10 = QtWidgets.QLabel(self.frame_211)
-        self.home_page_title_10.setGeometry(QtCore.QRect(170, 10, 361, 51))
         self.home_page_title_10.setMinimumSize(QtCore.QSize(200, 40))
         font = QtGui.QFont()
         font.setPointSize(15)
@@ -5119,6 +5120,7 @@ class Ui_MainWindow(object):
         self.home_page_title_10.setTextFormat(QtCore.Qt.RichText)
         self.home_page_title_10.setAlignment(QtCore.Qt.AlignCenter)
         self.home_page_title_10.setObjectName("home_page_title_10")
+        self.verticalLayout_35.addWidget(self.home_page_title_10)
         self.verticalLayout_29.addWidget(self.frame_211)
         self.label_9 = QtWidgets.QLabel(self.frame_18)
         self.label_9.setMinimumSize(QtCore.QSize(0, 0))
@@ -5223,7 +5225,7 @@ class Ui_MainWindow(object):
         self.pay_daycare_rate.setObjectName("pay_daycare_rate")
         self.verticalLayout_44.addWidget(self.pay_daycare_rate)
         self.frame_35 = QtWidgets.QFrame(self.frame_24)
-        self.frame_35.setMinimumSize(QtCore.QSize(0, 32))
+        self.frame_35.setMinimumSize(QtCore.QSize(0, 36))
         self.frame_35.setMaximumSize(QtCore.QSize(16777215, 32))
         self.frame_35.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_35.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -5379,15 +5381,41 @@ class Ui_MainWindow(object):
         self.pay_list_widget.header().setDefaultSectionSize(344)
         self.pay_list_widget.header().setMinimumSectionSize(172)
         self.verticalLayout_70.addWidget(self.pay_list_widget)
-        self.deleteRow_button = QtWidgets.QPushButton(self.frame_8)
-        self.deleteRow_button.setMinimumSize(QtCore.QSize(200, 30))
-        self.deleteRow_button.setMaximumSize(QtCore.QSize(300, 30))
-        self.deleteRow_button.setStyleSheet("background: rgba(0,0,0,0.5);\n"
-"border-radius:5px;\n"
-"min-height:24px")
-        self.deleteRow_button.setObjectName("deleteRow_button")
-        self.verticalLayout_70.addWidget(self.deleteRow_button)
         self.verticalLayout_29.addWidget(self.frame_8)
+        self.frame_81 = QtWidgets.QFrame(self.frame_18)
+        self.frame_81.setMinimumSize(QtCore.QSize(0, 50))
+        self.frame_81.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_81.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_81.setObjectName("frame_81")
+        self.horizontalLayout_48 = QtWidgets.QHBoxLayout(self.frame_81)
+        self.horizontalLayout_48.setObjectName("horizontalLayout_48")
+        self.frame_156 = QtWidgets.QFrame(self.frame_81)
+        self.frame_156.setStyleSheet("background-color: rgb(66, 73, 90);")
+        self.frame_156.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_156.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_156.setObjectName("frame_156")
+        self.horizontalLayout_70 = QtWidgets.QHBoxLayout(self.frame_156)
+        self.horizontalLayout_70.setObjectName("horizontalLayout_70")
+        self.deleteRow_button = QtWidgets.QPushButton(self.frame_156)
+        self.deleteRow_button.setMinimumSize(QtCore.QSize(0, 25))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.deleteRow_button.setFont(font)
+        self.deleteRow_button.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(27, 29, 35);\n"
+"    text-align: center;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(33, 37, 43);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    background-color: rgb(85, 170, 255);\n"
+"}")
+        self.deleteRow_button.setObjectName("deleteRow_button")
+        self.horizontalLayout_70.addWidget(self.deleteRow_button)
+        self.horizontalLayout_48.addWidget(self.frame_156)
+        self.verticalLayout_29.addWidget(self.frame_81)
         self.frame_179 = QtWidgets.QFrame(self.frame_18)
         self.frame_179.setMinimumSize(QtCore.QSize(0, 50))
         self.frame_179.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -6939,7 +6967,7 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "Checked Out"))
         self.home_checkout_tree.headerItem().setText(0, _translate("MainWindow", "Client Name"))
         self.home_checkout_tree.headerItem().setText(1, _translate("MainWindow", "Pet Name"))
-        self.home_page_title_2.setText(_translate("MainWindow", "Take Single Payment"))
+        self.home_page_title_2.setText(_translate("MainWindow", "Take Payment"))
         self.pay_search_label.setText(_translate("MainWindow", "Search:"))
         self.pay_search_list.headerItem().setText(0, _translate("MainWindow", "Animal Name"))
         self.pay_search_list.headerItem().setText(1, _translate("MainWindow", "Owner Name"))
@@ -6957,8 +6985,8 @@ class Ui_MainWindow(object):
         self.label_26.setText(_translate("MainWindow", "Notes:"))
         self.label_28.setText(_translate("MainWindow", "Balance:"))
         self.label_15.setText(_translate("MainWindow", "         Client "))
-        self.pay_total_charge_label_8.setText(_translate("MainWindow", "Amount Recieved:"))
-        self.pay_remaining_balance_btn.setText(_translate("MainWindow", "Pay Remaning Balance"))
+        self.pay_total_charge_label_8.setText(_translate("MainWindow", "Amount:"))
+        self.pay_remaining_balance_btn.setText(_translate("MainWindow", "Pay"))
         self.home_page_title_10.setText(_translate("MainWindow", "Take Payment with Service"))
         self.label_9.setText(_translate("MainWindow", "Services"))
         self.label_30.setText(_translate("MainWindow", "Daycare Rate:"))
@@ -6986,7 +7014,7 @@ class Ui_MainWindow(object):
         self.comboBox_2.setItemText(2, _translate("MainWindow", "Cash"))
         self.comboBox_2.setItemText(3, _translate("MainWindow", "Credit"))
         self.pay_add_list_btn_2.setText(_translate("MainWindow", "Add to List"))
-        self.deleteRow_button.setText(_translate("MainWindow", "Delete selected row."))
+        self.deleteRow_button.setText(_translate("MainWindow", "Delete selected row"))
         self.pay_total_charge_label_3.setText(_translate("MainWindow", "Total Services Charge: "))
         self.pay_total_balance_label.setText(_translate("MainWindow", "Total Balance:"))
         self.pay_total_charge_label_2.setText(_translate("MainWindow", "Amount Recieved:"))
