@@ -246,50 +246,54 @@ class PaymentFunctions(MainWindow):
                 received=self.ui.pay_services_amt_recieved.text()
             newbalance=0
             if(self.ui.pay_search_list.currentItem()):
-                clientId =self.ui.pay_search_list.currentItem().text(3)
-                total =self.ui.pay_total_balance.text()
-                newbalance = float(total) - float(received)
-                print(clientId)
-                object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
-                PaymentFunctions.DisplayDetail(self)
-                self.ui.pay_services_amt_recieved.clear()
-                self.ui.pay_total_balance.clear()
-                self.ui.pay_total_charge.clear()
-                
-                name =self.ui.pay_search_list.currentItem().text(0)
-                canvas = Canvas(name+" receipt.pdf")
-                canvas.drawString(100, 500, "Name")
-                canvas.drawString(200, 500, name)
-                
-                line_height_counter=0
-                counter=1
-                total=0
-                canvas.drawString(100, 470, "Service Costs")
-                iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
-                while iterator.value():
-                    item = iterator.value()
-                    canvas.drawString(100, 455-line_height_counter, "Service-"+str(counter))
-                    canvas.drawString(200, 455-line_height_counter, item.text(1))
-                    line_height_counter += 15
-                    iterator += 1
-                    counter+=1
-                    total+=round(float(item.text(1)),2)
+                if(self.ui.pay_list_widget.currentItem()):
+                    clientId =self.ui.pay_search_list.currentItem().text(3)
+                    total =self.ui.pay_total_balance.text()
+                    newbalance = float(total) - float(received)
+                    print(clientId)
+                    object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
+                    PaymentFunctions.DisplayDetail(self)
+                    self.ui.pay_services_amt_recieved.clear()
+                    self.ui.pay_total_balance.clear()
+                    self.ui.pay_total_charge.clear()
+                    
+                    ######
+                    name =self.ui.pay_search_list.currentItem().text(0)
+                    canvas = Canvas(name+" receipt.pdf")
+                    canvas.drawString(100, 500, "Name")
+                    canvas.drawString(200, 500, name)
+                    
+                    line_height_counter=0
+                    counter=1
+                    total=0
+                    canvas.drawString(100, 470, "Service Costs")
+                    iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
+                    while iterator.value():
+                        item = iterator.value()
+                        canvas.drawString(100, 455-line_height_counter, "Service-"+str(counter))
+                        canvas.drawString(200, 455-line_height_counter, item.text(1))
+                        line_height_counter += 15
+                        iterator += 1
+                        counter+=1
+                        total+=round(float(item.text(1)),2)
 
-                canvas.drawString(100, 440-line_height_counter, "Total Cost")
-                canvas.drawString(200, 440-line_height_counter, str(total))
+                    canvas.drawString(100, 440-line_height_counter, "Total Cost")
+                    canvas.drawString(200, 440-line_height_counter, str(total))
 
-                canvas.drawString(100, 410-line_height_counter, "Amount Paid")
-                canvas.drawString(100, 395-line_height_counter, "Updated Balance")   
+                    canvas.drawString(100, 410-line_height_counter, "Amount Paid")
+                    canvas.drawString(100, 395-line_height_counter, "Updated Balance")   
 
-                canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
-                canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
-                canvas.save()
-                
-                self.ui.pay_list_widget.clear()
-                
-                TotalCharges = 0 
-                clients=[]
-                self.ui.pay_search_list.clear()
+                    canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
+                    canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
+                    canvas.save()
+                    
+                    self.ui.pay_list_widget.clear()
+                    
+                    TotalCharges = 0 
+                    clients=[]
+                    self.ui.pay_search_list.clear()
+                else:
+                    MainWindow.show_popup(self,"Missing service!","Please add a service first.")
             else:
                 MainWindow.show_popup(self,"Missing Client!","Please search and choose a client")
             

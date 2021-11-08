@@ -117,8 +117,6 @@ class Client:
 	def getTown(self):
 		self.Town = input()
 
-
-
 	def setNewClient(self,row):
 		conn=pyodbc.connect('Driver={SQL Server};'
 						'Server=LAPTOP-862EV0SI\\SQLEXPRESS;'
@@ -129,4 +127,3 @@ class Client:
 		cursor.execute(query)
 		conn.commit()
 		return True
-
