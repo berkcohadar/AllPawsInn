@@ -8,6 +8,8 @@ conn=pyodbc.connect('Driver={SQL Server};'
                       'Trusted_Connection=yes;')
 
 class Database_Class(object):
+
+
     def getByClientID(self,table_name,row_number,Client_ID):
         
         if(table_name=='dbo.AmountSpent'):
@@ -256,6 +258,19 @@ class Database_Class(object):
 
   
     #---------------SERVICE FUNCTIONS STARTS-----------------------
+    def addServicesDetails(self,dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, Client_ID, tax):
+        cursor = conn.cursor()
+
+        query2="""SELECT TOP (1) [serviceID] FROM [ServicesDetails] ORDER BY serviceID DESC"""
+        row=cursor.execute(query2)
+        result1=row.fetchone()
+        if (result1) :
+            result1 = result1[0] + 1
+        else:
+            result1 = 0
+        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, customerID, tax, serviceID) VALUES ('%d','%d','%d','%d','%d','%d','%d','%s','%d','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,paymentType,Client_ID,tax,result1)
+        cursor.execute(query)
+        conn.commit()
 
     def GetDayCareRateAndTax(self, id):
         cursor = conn.cursor()

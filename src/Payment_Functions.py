@@ -109,7 +109,7 @@ class PaymentFunctions(MainWindow):
         for item3 in nailFeeArray:
             nailFee = item3[0]
 
-
+        
         servicesinfo= object.GetDayCareRateAndTax(4)
         discount = self.ui.pay_services_discount.text()
         if discount == '':
@@ -141,8 +141,9 @@ class PaymentFunctions(MainWindow):
         x = Decimal(totalCharges)
         output = round(x,2)
         print(output)
+        round(Decimal(),2)   
         self.ui.pay_subtotal.setText("{:.2f}".format(output))
-
+        
     def AddToList(self):
         global clients
         global TotalCharges     
@@ -172,7 +173,7 @@ class PaymentFunctions(MainWindow):
                         balance =self.ui.pay_client_balance.text()
                         totalBalance = TotalCharges + float(balance)
                         totalBalance = round(totalBalance,2)
-
+                        PaymentFunctions.AddServiceDetail(self)
                         self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
                         self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
                         break
@@ -202,10 +203,60 @@ class PaymentFunctions(MainWindow):
                 totalBalance = TotalCharges + float(balance)
                 totalBalance = round(totalBalance,2)
 
+                PaymentFunctions.AddServiceDetail(self)
+
                 self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
                 self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
         else:
             MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
+
+    def AddServiceDetail(self):
+        object = Database_Class()
+
+        foodFee = 0.0
+        hairFee = 0.0
+        nailFee = 0.0
+        othergoods = self.ui.pay_services_other_goods.text()
+        discount = self.ui.pay_services_discount.text()
+
+        if (othergoods == ''):
+            othergoods = 0.0
+        else:
+            othergoods = float(othergoods)
+
+        if (discount == ''):
+            discount = 0.0
+        else:
+            discount = float(discount)
+
+        dayCare = object.GetDayCareRateAndTax(4)
+        for item in dayCare:
+            dayCareRate = float(item[0])
+            tax = float(item[1])/100
+
+        subTotal = 0.0
+        if self.ui.pay_services_food.isChecked():
+            food = object.GetServicesFees('food')
+            for i in food:
+                foodFee = float(i[0])
+            subTotal += foodFee
+        if self.ui.pay_services_hair.isChecked():
+            hair = object.GetServicesFees('hair')
+            for i in hair:
+                hairFee = float(i[0])
+            subTotal += hairFee
+        if self.ui.pay_services_nails.isChecked():
+            nail = object.GetServicesFees('nails')
+            for i in nail:
+                nailFee = float(i[0])
+            subTotal += nailFee
+        
+        subTotal += (dayCareRate + othergoods - discount)
+        subTotal += subTotal * tax 
+
+        Client_ID = int(self.ui.pay_search_list.currentItem().text(3))
+
+        object.addServicesDetails(dayCareRate, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax)
 
     def removeFromList(self):
         # ADD =>
