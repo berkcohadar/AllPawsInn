@@ -8,7 +8,7 @@ conn=pyodbc.connect('Driver={SQL Server};'
 						'Database=KMDB;'
 						'Trusted_Connection=yes;')
 
-
+add that to DatabaseClass.py and ClientDetails.py
 
 0.    Dashboard – Show menu details
       
