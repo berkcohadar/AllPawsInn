@@ -1,5 +1,15 @@
 # AllPawsInn
 Dashboard source code for allpawsinns.com. Developed in Python with Pyqt5. MSSQL integrated.
+
+
+SQL Connection
+conn=pyodbc.connect('Driver={SQL Server};'
+						'Server="Your PC NAME"\\SQLEXPRESS;'
+						'Database=KMDB;'
+						'Trusted_Connection=yes;')
+
+
+
 0.    Dashboard – Show menu details
       
 
