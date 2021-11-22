@@ -307,6 +307,7 @@ class Database_Class(object):
         query="""UPDATE ClientDetails SET AccountBalance='%2f' WHERE ClientiD='%d'"""%(float(NewBalance),int(Client_ID))
         cursor.execute(query)
         conn.commit()
+    #---------------SERVICE FUNCTIONS STARTS-----------------------
 
     def GetDayCareRateAndTax(self, id):
         cursor = conn.cursor()
