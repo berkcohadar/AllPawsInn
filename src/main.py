@@ -166,7 +166,7 @@ class MainWindow(QMainWindow):
         self.ui.mpayment_other_goods.textChanged.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_food.clicked.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_discount.textChanged.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
-        self.ui.pay_remaining_balance_btn.clicked.connect(lambda: PaymentFunctions.DecreaseAccountBalance(self))
+        #self.ui.pay_remaining_balance_btn.clicked.connect(lambda: PaymentFunctions.DecreaseAccountBalance(self)) DELETED
           ## Admin PAGE 
         ########################################################################
         self.ui.admin_delete_profile_btn.clicked.connect(lambda: AdminFunctions.DeleteProfile(self))

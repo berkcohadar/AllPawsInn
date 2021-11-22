@@ -261,14 +261,50 @@ class Database_Class(object):
     def addServicesDetails(self,dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, Client_ID, tax):
         cursor = conn.cursor()
 
-        query2="""SELECT TOP (1) [serviceID] FROM [ServicesDetails] ORDER BY serviceID DESC"""
-        row=cursor.execute(query2)
-        result1=row.fetchone()
-        if (result1) :
-            result1 = result1[0] + 1
+        query="""SELECT TOP (1) [serviceID] FROM [ServicesDetails] ORDER BY serviceID DESC"""
+        row=cursor.execute(query)
+        serviceID=row.fetchone()
+        if (serviceID) :
+            serviceID = serviceID[0] + 1
         else:
-            result1 = 0
-        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, customerID, tax, serviceID) VALUES ('%d','%d','%d','%d','%d','%d','%d','%s','%d','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,paymentType,Client_ID,tax,result1)
+            serviceID = 0
+
+        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, customerID, tax, serviceID) VALUES ('%d','%d','%d','%d','%d','%d','%d','%s','%d','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,paymentType,Client_ID,tax,serviceID)
+        row=cursor.execute(query)
+
+        query="""SELECT TOP (1) [AccountBalance] FROM [ClientDetails] WHERE ClientiD='%d'"""%(int(Client_ID))
+        row=cursor.execute(query)
+        result2=row.fetchone()
+
+        if (result2) :
+            oldBalance = result2[0]
+        else:
+            oldBalance = 0.0
+
+        NewBalance = float(oldBalance) + float(subTotal)
+
+        query="""UPDATE ClientDetails SET AccountBalance='%2f' WHERE ClientiD='%d'"""%(float(NewBalance),int(Client_ID))
+        cursor.execute(query)
+        conn.commit()
+
+        return int(serviceID)
+
+    def removeServicesDetails(self, serviceID, Client_ID, subTotal):
+        cursor = conn.cursor()
+        query="""DELETE FROM ServicesDetails WHERE serviceID='%d' """%(int(serviceID))
+        cursor.execute(query)
+
+        query="""SELECT TOP (1) [AccountBalance] FROM [ClientDetails] WHERE ClientiD='%d'"""%(int(Client_ID))
+        row=cursor.execute(query)
+        result2=row.fetchone()
+
+        if (result2) :
+            oldBalance = result2[0]
+        else:
+            oldBalance = 0.0
+
+        NewBalance = float(oldBalance) - float(subTotal)
+        query="""UPDATE ClientDetails SET AccountBalance='%2f' WHERE ClientiD='%d'"""%(float(NewBalance),int(Client_ID))
         cursor.execute(query)
         conn.commit()
 

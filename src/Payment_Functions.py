@@ -152,8 +152,6 @@ class PaymentFunctions(MainWindow):
             if(clients !=[]):
                 for id in clients:
                     if(clientId == id):
-                        sub =  self.ui.pay_subtotal.text()
-
                         object = Database_Class()
 
                         animalId= self.ui.pay_search_list.currentItem().text(2)
@@ -162,26 +160,11 @@ class PaymentFunctions(MainWindow):
                         for item in animalInfo:
                             animalName= item[0]
 
-
-                        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([ animalName, str(sub)] ))
-                        # sub : animal name subtotal 
-                        
-                        TotalCharges += float(sub)
-                        TotalCharges = round(TotalCharges,2)
-                        
-                        #TotalCharges += float(self.ui.pay_list_widget.topLevelItem(i))
-                        balance =self.ui.pay_client_balance.text()
-                        totalBalance = TotalCharges + float(balance)
-                        totalBalance = round(totalBalance,2)
-                        PaymentFunctions.AddServiceDetail(self)
-                        self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
-                        self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
+                        PaymentFunctions.AddServiceDetail(self,animalName)
                         break
                     else:
                         MainWindow.show_popup(self,"Wrong Client!","Client are not same.")
             else:
-                sub =  self.ui.pay_subtotal.text()
-
                 object = Database_Class()
 
                 animalId= self.ui.pay_search_list.currentItem().text(2)
@@ -190,27 +173,14 @@ class PaymentFunctions(MainWindow):
                 for item in animalInfo:
                     animalName= item[0]
 
-
-                self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([ animalName,str(sub)] ))
-                # sub : animal name subtotal 
-                
-                
-                TotalCharges += float(sub)
-                TotalCharges = round(TotalCharges,2)
-                
-                    #TotalCharges += float(self.ui.pay_list_widget.topLevelItem(i))
-                balance =self.ui.pay_client_balance.text()
-                totalBalance = TotalCharges + float(balance)
-                totalBalance = round(totalBalance,2)
-
-                PaymentFunctions.AddServiceDetail(self)
-
-                self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
-                self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
+                PaymentFunctions.AddServiceDetail(self,animalName)
         else:
             MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
 
-    def AddServiceDetail(self):
+    def AddServiceDetail(self, animalName):
+        global TotalCharges
+        sub =  self.ui.pay_subtotal.text()
+
         object = Database_Class()
 
         foodFee = 0.0
@@ -256,17 +226,34 @@ class PaymentFunctions(MainWindow):
 
         Client_ID = int(self.ui.pay_search_list.currentItem().text(3))
 
-        object.addServicesDetails(dayCareRate, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax)
+        serviceID = object.addServicesDetails(dayCareRate, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax)
+
+        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([ str(serviceID), animalName, str(sub)] ))
+
+        TotalCharges += float(sub)
+        TotalCharges = round(TotalCharges,2)
+
+        balance =self.ui.pay_client_balance.text()
+        totalBalance = TotalCharges + float(balance)
+        totalBalance = round(totalBalance,2)
+        self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
+        self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
 
     def removeFromList(self):
         # ADD =>
         # ` self.ui.BUTTON_NAME.clicked.connect(lambda: PaymentFunctions.removeFromList(self)) `
         # to main.py
         global clients
-        global TotalCharges 
+        global TotalCharges         
         if(self.ui.pay_search_list.currentItem()):
             if (self.ui.pay_list_widget.currentItem()):
-                sub = self.ui.pay_list_widget.currentItem().text(1) # this is the subtotal that will be reducted from total charge.
+                object = Database_Class()
+                
+                sub = self.ui.pay_list_widget.currentItem().text(2) # this is the subtotal that will be reducted from total charge.
+
+                serviceID = self.ui.pay_list_widget.currentItem().text(0)
+                Client_ID = int(self.ui.pay_search_list.currentItem().text(3))
+                object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
 
                 # find item and remove it from list.
                 index = self.ui.pay_list_widget.indexOfTopLevelItem(self.ui.pay_list_widget.currentItem()) # this is the index of desired row.
@@ -275,7 +262,7 @@ class PaymentFunctions(MainWindow):
                 # subtract sub_total from total charges.
                 TotalCharges -= float(sub)
                 TotalCharges = round(TotalCharges,2)
-                
+
                 # calculate total balance again.
                 balance =self.ui.pay_client_balance.text()
                 totalBalance = TotalCharges + float(balance)
@@ -326,7 +313,7 @@ class PaymentFunctions(MainWindow):
                         line_height_counter += 15
                         iterator += 1
                         counter+=1
-                        total+=round(float(item.text(1)),2)
+                        total+=round(float(item.text(2)),2)
 
                     canvas.drawString(100, 440-line_height_counter, "Total Cost")
                     canvas.drawString(200, 440-line_height_counter, str(total))
