@@ -6702,7 +6702,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.Content_stacked_Widget.setCurrentIndex(9)
+        self.Content_stacked_Widget.setCurrentIndex(8)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -6912,8 +6912,8 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Checked In"))
         self.home_checked_in_tree.headerItem().setText(0, _translate("MainWindow", "Client Name"))
         self.home_checked_in_tree.headerItem().setText(1, _translate("MainWindow", "Pet Name"))
-        self.home_checkout_w_btn.setText(_translate("MainWindow", "Pay"))
-        self.home_checkout_btn.setText(_translate("MainWindow", "Check-out"))
+        self.home_checkout_w_btn.setText(_translate("MainWindow", "Pay Now"))
+        self.home_checkout_btn.setText(_translate("MainWindow", "Pay Later"))
         self.label_8.setText(_translate("MainWindow", "Checked Out"))
         self.home_checkout_tree.headerItem().setText(0, _translate("MainWindow", "Client Name"))
         self.home_checkout_tree.headerItem().setText(1, _translate("MainWindow", "Pet Name"))
