@@ -211,7 +211,7 @@ class MainWindow(QMainWindow):
 
         ## WINDOW SIZE ==> DEFAULT SIZE
         startSize = QSize(1600, 900)
-        minSize = QSize(1540, 820)
+        minSize = QSize(1240, 820)
         self.resize(startSize)
         self.setMinimumSize(minSize)
         #UIFunctions.enableMaximumSize(self, 500, 720)
