@@ -42,33 +42,33 @@ class PaymentFunctions(MainWindow):
             PaymentFunctions.updatePaymentDisplay(self)  
 
     def DisplayDetail(self):
-      
         object = Database_Class()
-      
+
         animalId= self.ui.pay_search_list.currentItem().text(2)
-    
         clientId = self.ui.pay_search_list.currentItem().text(3)
-      
-  
         animalInfo = object.GetAnimalInfo(int(animalId))
-       
-        #animalInfo[0]
+        clientInfo = object.GetClientInfo(int(clientId))
+
         for item in animalInfo:
             animalName= item[0]
             animalSize = item[1]
             animalBreed = item[2]
-            
-        self.ui.pay_animal_name.setText(animalName)  
+        self.ui.pay_animal_name.setText(animalName)
         self.ui.pay_animal_size.setText(animalSize)
         self.ui.pay_animal_breed.setText(animalBreed)
-        clientInfo = object.GetClientInfo(int(clientId))
+
         for client in clientInfo:
-            clientName= client[0] + " "+ client[1]
-            clientAddress= client[2]
-            clientCell= client[3]
-            clientNotes= client[4]
-            clientBalance= client[5]
-        self.ui.pay_client_name.setText(clientName)  
+            clientName = client['FirstName'] + client['LastName']
+            clientAddress = client['Address1'] + client['PostcodeZIP']
+            clientCell = client['CellMobile']
+            clientNotes = client['Email']
+            if client['AccountBalance'] :
+                clientBalance = client['AccountBalance']
+            else:
+                clientBalance = 0
+                object.SetClientAccountBalance(int(clientId),float(0))
+
+        self.ui.pay_client_name.setText(clientName)
         self.ui.pay_client_address.setText(clientAddress)
         self.ui.pay_client_cellphone.setText(clientCell)
         self.ui.pay_client_notes.setText(clientNotes)
@@ -78,9 +78,7 @@ class PaymentFunctions(MainWindow):
 
         for  service in servicesinfo:
             daycarerate = service[0]
-            
             tax = service[1]
-         
 
         self.ui.pay_daycare_rate.setText("{:.2f}".format(daycarerate))
         self.ui.pay_nys_tax.setText("{:.2f}".format(tax))
@@ -93,23 +91,18 @@ class PaymentFunctions(MainWindow):
             othergoods = '0'
         print("othergoods"+othergoods)
 
-
         foodFeeArray = object.GetServicesFees('food')
         for item in foodFeeArray:
             foodFee = item[0]
      
-
-
         hairFeeArray = object.GetServicesFees('hair')
         for item2 in hairFeeArray:
             hairFee = item2[0]
-
 
         nailFeeArray = object.GetServicesFees('nails')
         for item3 in nailFeeArray:
             nailFee = item3[0]
 
-        
         servicesinfo= object.GetDayCareRateAndTax(4)
         discount = self.ui.pay_services_discount.text()
         if discount == '':
@@ -120,12 +113,9 @@ class PaymentFunctions(MainWindow):
             tax = service[1]
 
         servicesSubTotal = 0
-        if self.ui.pay_services_food.isChecked() :
-            
-            
+        if self.ui.pay_services_food.isChecked():
             servicesSubTotal += foodFee
         
-        # returns false / true 
         if self.ui.pay_services_hair.isChecked():
             
             servicesSubTotal += hairFee
@@ -277,25 +267,27 @@ class PaymentFunctions(MainWindow):
     def SubmitPayments(self):
         global TotalCharges
         global clients
-        if(self.ui.pay_services_amt_recieved):
+        if(self.ui.pay_services_amt_recieved.text()):
             object = Database_Class()
-            received = 0
-            if(self.ui.pay_services_amt_recieved.text()):
-                received=self.ui.pay_services_amt_recieved.text()
-            newbalance=0
             if(self.ui.pay_search_list.currentItem()):
-                if(self.ui.pay_list_widget.currentItem()):
-                    clientId =self.ui.pay_search_list.currentItem().text(3)
-                    total =self.ui.pay_total_balance.text()
-                    newbalance = float(total) - float(received)
-                    print(clientId)
-                    object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
-                    PaymentFunctions.DisplayDetail(self)
-                    self.ui.pay_services_amt_recieved.clear()
-                    self.ui.pay_total_balance.clear()
-                    self.ui.pay_total_charge.clear()
+                clientId =self.ui.pay_search_list.currentItem().text(3)
+
+                total = float(self.ui.pay_client_balance.text())
+                if (self.ui.pay_total_balance.text()):
+                    total += float(self.ui.pay_total_balance.text())
                     
-                    ######
+                received = received=self.ui.pay_services_amt_recieved.text()
+
+                newbalance = float(total) - float(received)
+                iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
+                
+                object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
+                PaymentFunctions.DisplayDetail(self)
+                self.ui.pay_services_amt_recieved.clear()
+                self.ui.pay_total_balance.clear()
+                self.ui.pay_total_charge.clear()
+
+                if (iterator.value()): # Receipt
                     name =self.ui.pay_search_list.currentItem().text(0)
                     canvas = Canvas(name+" receipt.pdf")
                     canvas.drawString(100, 500, "Name")
@@ -305,7 +297,6 @@ class PaymentFunctions(MainWindow):
                     counter=1
                     total=0
                     canvas.drawString(100, 470, "Service Costs")
-                    iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
                     while iterator.value():
                         item = iterator.value()
                         canvas.drawString(100, 455-line_height_counter, "Service-"+str(counter))
@@ -324,23 +315,16 @@ class PaymentFunctions(MainWindow):
                     canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
                     canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
                     canvas.save()
-                    
-                    self.ui.pay_list_widget.clear()
-                    
-                    TotalCharges = 0 
-                    clients=[]
-                    self.ui.pay_search_list.clear()
-                else:
-                    MainWindow.show_popup(self,"Missing service!","Please add a service first.")
+            
+                self.ui.pay_list_widget.clear()
+                TotalCharges = 0
+
             else:
                 MainWindow.show_popup(self,"Missing Client!","Please search and choose a client")
             
         else:
-
             MainWindow.show_popup(self,"Missing Arguments!","Please enter amount of received")
         
-        #print(row)
-    
     def DecreaseAccountBalance(self):
         object = Database_Class()
         

@@ -120,11 +120,15 @@ class HomeFunctions(MainWindow):
             clientInfo = object.GetClientInfo(int(clientId))
 
             for client in clientInfo:
-                clientName= client[0] + " "+ client[1]
-                clientAddress= client[2]
-                clientCell= client[3]
-                clientNotes= client[4]
-                clientBalance= client[5]
+                clientName = client['FirstName'] + client['LastName']
+                clientAddress = client['Address1'] + client['PostcodeZIP']
+                clientCell = client['CellMobile']
+                clientNotes = client['Email']
+                if client['AccountBalance'] :
+                    clientBalance = client['AccountBalance']
+                else:
+                    clientBalance = 0
+                    object.SetClientAccountBalance(int(clientId),float(0))    
             self.ui.pay_client_name_3.setText(clientName)
             self.ui.pay_client_address_3.setText(clientAddress)
             self.ui.pay_client_cellphone_3.setText(clientCell)
@@ -236,11 +240,15 @@ class HomeFunctions(MainWindow):
                 clientInfo = object.GetClientInfo(int(clientId))
 
                 for client in clientInfo:
-                    clientName= client[0] + " "+ client[1]
-                    clientAddress= client[2]
-                    clientCell= client[3]
-                    clientNotes= client[4]
-                    clientBalance= client[5]
+                    clientName = client['FirstName'] + client['LastName']
+                    clientAddress = client['Address1'] + client['PostcodeZIP']
+                    clientCell = client['CellMobile']
+                    clientNotes = client['Email']
+                    if client['AccountBalance'] :
+                        clientBalance = client['AccountBalance']
+                    else:
+                        clientBalance = 0
+                        object.SetClientAccountBalance(int(clientId),float(0))
                 self.ui.pay_client_name_2.setText(clientName)
                 self.ui.pay_client_address_2.setText(clientAddress)
                 self.ui.pay_client_cellphone_2.setText(clientCell)

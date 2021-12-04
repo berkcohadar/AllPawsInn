@@ -61,13 +61,18 @@ class EditClientFunctions(MainWindow):
         self.ui.edit_animal_breed.setText(animalBreed)
         clientInfo = object.GetClientInfo(int(clientId))
         for client in clientInfo:
-            clientName= client[0] + " "+ client[1]
-            clientAddress= client[2]
-            clientCell= client[3]
-            clientNotes= client[4]
-            clientBalance= client[5]
-            clientown = client[6]
-            clientZIP=client[7]
+            clientName = client['FirstName'] + client['LastName']
+            clientAddress = client['Address1'] + client['PostcodeZIP']
+            clientCell = client['CellMobile']
+            clientNotes = client['Email']
+            clientown = client['Town']
+            clientZIP = client['PostcodeZIP']
+            if client['AccountBalance'] :
+                clientBalance = client['AccountBalance']
+            else:
+                clientBalance = 0
+                object.SetClientAccountBalance(int(clientId),float(0))
+
         self.ui.edit_client_name.setText(clientName)  
         self.ui.edit_client_address.setText(clientAddress)
         self.ui.edit_client_cellphone.setText(clientCell)

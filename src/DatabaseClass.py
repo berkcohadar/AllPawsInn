@@ -217,7 +217,12 @@ class Database_Class(object):
         query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, ClientDetails.Address1, ClientDetails.CellMobile, ClientDetails.Email, ClientDetails.AccountBalance,ClientDetails.Town,ClientDetails.PostcodeZIP
                      FROM ClientDetails
                      WHERE ClientDetails.ClientID='%d' """%(id)
-        results=cursor.execute(query)
+        result=cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        print(results)
         return results
 
     def DecreaseAccountBalance(self,id,num): 
