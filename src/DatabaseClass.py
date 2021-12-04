@@ -1,10 +1,10 @@
 #MAKE COMMENT PURPOSE OF THIS MODULE:
 import pyodbc
 import sys
-
+from DATABASE_SETTINGS import SERVER, DATABASE
 conn=pyodbc.connect('Driver={SQL Server};'
-                      'Server=LAPTOP-862EV0SI\\SQLEXPRESS;'
-                      'Database=KMDB;'
+                      'Server='+SERVER+';'
+                      'Database='+DATABASE+';'
                       'Trusted_Connection=yes;')
 
 class Database_Class(object):

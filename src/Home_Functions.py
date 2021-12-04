@@ -404,5 +404,3 @@ class HomeFunctions(MainWindow):
         HomeFunctions.DisplayCheckedIn(self,day1,day2)
         HomeFunctions.DisplayCheckedOut(self,day1,day2)
         day_swicher = 0
-
-
