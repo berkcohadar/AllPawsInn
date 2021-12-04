@@ -391,28 +391,18 @@ class HomeFunctions(MainWindow):
         HomeFunctions.DisplayReservations(self,day2,day1)
         HomeFunctions.DisplayCheckedIn(self,day2,day1)
         HomeFunctions.DisplayCheckedOut(self,day2,day1)
-    # def ChangeColor(self):
-    #     print(self.ui.Content_stacked_Widget.currentWidget().)
-    #     qss = """
-    #     QPushButton {
-    #     background-image: url(:/16x16/icons/16x16/cil-house.png);
-    #     background-position: left center;
-    #     background-repeat: no-repeat;
-    #     border: none;
-    #     border-left: 28px solid rgb(85, 170, 255);
 
-    #     background-color: rgb(85, 170, 255);
-    #     text-align: left;
-    #     padding-left: 45px;
-    #     }
-    #     QPushButton:hover {
-    #         background-color: rgb(33, 37, 43);
-    #         border-left: 28px solid rgb(33, 37, 43);
-    #     }
-    #     QPushButton:pressed {
-    #         background-color: rgb(85, 170, 255);
-    #         border-left: 28px solid rgb(85, 170, 255);
-    #     }
-    #     """
-    #     self.ui.menu_btn_daily.setStyleSheet(qss)
+    def ShowToday(self):
+        global day_swicher
+        day = QtCore.QDate.currentDate()
+        day1 = QtCore.QDate.currentDate().toString("yyyy-MM-dd")
+        day2 = QtCore.QDate.currentDate().addDays(1).toString("yyyy-MM-dd")
+        print("today", day)
+        print( "Show Today" +day1 +""+day2)
+        self.ui.home_date.setDate(day)
+        HomeFunctions.DisplayReservations(self,day1,day2)
+        HomeFunctions.DisplayCheckedIn(self,day1,day2)
+        HomeFunctions.DisplayCheckedOut(self,day1,day2)
+        day_swicher = 0
+
 

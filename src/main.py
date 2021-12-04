@@ -106,17 +106,15 @@ class MainWindow(QMainWindow):
         self.ui.pay_take_payment_btn.clicked.connect(lambda: PaymentFunctions.SubmitPayments(self))
         #self.ui.res_list.setCurrentItem(self.ui.res_list.topLevelItem(0))
         self.ui.pay_search_list.itemClicked.connect(lambda: PaymentFunctions.DisplayDetail(self))
-     
    
         self.ui.pay_add_list_btn_2.clicked.connect(lambda: PaymentFunctions.AddToList(self))
-
         self.ui.deleteRow_button.clicked.connect(lambda: PaymentFunctions.removeFromList(self))
 
-        
-        ## End Payment Page Connections######################################################################
+        ########################################################################   
+        ## End Payment Page Connections
 
-                                                                                             ## SERVICESSSSSSS
-        ######################################################################## ########################################################################
+        ## SERVICES
+        ########################################################################
         self.ui.menu_btn_settings.clicked.connect(lambda: AdminFunctions.GetServices(self))
         self.ui.pay_services_discount.textChanged.connect(lambda : PaymentFunctions.AddServices(self))
         self.ui.pay_services_food.clicked.connect(lambda : PaymentFunctions.AddServices(self))
@@ -125,23 +123,8 @@ class MainWindow(QMainWindow):
         self.ui.pay_services_other_goods.textChanged.connect(lambda : PaymentFunctions.AddServices(self))
         self.ui.admin_service_change_cost_btn.clicked.connect(lambda: AdminFunctions.ChangeServiceCost(self))
         self.ui.admin_service_list.itemClicked.connect(lambda: AdminFunctions.ChangeCurrentService(self))
-        ######################################################################## ########################################################################
+        ########################################################################
         d.toString(QtCore.Qt.ISODate)
-
-        #print(d)
-        #self.ui.dateEdit.setDate(d)
-
-
-         #client page button
-       # self.ui.submit_button.clicked.connect(lambda: UIFunctions.CREATE_CLIENT(self))
-        #animal page button
-        #self.ui.cancel_button.clicked.connect(lambda: UIFunctions.Clear_Bars(self))
-         #CALANDER ACTIONS-------------------------------------------------------
-      #  self.ui.pushButton_18.clicked.connect(lambda: BackEndFunctions.nextday(self))
-
-       # self.ui.pushButton_17.clicked.connect(lambda: BackEndFunctions.previousday(self))
-
-        #self.ui.pushButton_19.clicked.connect(lambda: BackEndFunctions.getcurrentday(self))
 
       ## HOME PAGE
         ########################################################################
@@ -166,7 +149,8 @@ class MainWindow(QMainWindow):
         self.ui.mpayment_other_goods.textChanged.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_food.clicked.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_discount.textChanged.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
-        #self.ui.pay_remaining_balance_btn.clicked.connect(lambda: PaymentFunctions.DecreaseAccountBalance(self)) DELETED
+
+        self.ui.home_show_today.clicked.connect(lambda: HomeFunctions.ShowToday(self))
           ## Admin PAGE 
         ########################################################################
         self.ui.admin_delete_profile_btn.clicked.connect(lambda: AdminFunctions.DeleteProfile(self))
