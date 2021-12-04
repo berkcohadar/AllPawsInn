@@ -117,9 +117,12 @@ class Database_Class(object):
         cursor.execute(query)
         conn.commit()
 
-    def SetBookingStatusbyBookingID(self,BookingID,NewStatus):
+    def SetBookingStatusbyBookingID(self,BookingID,Date,NewStatus):
         cursor = conn.cursor()
-        query="""UPDATE BookingObjects SET Status='%s' WHERE BookingID='%d'"""%(NewStatus,int(BookingID))
+        if Date['DateIn']:
+            query="""UPDATE BookingObjects SET Status='%s', DateIn='%s' WHERE BookingID='%d'"""%(NewStatus,Date['DateIn'].toString("yyyy-MM-dd"),int(BookingID))
+        elif Date['DateOut']:
+            query="""UPDATE BookingObjects SET Status='%s', DateOut='%s' WHERE BookingID='%d'"""%(NewStatus,Date['DateOut'].toString("yyyy-MM-dd"),int(BookingID))
         cursor.execute(query)
         conn.commit()
 

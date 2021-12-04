@@ -82,20 +82,13 @@ class HomeFunctions(MainWindow):
                 animalId = self.ui.home_reserved_tree.currentItem().text(2)
                 bookingId =self.ui.home_reserved_tree.currentItem().text(3)
                 print(bookingId)
-                object.SetBookingStatusbyBookingID(bookingId,'CheckedIn')
+                opDate = {"DateIn":QtCore.QDate.currentDate()}
+                object.SetBookingStatusbyBookingID(bookingId, opDate,'CheckedIn')
             else:
                 MainWindow.show_popup(self,"Invalid Operation!","Please go to current day to check-in")
         else:
              MainWindow.show_popup(self,"Invalid Operation!","Please choose client to check-in")
-    def CheckedOut(self):
-        if(QtCore.QDate.currentDate().toString("M/d/yyyy") ==  self.ui.home_date.text()):
-            object = Database_Class()
-            animalName = self.ui.home_checked_in_tree.currentItem().text(1)
-            animalId = self.ui.home_checked_in_tree.currentItem().text(2)
-            bookingId =self.ui.home_checked_in_tree.currentItem().text(3)
 
-        print(bookingId)
-        object.SetBookingStatusbyBookingID(bookingId,'CheckedOut')
     def CheckedOutWithoutPayment(self):
 
         if(self.ui.home_checked_in_tree.currentItem()):
@@ -156,7 +149,6 @@ class HomeFunctions(MainWindow):
         else:
             MainWindow.show_popup(self,"Invalid Operation!","Please choose client to check-out")
 
-
     def CheckoutWithoutPaymentServices(self):
 
         object = Database_Class()
@@ -215,7 +207,8 @@ class HomeFunctions(MainWindow):
         bookingId =self.ui.home_checked_in_tree.currentItem().text(3)
 
         print(bookingId)
-        object.SetBookingStatusbyBookingID(bookingId,'CheckedOut')
+        opDate = {"DateOut":QtCore.QDate.currentDate()}
+        object.SetBookingStatusbyBookingID(bookingId, opDate,'CheckedOut')
         HomeFunctions.UpdateDisplay(self)
 
     def CheckedOutWithPayment(self):
@@ -285,6 +278,7 @@ class HomeFunctions(MainWindow):
                 MainWindow.show_popup(self,"Invalid Operation!","Please go to current day to check-in")
         else:
             MainWindow.show_popup(self,"Invalid Operation!","Please choose client to check-out")
+    
     def CheckoutWithPaymentServices(self):
         object = Database_Class()
         clientId =self.ui.home_checked_in_tree.currentItem().text(4)
@@ -293,22 +287,17 @@ class HomeFunctions(MainWindow):
             othergoods = '0'
         print("othergoods"+othergoods)
 
-
         foodFeeArray = object.GetServicesFees('food')
         for item in foodFeeArray:
             foodFee = item[0]
-
-
 
         hairFeeArray = object.GetServicesFees('hair')
         for item2 in hairFeeArray:
             hairFee = item2[0]
 
-
         nailFeeArray = object.GetServicesFees('nails')
         for item3 in nailFeeArray:
             nailFee = item3[0]
-
 
         servicesinfo= object.GetDayCareRateAndTax(4)
         discount = self.ui.mpayment_discount.text()
@@ -321,8 +310,6 @@ class HomeFunctions(MainWindow):
 
         servicesSubTotal = 0
         if self.ui.mpayment_food.isChecked() :
-
-
             servicesSubTotal += foodFee
 
         # returns false / true
@@ -352,6 +339,7 @@ class HomeFunctions(MainWindow):
         TotalBalance = ACC + output
         self.ui.mpayment_prev_bal.setText(str(ACC))
         self.ui.mpayment_total_bal.setText(str(TotalBalance))
+    
     def CheckOutWithPaymentMakePayment(self):
 
         if(self.ui.mpayment_amt_recieved.text()):
@@ -366,15 +354,14 @@ class HomeFunctions(MainWindow):
             #print(paymentType)
             newbalance = float(totalBalance)- float(amtReceive)
             object.ChangeAccountBalance(clientId,newbalance)
-            object.SetBookingStatusbyBookingID(bookingId,'CheckedOut')
+            opDate = {"DateOut":QtCore.QDate.currentDate()}
+            object.SetBookingStatusbyBookingID(bookingId, opDate,'Paid')
             HomeFunctions.UpdateDisplay(self)
             self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home)
         else:
             MainWindow.show_popup(self,"Missing Arguments!","Please enter amount received")
 
     def NextDay(self):
-
-
         global day_swicher
         day_swicher= day_swicher+1
         day = QtCore.QDate.currentDate().addDays(day_swicher)
@@ -396,8 +383,6 @@ class HomeFunctions(MainWindow):
         HomeFunctions.DisplayReservations(self,day1,day2)
         HomeFunctions.DisplayCheckedIn(self,day1,day2)
         HomeFunctions.DisplayCheckedOut(self,day1,day2)
-
-
 
     def PreviosDay(self):
 

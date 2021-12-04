@@ -107,15 +107,11 @@ class BackEndFunctions(MainWindow):
                         self.paws.remove(paw)
             BackEndFunctions.update_display(self)
     def DirectCheckIn(self):
-        #animalName = self.ui.treeWidget_2.currentItem().text(2)
-        bookingID =self.ui.treeWidget_2.currentItem().text(4)
-        #UpdateStatus()
+        bookingID = self.ui.treeWidget_2.currentItem().text(4)
         row = (bookingID ,"CheckedIn")
-        print(row)
         object = Database_Class()
         object.DirectCheckInDB(row)
-        
-        x=2
+
     def show(self):
         for w in self:
             w.setVisible(True)
