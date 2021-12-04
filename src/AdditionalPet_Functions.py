@@ -108,17 +108,23 @@ class AddPetFunctions(MainWindow):
        
 
   
-#animalInfo[0]
         for item in animalInfo:
-            animalName= item[0]
-            animalSize = item[1]
-            animalBreed = item[2]
+            animalName = item['AnimalName']
+            animalSize = item['Size']
+            animalBreed = item['Breed']
+            animalDateIn = item['DateIn']
+            animalDateOut = item['DateOut']
+            animalDaysIn = item['NoDays']
             
-        self.ui.addpet_animal_name.setText(animalName)  
+        self.ui.addpet_animal_name.setText(animalName)
         self.ui.addpet_animal_size.setText(animalSize)
         self.ui.addpet_animal_breed.setText(animalBreed)
-        clientInfo = object.GetClientInfo(int(clientId))
+        # self.ui.addpet_animal_date_in.setText(str(animalDateIn))
+        # self.ui.addpet_animal_date_out.setText(str(animalDateOut))
+        # self.ui.addpet_animal_day.setText(str(animalDaysIn))
         
+        clientInfo = object.GetClientInfo(int(clientId))
+
         for client in clientInfo:
             clientName = client['FirstName'] + client['LastName']
             clientAddress = client['Address1'] + client['PostcodeZIP']

@@ -50,12 +50,19 @@ class PaymentFunctions(MainWindow):
         clientInfo = object.GetClientInfo(int(clientId))
 
         for item in animalInfo:
-            animalName= item[0]
-            animalSize = item[1]
-            animalBreed = item[2]
+            animalName = item['AnimalName']
+            animalSize = item['Size']
+            animalBreed = item['Breed']
+            animalDateIn = item['DateIn']
+            animalDateOut = item['DateOut']
+            animalDaysIn = item['NoDays']
+            
         self.ui.pay_animal_name.setText(animalName)
         self.ui.pay_animal_size.setText(animalSize)
         self.ui.pay_animal_breed.setText(animalBreed)
+        self.ui.pay_animal_date_in.setText(str(animalDateIn))
+        self.ui.pay_animal_date_out.setText(str(animalDateOut))
+        self.ui.pay_animal_day.setText(str(animalDaysIn))
 
         for client in clientInfo:
             clientName = client['FirstName'] + client['LastName']
@@ -148,8 +155,8 @@ class PaymentFunctions(MainWindow):
                         clients.append(clientId)
                         animalInfo = object.GetAnimalInfo(int(animalId))
                         for item in animalInfo:
-                            animalName= item[0]
-
+                            animalName= item['AnimalName']
+                            
                         PaymentFunctions.AddServiceDetail(self,animalName)
                         break
                     else:
@@ -161,7 +168,7 @@ class PaymentFunctions(MainWindow):
                 clients.append(clientId)
                 animalInfo = object.GetAnimalInfo(int(animalId))
                 for item in animalInfo:
-                    animalName= item[0]
+                    animalName= item['AnimalName']
 
                 PaymentFunctions.AddServiceDetail(self,animalName)
         else:

@@ -48,17 +48,20 @@ class EditClientFunctions(MainWindow):
   
         animalInfo = object.GetAnimalInfo(int(animalId))
        
-
-  
-#animalInfo[0]
         for item in animalInfo:
-            animalName= item[0]
-            animalSize = item[1]
-            animalBreed = item[2]
-            
-        self.ui.edit_pet_name.setText(animalName)  
+            animalName = item['AnimalName']
+            animalSize = item['Size']
+            animalBreed = item['Breed']
+            animalDateIn = item['DateIn']
+            animalDateOut = item['DateOut']
+            animalDaysIn = item['NoDays']
+        self.ui.edit_pet_name.setText(animalName)
         self.ui.edit_animal_size.setText(animalSize)
         self.ui.edit_animal_breed.setText(animalBreed)
+        # self.ui.edit_animal_date_in.setText(str(animalDateIn))
+        # self.ui.edit_animal_date_out.setText(str(animalDateOut))
+        # self.ui.edit_animal_day.setText(str(animalDaysIn))
+
         clientInfo = object.GetClientInfo(int(clientId))
         for client in clientInfo:
             clientName = client['FirstName'] + client['LastName']

@@ -106,16 +106,22 @@ class HomeFunctions(MainWindow):
             animalId = self.ui.home_checked_in_tree.currentItem().text(2)
             bookingId =self.ui.home_checked_in_tree.currentItem().text(3)
             clientId =self.ui.home_checked_in_tree.currentItem().text(4)
-            animalInfo = object.GetAnimalInfo(int(animalId))
+            animalInfo = object.GetAnimalInfo(int(animalId),status="CheckedIn")
 
             for item in animalInfo:
-                animalName= item[0]
-                animalSize = item[1]
-                animalBreed = item[2]
+                animalName = item['AnimalName']
+                animalSize = item['Size']
+                animalBreed = item['Breed']
+                animalDateIn = item['DateIn']
+                animalDateOut = item['DateOut']
+                animalDaysIn = item['NoDays']
 
             self.ui.pay_animal_name_3.setText(animalName)
             self.ui.pay_animal_size_3.setText(animalSize)
             self.ui.pay_animal_breed_3.setText(animalBreed)
+            self.ui.pay_animal_date_in_3.setText(str(animalDateIn))
+            self.ui.pay_animal_date_out_3.setText(str(animalDateOut))
+            self.ui.pay_animal_day_3.setText(str(animalDaysIn))
 
             clientInfo = object.GetClientInfo(int(clientId))
 
@@ -226,16 +232,23 @@ class HomeFunctions(MainWindow):
                 animalId = self.ui.home_checked_in_tree.currentItem().text(2)
                 bookingId =self.ui.home_checked_in_tree.currentItem().text(3)
                 clientId =self.ui.home_checked_in_tree.currentItem().text(4)
-                animalInfo = object.GetAnimalInfo(int(animalId))
+                animalInfo = object.GetAnimalInfo(int(animalId),status="CheckedIn")
 
                 for item in animalInfo:
-                    animalName= item[0]
-                    animalSize = item[1]
-                    animalBreed = item[2]
-
+                    animalName = item['AnimalName']
+                    animalSize = item['Size']
+                    animalBreed = item['Breed']
+                    animalDateIn = item['DateIn']
+                    animalDateOut = item['DateOut']
+                    animalDaysIn = item['NoDays']
+                    
                 self.ui.pay_animal_name_2.setText(animalName)
                 self.ui.pay_animal_size_2.setText(animalSize)
                 self.ui.pay_animal_breed_2.setText(animalBreed)
+                self.ui.pay_animal_date_in_2.setText(str(animalDateIn))
+                self.ui.pay_animal_date_out_2.setText(str(animalDateOut))
+                self.ui.pay_animal_day_2.setText(str(animalDaysIn))
+
 
                 clientInfo = object.GetClientInfo(int(clientId))
 

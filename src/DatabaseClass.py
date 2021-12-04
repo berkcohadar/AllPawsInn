@@ -195,21 +195,39 @@ class Database_Class(object):
         results=cursor.execute(query)
         return results
 
-    def GetAnimalInfo(self,id):
+    def GetAnimalInfo(self,id,status="Current"):
         cursor = conn.cursor()
-        query="""SELECT  Animals.AnimalName,Animals.Size, Animals.Breed
+        query="""SELECT  Animals.AnimalName,Animals.Size, Animals.Breed, Animals.animalID
                      FROM Animals
                      WHERE Animals.AnimalID='%d'"""%(id)
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        
+        query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
+                    FROM BookingObjects 
+                    WHERE BookingObjects.AnimalID='%d' AND Status='%s'"""%(id,status)
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results2 = []
+        for row in result.fetchall():
+            results2.append(dict(zip(columns, row)))
 
-                  #    query="""SELECT  Animals.AnimalName,Animals.Size, Animals.Breed, BookingObjects.DateIn, BookingObjects.DateOut, BookingObjects.NoDays
-                   #  FROM Animals,BookingObjects 
-                    # WHERE Animals.AnimalID='%d' and BookingObjects.AnimalID = '%d'"""%(id,id)
+        print("1", results)
+        print("2", results2)
+        if len(results2) == 0 :
+            results2.append({"DateIn":"Never","DateOut":"Never","NoDays":0})
+        print("updated", results2)
 
-
-
-                        #reservation da bu kisim degsitirilcek
-                     # WHERE BookingObjects.AnimalID = Animals.AnimalID  and BookingObjects.Status = 'Reserved' and BookingObjects.EditDate >='%s' and BookingObjects.EditDate <'%s' """%(today,tommrw)
-        results=cursor.execute(query)
+        for i in range(len(results)):
+            results[i]["DateIn"] = results2[i]["DateIn"]
+            results[i]["DateOut"] = results2[i]["DateOut"]
+            results[i]["NoDays"] = results2[i]["NoDays"]
+        print(results)
+        #reservation da bu kisim degsitirilcek
+        # WHERE BookingObjects.AnimalID = Animals.AnimalID  and BookingObjects.Status = 'Reserved' and BookingObjects.EditDate >='%s' and BookingObjects.EditDate <'%s' """%(today,tommrw)
         return results
 
     def GetClientInfo(self,id):
@@ -222,7 +240,6 @@ class Database_Class(object):
         results = []
         for row in result.fetchall():
             results.append(dict(zip(columns, row)))
-        print(results)
         return results
 
     def DecreaseAccountBalance(self,id,num): 
