@@ -2,6 +2,7 @@
 import pyodbc
 import sys
 from DATABASE_SETTINGS import SERVER, DATABASE
+from datetime import datetime
 conn=pyodbc.connect('Driver={SQL Server};'
                       'Server='+SERVER+';'
                       'Database='+DATABASE+';'
@@ -119,9 +120,9 @@ class Database_Class(object):
 
     def SetBookingStatusbyBookingID(self,BookingID,Date,NewStatus):
         cursor = conn.cursor()
-        if Date['DateIn']:
+        if 'DateIn' in Date:
             query="""UPDATE BookingObjects SET Status='%s', DateIn='%s' WHERE BookingID='%d'"""%(NewStatus,Date['DateIn'].toString("yyyy-MM-dd"),int(BookingID))
-        elif Date['DateOut']:
+        elif 'DateOut' in Date:
             query="""UPDATE BookingObjects SET Status='%s', DateOut='%s' WHERE BookingID='%d'"""%(NewStatus,Date['DateOut'].toString("yyyy-MM-dd"),int(BookingID))
         cursor.execute(query)
         conn.commit()
@@ -198,9 +199,9 @@ class Database_Class(object):
         results=cursor.execute(query)
         return results
 
-    def GetAnimalInfo(self,id,status="Current"):
+    def GetAnimalInfo(self,id,status=''):
         cursor = conn.cursor()
-        query="""SELECT  Animals.AnimalName,Animals.Size, Animals.Breed, Animals.animalID
+        query="""SELECT Animals.AnimalName,Animals.Size, Animals.Breed, Animals.animalID
                      FROM Animals
                      WHERE Animals.AnimalID='%d'"""%(id)
         result = cursor.execute(query)
@@ -208,10 +209,16 @@ class Database_Class(object):
         results = []
         for row in result.fetchall():
             results.append(dict(zip(columns, row)))
-        
-        query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
+        if (status!=''):
+            query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
                     FROM BookingObjects 
-                    WHERE BookingObjects.AnimalID='%d' AND Status='%s'"""%(id,status)
+                    WHERE BookingObjects.AnimalID='%d' AND Status='%s'
+                    ORDER BY BookingObjects.DateIn DESC """%(id,status)
+        else :
+            query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
+                    FROM BookingObjects 
+                    WHERE BookingObjects.AnimalID='%d'
+                    ORDER BY BookingObjects.DateIn DESC """%(id)
         result = cursor.execute(query)
         columns = [column[0] for column in result.description]
         results2 = []
@@ -484,7 +491,7 @@ if __name__ == "__main__":
     row_get_daycare=('Datein(date)','DateOut(date)')
 
 
-   # today=datetime.now()  #sadece gunu alir 2020-27-11
+    today=datetime.now()  #sadece gunu alir 2020-27-11
     #print(today)
     #print(str(today))
     #print(type(today))

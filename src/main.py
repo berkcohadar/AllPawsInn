@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
         HomeFunctions.DisplayCheckedIn(self,todayfuncdate,tommrwfuncdate)
         HomeFunctions.DisplayCheckedOut(self,todayfuncdate,tommrwfuncdate)
         self.ui.menu_btn_daily.clicked.connect(lambda: HomeFunctions.DisplayReservations(self,todayfuncdate,tommrwfuncdate))
-        BackEndFunctions.GenerateDaylyView(self,('2020-04-24 08:00:00.000' , '2017-04-25 08:00:00.000'))
+        # BackEndFunctions.GenerateDaylyView(self,('2020-04-24 08:00:00.000' , '2017-04-25 08:00:00.000')) # Generates error
        
         #self.ui.search_bar.textChanged.connect(lambda :BackEndFunctions.update_list(self))
         

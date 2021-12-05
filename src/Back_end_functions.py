@@ -39,11 +39,8 @@ class BackEndFunctions(MainWindow):
         self.ui.town_bar.setText("")
 
     def GenerateDaylyView(self, row0):
-        
         object = Database_Class()
-        
         result = object.GetDaycareForCurrentDate(row0)
-        mytalbe = self.ui.home_reserved_tree
         i=0
         j=0
         for k in result:
@@ -116,7 +113,7 @@ class BackEndFunctions(MainWindow):
         for w in self:
             w.setVisible(True)
 
-    def hide():
+    def hide(self):
         for w in self:
             w.setVisible(False)                    
             
@@ -131,7 +128,6 @@ class BackEndFunctions(MainWindow):
         else:
             obj.FirstName=self.ui.client_fname.text()
 
-            #--------------------------
         if not self.ui.client_lname.text():
             self.ui.client_lname.setStyleSheet(errorStyle)
             result =0 
