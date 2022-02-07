@@ -1,3 +1,4 @@
+from socket import ntohl
 from Payment_Functions import *
 day_swicher = 0
 selectedDays=[]
@@ -32,8 +33,10 @@ class ReservationFunctions(MainWindow):
              MainWindow.show_popup(self,"Invalid Operation!","Please search for a client or pet name, then choose one")
                 
     def RemoveDay(self):
+        global selectedDays
         if(self.ui.res_selected_days.currentItem()    ):
-
+            selectedDays.remove(self.ui.res_selected_days.currentItem().text(0))
+            print(selectedDays)
             self.ui.res_selected_days.takeTopLevelItem(self.ui.res_selected_days.indexOfTopLevelItem(self.ui.res_selected_days.currentItem()))
         else:
                MainWindow.show_popup(self,"Invalid Operation!","Please choose a day to remove")

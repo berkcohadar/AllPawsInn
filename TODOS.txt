@@ -1,0 +1,27 @@
+# TODOs
+- In the payment section, Take payment does not work correctly. 
+    It sometimes adds up instead of substraction. Find the problem there.
+
+- In the payment section, when a customer is chosen and some services 
+    are added to the list, the client is unchangeable until the payment 
+    action is completed, even we remove the service.
+
+- It is better to clean out some tables in the database. Tables are; 
+    BookingObjects, Payments, Services Details. Also ClientDetails.AccountBalance should be set to 0.
+
+# DONEs
+- In Client info, "Notes" will be changed to "E-mail"
+
+- On the Edit Client page, add a field to edit "Name", "Surname"
+
+- Improve the UX in the payment section. Take payment button is broking the structure.
+
+- Check-in button on the Daily Schedule page needs to be resized.
+
+- In client info, there is no space between name & surname. Add it.
+
+- On the reservation page, the "Remove Day" button does not work.
+
+- On the weekly schedule page, dates are sometimes shown as "1/1/2000". 
+    Find the reason and fix it. Note: when pushed "this week", dates return 
+    to correct dates; however, the schedule is shifted right. It was monday-friday but shifted wed-sunday.

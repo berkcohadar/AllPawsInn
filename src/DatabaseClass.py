@@ -383,9 +383,9 @@ class Database_Class(object):
         query="""UPDATE ClientDetails SET AccountBalance='%2f' WHERE ClientID='%d'"""%(float(num),int(id))
         cursor.execute(query)
         conn.commit()
-    def EditClient(self,email,address,town,zipcode,contact1,contact2,id):
+    def EditClient(self,name,surname,email,address,town,zipcode,contact1,contact2,id):
         cursor = conn.cursor()
-        query="""UPDATE ClientDetails SET Email='%s',Address1='%s',Town='%s',PostcodeZIP='%s',CellMobile='%s',TelHome='%s' WHERE ClientID='%d'"""%(email,address,town,zipcode,contact1,contact2,int(id))
+        query="""UPDATE ClientDetails SET FirstName='%s',LastName='%s',Email='%s',Address1='%s',Town='%s',PostcodeZIP='%s',CellMobile='%s',TelHome='%s' WHERE ClientID='%d'"""%(name,surname,email,address,town,zipcode,contact1,contact2,int(id))
         cursor.execute(query)
         conn.commit()
 

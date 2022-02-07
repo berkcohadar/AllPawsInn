@@ -65,7 +65,7 @@ class PaymentFunctions(MainWindow):
         self.ui.pay_animal_day.setText(str(animalDaysIn))
 
         for client in clientInfo:
-            clientName = client['FirstName'] + client['LastName']
+            clientName = client['FirstName'] + " " + client['LastName']
             clientAddress = client['Address1'] + client['PostcodeZIP']
             clientCell = client['CellMobile']
             clientNotes = client['Email']

@@ -64,8 +64,10 @@ class EditClientFunctions(MainWindow):
 
         clientInfo = object.GetClientInfo(int(clientId))
         for client in clientInfo:
-            clientName = client['FirstName'] + client['LastName']
-            clientAddress = client['Address1'] + client['PostcodeZIP']
+            clientName = client['FirstName'] + " " + client['LastName']
+            clientFname = client['FirstName']
+            clientLname = client['LastName']
+            clientAddress = client['Address1']
             clientCell = client['CellMobile']
             clientNotes = client['Email']
             clientown = client['Town']
@@ -84,6 +86,8 @@ class EditClientFunctions(MainWindow):
         #client notes will be changed with client email
         self.ui.edit_client_balance.setText(str(clientBalance))
 
+        self.ui.edit_client_name_input.setText(clientFname)
+        self.ui.edit_client_surname_input.setText(clientLname)
         self.ui.edit_client_address_input.setText(clientAddress)
         self.ui.edit_client_mobile_input.setText(clientCell)
         self.ui.edit_client_email_input.setText(clientNotes)
@@ -97,11 +101,12 @@ class EditClientFunctions(MainWindow):
             clientId = self.ui.editclient_search_list.currentItem().text(2)
             if(self.ui.edit_client_address_input.text() and self.ui.edit_client_mobile_input.text()
             and self.ui.edit_client_email_input.text()
-            and self.ui.edit_client_town_input.text()
-            and  self.ui.edit_client_zipcode_input.text()
-            and self.ui.edit_client_alternate_input.text()):
+            and self.ui.edit_client_zipcode_input.text()
+            and self.ui.edit_client_name_input.text()
+            and self.ui.edit_client_surname_input.text()):
 
-
+                name=self.ui.edit_client_name_input.text()
+                surname=self.ui.edit_client_surname_input.text()
                 address=self.ui.edit_client_address_input.text()
                 cell=self.ui.edit_client_mobile_input.text()
                 email=self.ui.edit_client_email_input.text()
@@ -109,7 +114,7 @@ class EditClientFunctions(MainWindow):
                 zip=self.ui.edit_client_zipcode_input.text()
                 cell2= self.ui.edit_client_alternate_input.text()
 
-                object.EditClient(email,address,town,zip,cell,cell2,int(clientId))
+                object.EditClient(name,surname,email,address,town,zip,cell,cell2,int(clientId))
                 EditClientFunctions.DisplayDetail(self)
             else:
                 MainWindow.show_popup(self,"Missing Information!","Please fill missing areas!")

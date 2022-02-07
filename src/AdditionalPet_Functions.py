@@ -126,7 +126,7 @@ class AddPetFunctions(MainWindow):
         clientInfo = object.GetClientInfo(int(clientId))
 
         for client in clientInfo:
-            clientName = client['FirstName'] + client['LastName']
+            clientName = client['FirstName'] + " " + client['LastName']
             clientAddress = client['Address1'] + client['PostcodeZIP']
             clientCell = client['CellMobile']
             clientNotes = client['Email']

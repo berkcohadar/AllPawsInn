@@ -46,6 +46,7 @@ class MainWindow(QMainWindow):
         todayfuncdate = todaydate.toString("yyyy-MM-dd")
         tommorrowdate = QtCore.QDate.currentDate().addDays(1)
         tommrwfuncdate = tommorrowdate.toString("yyyy-MM-dd")
+        WeeklyScheduleFunctions.DisplayWeeklyList(self)
         #self.ui.treeWidget.setColumnWidth(0,200)
         #self.ui.treeWidget.setColumnWidth(1,100)
         #self.ui.treeWidget.setColumnWidth(2,100)

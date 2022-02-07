@@ -1,17 +1,16 @@
 
+from traceback import print_tb
 from ui_functions import *
 day_swicher = 0
 week_list =[]
 dayofweek = 0
 class WeeklyScheduleFunctions(MainWindow):
     def DisplayWeeklyList(self):
-
         
         global dayofweek
         global day_swicher
         date = QtCore.QDate.currentDate()
-        dayofweek = date.dayOfWeek()
-     
+        dayofweek = date.dayOfWeek()%7
     
         while dayofweek !=0:
             day_swicher -=1
@@ -28,10 +27,6 @@ class WeeklyScheduleFunctions(MainWindow):
 
         WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher)
 
-
-
-     #   item = QtWidgets.QTreeWidgetItem(self.ui.res_selected_days,[stringdate ])
-     #               self.ui.res_selected_days.addTopLevelItem(item)
     def DisplayWeeklySchedule(self,day_swicher):
         obj= Database_Class()
       
@@ -102,20 +97,6 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 6, QtWidgets.QTableWidgetItem(asd));
             j+=1
-      
-
-        
-       
-    
-
-      
-
-        # pazartesi olan hepsi 
-        # sali hepsi
-
-       
-     
-     
             
 
     def NextWeek(self):
