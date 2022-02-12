@@ -1,7 +1,7 @@
 from socket import ntohl
 from Payment_Functions import *
 day_swicher = 0
-selectedDays=[]
+selectedDays=[] # ARRAYS OF DATES THAT ARE ADDED FROM REZERVATION PAGE FROM THE UI.
 class ReservationFunctions(MainWindow):
 
     def clear_reservations(self):

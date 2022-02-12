@@ -127,7 +127,7 @@ class AddPetFunctions(MainWindow):
 
         for client in clientInfo:
             clientName = client['FirstName'] + " " + client['LastName']
-            clientAddress = client['Address1'] + client['PostcodeZIP']
+            clientAddress = client['Address1']  + "\n" + client['Town'] +", "+ client['PostcodeZIP']
             clientCell = client['CellMobile']
             clientNotes = client['Email']
             if client['AccountBalance'] :

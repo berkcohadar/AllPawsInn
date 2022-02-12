@@ -66,7 +66,7 @@ class PaymentFunctions(MainWindow):
 
         for client in clientInfo:
             clientName = client['FirstName'] + " " + client['LastName']
-            clientAddress = client['Address1'] + client['PostcodeZIP']
+            clientAddress = client['Address1']  + "\n" + client['Town'] +", "+ client['PostcodeZIP']
             clientCell = client['CellMobile']
             clientNotes = client['Email']
             if client['AccountBalance'] :
@@ -277,13 +277,13 @@ class PaymentFunctions(MainWindow):
         if(self.ui.pay_services_amt_recieved.text()):
             object = Database_Class()
             if(self.ui.pay_search_list.currentItem()):
-                clientId =self.ui.pay_search_list.currentItem().text(3)
+                clientId =self.ui.pay_search_list.currentItem().text(3) # CAN BE SELECTED FROM clients ARRAY
 
                 total = float(self.ui.pay_client_balance.text())
                 if (self.ui.pay_total_balance.text()):
                     total += float(self.ui.pay_total_balance.text())
                     
-                received = received=self.ui.pay_services_amt_recieved.text()
+                received = self.ui.pay_services_amt_recieved.text() # THERE WAS A CODE MULTIPLICATION LIKE THIS :  received = received = ....
 
                 newbalance = float(total) - float(received)
                 iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
