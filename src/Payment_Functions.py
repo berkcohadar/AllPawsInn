@@ -176,9 +176,9 @@ class PaymentFunctions(MainWindow):
 
     def AddServiceDetail(self, animalName):
         global TotalCharges
-        sub =  self.ui.pay_subtotal.text()
-
         object = Database_Class()
+        
+        sub =  self.ui.pay_subtotal.text()
 
         foodFee = 0.0
         hairFee = 0.0
@@ -231,8 +231,10 @@ class PaymentFunctions(MainWindow):
         TotalCharges = round(TotalCharges,2)
 
         balance =self.ui.pay_client_balance.text()
+
         totalBalance = TotalCharges + float(balance)
         totalBalance = round(totalBalance,2)
+
         self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
         self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
 
@@ -280,14 +282,16 @@ class PaymentFunctions(MainWindow):
                 clientId =self.ui.pay_search_list.currentItem().text(3) # CAN BE SELECTED FROM clients ARRAY
 
                 total = float(self.ui.pay_client_balance.text())
-                if (self.ui.pay_total_balance.text()):
-                    total += float(self.ui.pay_total_balance.text())
-                    
-                received = self.ui.pay_services_amt_recieved.text() # THERE WAS A CODE MULTIPLICATION LIKE THIS :  received = received = ....
+
+                if (self.ui.pay_total_charge.text()):
+                    total += float(self.ui.pay_total_charge.text())
+            
+                received = self.ui.pay_services_amt_recieved.text()
 
                 newbalance = float(total) - float(received)
+
                 iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
-                
+
                 object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
                 PaymentFunctions.DisplayDetail(self)
                 self.ui.pay_services_amt_recieved.clear()

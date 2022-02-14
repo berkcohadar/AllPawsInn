@@ -24,8 +24,9 @@ class WeeklyScheduleFunctions(MainWindow):
         self.ui.weekly_date_thursday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+4))
         self.ui.weekly_date_friday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+5))
         self.ui.weekly_date_saturday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+6))
+        print("display weekly caller")
 
-        WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher)
+        WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher+1)
 
     def DisplayWeeklySchedule(self,day_swicher):
         obj= Database_Class()
@@ -36,18 +37,17 @@ class WeeklyScheduleFunctions(MainWindow):
         myswicher = day_swicher
         for i in range(7):
 
-            day1= QtCore.QDate.currentDate().addDays(myswicher).toString("yyyy-MM-dd")
-            day2 =QtCore.QDate.currentDate().addDays(myswicher+1).toString("yyyy-MM-dd")
+            day1= QtCore.QDate.currentDate().addDays(myswicher-1).toString("yyyy-MM-dd")
+            day2 =QtCore.QDate.currentDate().addDays(myswicher).toString("yyyy-MM-dd")
             days.append(day1)
             days.append(day2)
             myswicher +=1
-        
  
         self.ui.weekly_shedule_table.setRowCount(0)
-       # self.ui.weekly_shedule_table.clear()
         for i in range (20):
             rowPosition = self.ui.weekly_shedule_table.rowCount()
             self.ui.weekly_shedule_table.insertRow(rowPosition)
+
         sunday = obj.GetReservations(days[0],days[1])
         j = 0
         for name in sunday:
@@ -55,6 +55,7 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 0, QtWidgets.QTableWidgetItem(asd));
             j+=1
+
         monday = obj.GetReservations(days[2],days[3])
         j = 0
         for name in monday:
@@ -62,6 +63,7 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 1, QtWidgets.QTableWidgetItem(asd));
             j+=1
+
         tuesday = obj.GetReservations(days[4],days[5])
         j = 0
         for name in tuesday:
@@ -69,6 +71,7 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 2, QtWidgets.QTableWidgetItem(asd));
             j+=1
+
         wednesday = obj.GetReservations(days[6],days[7])
         j = 0
         for name in wednesday:
@@ -76,6 +79,7 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 3, QtWidgets.QTableWidgetItem(asd));
             j+=1
+
         thursday = obj.GetReservations(days[8],days[9])
         j = 0
         for name in thursday:
@@ -83,6 +87,7 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 4, QtWidgets.QTableWidgetItem(asd));
             j+=1
+
         friday = obj.GetReservations(days[10],days[11])
         j = 0
         for name in friday:
@@ -90,6 +95,7 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 5, QtWidgets.QTableWidgetItem(asd));
             j+=1
+
         saturday = obj.GetReservations(days[12],days[13])
         j = 0
         for name in saturday:
@@ -97,19 +103,14 @@ class WeeklyScheduleFunctions(MainWindow):
             asd =name[0]+" "+name[1] + " / "+ name[2] 
             self.ui.weekly_shedule_table.setItem(j, 6, QtWidgets.QTableWidgetItem(asd));
             j+=1
-            
 
     def NextWeek(self):
-        
         global dayofweek
         global day_swicher
         day_swicher +=7
         date = QtCore.QDate.currentDate()
         dayofweek = date.dayOfWeek()
-     
-    
-        
-        
+            
         self.ui.weekly_date_sunday.setDate(QtCore.QDate.currentDate().addDays(day_swicher))
         self.ui.weekly_date_monday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+1))
         self.ui.weekly_date_tuesday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+2))
@@ -117,17 +118,14 @@ class WeeklyScheduleFunctions(MainWindow):
         self.ui.weekly_date_thursday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+4))
         self.ui.weekly_date_friday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+5))
         self.ui.weekly_date_saturday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+6))
-        WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher)
+        WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher+1)
+
     def PreviousWeek(self):
-        
         global dayofweek
         global day_swicher
         day_swicher -=7
         date = QtCore.QDate.currentDate()
-        dayofweek = date.dayOfWeek()
-        
-    
-        
+        dayofweek = date.dayOfWeek()      
         
         self.ui.weekly_date_sunday.setDate(QtCore.QDate.currentDate().addDays(day_swicher))
         self.ui.weekly_date_monday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+1))
@@ -136,7 +134,7 @@ class WeeklyScheduleFunctions(MainWindow):
         self.ui.weekly_date_thursday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+4))
         self.ui.weekly_date_friday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+5))
         self.ui.weekly_date_saturday.setDate(QtCore.QDate.currentDate().addDays(day_swicher+6))
-        WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher)
+        WeeklyScheduleFunctions.DisplayWeeklySchedule(self,day_swicher+1)
     def ThisWeek(self):
         global day_swicher
         day_swicher = 0
