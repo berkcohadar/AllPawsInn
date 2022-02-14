@@ -225,17 +225,14 @@ class Database_Class(object):
         for row in result.fetchall():
             results2.append(dict(zip(columns, row)))
 
-        print("1", results)
-        print("2", results2)
         if len(results2) == 0 :
             results2.append({"DateIn":"Never","DateOut":"Never","NoDays":0})
-        print("updated", results2)
 
         for i in range(len(results)):
             results[i]["DateIn"] = results2[i]["DateIn"]
             results[i]["DateOut"] = results2[i]["DateOut"]
             results[i]["NoDays"] = results2[i]["NoDays"]
-        print(results)
+
         #reservation da bu kisim degsitirilcek
         # WHERE BookingObjects.AnimalID = Animals.AnimalID  and BookingObjects.Status = 'Reserved' and BookingObjects.EditDate >='%s' and BookingObjects.EditDate <'%s' """%(today,tommrw)
         return results
@@ -492,9 +489,6 @@ if __name__ == "__main__":
 
 
     today=datetime.now()  #sadece gunu alir 2020-27-11
-    #print(today)
-    #print(str(today))
-    #print(type(today))
 
     datet = today.strftime("%Y-%m-%d, %H:%M:%S")
     print(datet)

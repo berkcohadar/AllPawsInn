@@ -1,5 +1,5 @@
 TotalCharges=0
-clients=[]
+current_client=-1
 from Home_Functions import *
 from reportlab.pdfgen.canvas import Canvas
 
@@ -41,11 +41,21 @@ class PaymentFunctions(MainWindow):
                         self.paws.remove(paw)
             PaymentFunctions.updatePaymentDisplay(self)  
 
-    def DisplayDetail(self):
-        object = Database_Class()
-
+    def DisplayDetail(self): # THIS FUNCTION IS CALLED WHEN A CUSTOMER IS CHOSEN FROM THE SEARCH LIST IN THE PAYMENT PAGE
+        global current_client   
+        
         animalId= self.ui.pay_search_list.currentItem().text(2)
         clientId = self.ui.pay_search_list.currentItem().text(3)
+        index = self.ui.pay_list_widget.topLevelItemCount() # index of the first element on the payListWidget. If -1, then the list is empty
+
+        print("\n\nclients : ",current_client, clientId, index)
+        if(current_client != -1 and current_client != clientId and index != 0): # IF A CLIENT IS CHOSEN BEFORE, AND THIS CLIENT IS NOT THE SAME AS THE NEWLY CHOSEN CLIENT, AND THE SERVICES LIST IS NOT EMPTY.
+            PaymentFunctions.clearServicesList(self)
+        
+        current_client = clientId # selected client's id is saved to the global instance.
+        print("\n\nclients : ",current_client, clientId, index)
+
+        object = Database_Class()
         animalInfo = object.GetAnimalInfo(int(animalId))
         clientInfo = object.GetClientInfo(int(clientId))
 
@@ -96,7 +106,6 @@ class PaymentFunctions(MainWindow):
         othergoods = self.ui.pay_services_other_goods.text()
         if (othergoods == ''):
             othergoods = '0'
-        print("othergoods"+othergoods)
 
         foodFeeArray = object.GetServicesFees('food')
         for item in foodFeeArray:
@@ -114,7 +123,7 @@ class PaymentFunctions(MainWindow):
         discount = self.ui.pay_services_discount.text()
         if discount == '':
             discount= '0'
-        print("discount"+discount)
+
         for  service in servicesinfo:
             daycarerate = service[0]
             tax = service[1]
@@ -130,54 +139,39 @@ class PaymentFunctions(MainWindow):
             
             servicesSubTotal += nailFee
 
-        floatTotal= float(servicesSubTotal)
+        floatTotal = float(servicesSubTotal)
         floatTotal+= float(daycarerate) + float(othergoods) - float(discount)
 
         totalCharges =   format((floatTotal * tax/100 + floatTotal),'.2f' )
         
         x = Decimal(totalCharges)
         output = round(x,2)
-        print(output)
+
         round(Decimal(),2)   
         self.ui.pay_subtotal.setText("{:.2f}".format(output))
         
     def AddToList(self):
-        global clients
+        global current_client
         global TotalCharges     
         if(self.ui.pay_search_list.currentItem()):
             clientId =self.ui.pay_search_list.currentItem().text(3)
-            if(clients !=[]):
-                for id in clients:
-                    if(clientId == id):
-                        object = Database_Class()
-
-                        animalId= self.ui.pay_search_list.currentItem().text(2)
-                        clients.append(clientId)
-                        animalInfo = object.GetAnimalInfo(int(animalId))
-                        for item in animalInfo:
-                            animalName= item['AnimalName']
-                            
-                        PaymentFunctions.AddServiceDetail(self,animalName)
-                        break
-                    else:
-                        MainWindow.show_popup(self,"Wrong Client!","Client are not same.")
-            else:
+            if(clientId == current_client):
                 object = Database_Class()
-
                 animalId= self.ui.pay_search_list.currentItem().text(2)
-                clients.append(clientId)
                 animalInfo = object.GetAnimalInfo(int(animalId))
                 for item in animalInfo:
                     animalName= item['AnimalName']
-
+                    
                 PaymentFunctions.AddServiceDetail(self,animalName)
+            else:
+                MainWindow.show_popup(self,"Wrong Client!","Client are not same.")
         else:
             MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
 
     def AddServiceDetail(self, animalName):
         global TotalCharges
         object = Database_Class()
-        
+
         sub =  self.ui.pay_subtotal.text()
 
         foodFee = 0.0
@@ -242,7 +236,6 @@ class PaymentFunctions(MainWindow):
         # ADD =>
         # ` self.ui.BUTTON_NAME.clicked.connect(lambda: PaymentFunctions.removeFromList(self)) `
         # to main.py
-        global clients
         global TotalCharges         
         if(self.ui.pay_search_list.currentItem()):
             if (self.ui.pay_list_widget.currentItem()):
@@ -256,6 +249,7 @@ class PaymentFunctions(MainWindow):
 
                 # find item and remove it from list.
                 index = self.ui.pay_list_widget.indexOfTopLevelItem(self.ui.pay_list_widget.currentItem()) # this is the index of desired row.
+                print(index)
                 item = self.ui.pay_list_widget.takeTopLevelItem(index)
 
                 # subtract sub_total from total charges.
@@ -275,7 +269,6 @@ class PaymentFunctions(MainWindow):
 
     def SubmitPayments(self):
         global TotalCharges
-        global clients
         if(self.ui.pay_services_amt_recieved.text()):
             object = Database_Class()
             if(self.ui.pay_search_list.currentItem()):
@@ -354,3 +347,34 @@ class PaymentFunctions(MainWindow):
        # object = Database_Class()
        # object.SubmitPayment(row)
         
+    def clearServicesList(self):
+        global TotalCharges
+        object = Database_Class()
+
+        root = self.ui.pay_list_widget.invisibleRootItem()
+        child_count = root.childCount()
+        for i in range(child_count-1,-1,-1):
+            item = root.child(i)
+            if (item):
+                print(item.text(0))
+                sub = item.text(2)
+                serviceID = item.text(0)
+                Client_ID = current_client
+                object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
+
+                # remove the row
+                self.ui.pay_list_widget.takeTopLevelItem(i)
+
+                # subtract sub_total from total charges.
+                TotalCharges -= float(sub)
+                TotalCharges = round(TotalCharges,2)
+
+                # calculate total balance again.
+                balance =self.ui.pay_client_balance.text()
+                totalBalance = TotalCharges + float(balance)
+                totalBalance = round(totalBalance,2)
+
+                self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
+                self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
+            else:
+                break

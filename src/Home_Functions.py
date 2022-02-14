@@ -285,7 +285,6 @@ class HomeFunctions(MainWindow):
         othergoods = self.ui.mpayment_other_goods.text()
         if (othergoods == ''):
             othergoods = '0'
-        print("othergoods"+othergoods)
 
         foodFeeArray = object.GetServicesFees('food')
         for item in foodFeeArray:
@@ -303,7 +302,7 @@ class HomeFunctions(MainWindow):
         discount = self.ui.mpayment_discount.text()
         if discount == '':
             discount= '0'
-        print("discount"+discount)
+
         for  service in servicesinfo:
             daycarerate = service[0]
             tax = service[1]
@@ -326,7 +325,6 @@ class HomeFunctions(MainWindow):
         totalCharges =   floatTotal * tax/100 + floatTotal
         x = Decimal(totalCharges)
         output = round(x,2)
-        print(output)
 
         self.ui.mpayment_subtotal.setText(str(output))
         self.ui.mpayment_total_charge.setText(str(output))
