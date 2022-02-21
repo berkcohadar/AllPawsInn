@@ -76,7 +76,9 @@ class PaymentFunctions(MainWindow):
 
         for client in clientInfo:
             clientName = client['FirstName'] + " " + client['LastName']
-            clientAddress = client['Address1']  + "\n" + client['Town'] +", "+ client['PostcodeZIP']
+            clientTown =  client['Town'] +", " if client['Town'] else ""
+            clientPostCode = client['PostcodeZIP'] if client['PostcodeZIP'] else ""
+            clientAddress = client['Address1']  + "\n" + clientTown + clientPostCode
             clientCell = client['CellMobile']
             clientNotes = client['Email']
             if client['AccountBalance'] :

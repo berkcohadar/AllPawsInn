@@ -197,14 +197,15 @@ class MainWindow(QMainWindow):
         ## WINDOW SIZE ==> DEFAULT SIZE
         startSize = QSize(1400, 900)
         minSize = QSize(1240, 820)
-        self.resize(startSize)
         self.setMinimumSize(minSize)
+        self.resize(startSize)
+
         #UIFunctions.enableMaximumSize(self, 500, 720)
         ## ==> END ##
 
         ## TOGGLE/BURGUER MENU
         ########################################################################
-        self.ui.btn_toggle_menu.clicked.connect(lambda: UIFunctions.toggleMenu(self, 250, True))
+        self.ui.btn_toggle_menu.clicked.connect(lambda: UIFunctions.toggleMenu(self, 190, True))
         ## End
 
          ## ==> LOAD DEFINITIONS

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'allpawsinn_clientedit.ui'
+# Form implementation generated from reading ui file '.\allpawsinn_clientedit.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -4534,8 +4534,20 @@ class Ui_MainWindow(object):
         self.home_checked_in_tree.header().setSortIndicatorShown(False)
         self.home_checked_in_tree.header().setStretchLastSection(False)
         self.verticalLayout_68.addWidget(self.home_checked_in_tree)
+        self.label_85 = QtWidgets.QLabel(self.frame_117)
+        self.label_85.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_85.setFont(font)
+        self.label_85.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_85.setObjectName("label_85")
+        self.verticalLayout_68.addWidget(self.label_85)
         self.frame_122 = QtWidgets.QFrame(self.frame_117)
-        self.frame_122.setMinimumSize(QtCore.QSize(0, 90))
+        self.frame_122.setMinimumSize(QtCore.QSize(0, 68))
+        self.frame_122.setMaximumSize(QtCore.QSize(16777215, 68))
+        self.frame_122.setBaseSize(QtCore.QSize(0, 0))
         self.frame_122.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_122.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_122.setObjectName("frame_122")
@@ -6736,7 +6748,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.Content_stacked_Widget.setCurrentIndex(8)
+        self.Content_stacked_Widget.setCurrentIndex(11)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -6946,6 +6958,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Checked In"))
         self.home_checked_in_tree.headerItem().setText(0, _translate("MainWindow", "Client Name"))
         self.home_checked_in_tree.headerItem().setText(1, _translate("MainWindow", "Pet Name"))
+        self.label_85.setText(_translate("MainWindow", "Checkout Method"))
         self.home_checkout_w_btn.setText(_translate("MainWindow", "Pay Now"))
         self.home_checkout_btn.setText(_translate("MainWindow", "Pay Later"))
         self.label_8.setText(_translate("MainWindow", "Checked Out"))
