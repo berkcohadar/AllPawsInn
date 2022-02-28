@@ -363,9 +363,8 @@ class PaymentFunctions(MainWindow):
         for i in range(child_count-1,-1,-1):
             item = root.child(i)
             if (item):
-                print(item.text(0))
-                sub = item.text(2)
-                serviceID = item.text(0)
+                sub = item.text(1)
+                serviceID = item.text(2)
                 Client_ID = current_client
                 object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
 
