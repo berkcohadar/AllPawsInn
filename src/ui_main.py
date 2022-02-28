@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\allpawsinn_clientedit.ui'
+# Form implementation generated from reading ui file 'allpawsinn.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1578, 951)
+        MainWindow.resize(1469, 952)
         MainWindow.setMinimumSize(QtCore.QSize(500, 40))
         MainWindow.setMaximumSize(QtCore.QSize(1704, 1162))
         palette = QtGui.QPalette()
@@ -4772,17 +4772,18 @@ class Ui_MainWindow(object):
         self.pay_search_list.setUniformRowHeights(True)
         self.pay_search_list.setItemsExpandable(True)
         self.pay_search_list.setAllColumnsShowFocus(True)
+        self.pay_search_list.setHeaderHidden(False)
+        self.pay_search_list.setColumnCount(3)
         self.pay_search_list.setObjectName("pay_search_list")
-        self.pay_search_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
-        self.pay_search_list.headerItem().setTextAlignment(1, QtCore.Qt.AlignCenter)
-        self.pay_search_list.headerItem().setTextAlignment(2, QtCore.Qt.AlignCenter)
-        self.pay_search_list.header().setVisible(False)
+        self.pay_search_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        self.pay_search_list.headerItem().setTextAlignment(1, QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        self.pay_search_list.header().setVisible(True)
         self.pay_search_list.header().setCascadingSectionResizes(False)
         self.pay_search_list.header().setDefaultSectionSize(195)
         self.pay_search_list.header().setHighlightSections(False)
         self.pay_search_list.header().setMinimumSectionSize(195)
         self.pay_search_list.header().setSortIndicatorShown(False)
-        self.pay_search_list.header().setStretchLastSection(False)
+        self.pay_search_list.header().setStretchLastSection(True)
         self.verticalLayout_38.addWidget(self.pay_search_list)
         self.verticalLayout_21.addWidget(self.frame_19)
         self.frame_20 = QtWidgets.QFrame(self.frame_17)
@@ -5101,7 +5102,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setSpacing(0)
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.frame_23 = QtWidgets.QFrame(self.frame_21)
-        self.frame_23.setMinimumSize(QtCore.QSize(270, 0))
+        self.frame_23.setMinimumSize(QtCore.QSize(170, 0))
         self.frame_23.setMaximumSize(QtCore.QSize(16777215, 500))
         self.frame_23.setStyleSheet("background-color: rgb(66, 73, 90);")
         self.frame_23.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -5185,7 +5186,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_44.addWidget(self.pay_daycare_rate)
         self.frame_35 = QtWidgets.QFrame(self.frame_24)
         self.frame_35.setMinimumSize(QtCore.QSize(0, 36))
-        self.frame_35.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.frame_35.setMaximumSize(QtCore.QSize(300, 32))
         self.frame_35.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_35.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_35.setObjectName("frame_35")
@@ -5317,7 +5318,8 @@ class Ui_MainWindow(object):
         self.pay_list_widget.setFont(font)
         self.pay_list_widget.setStyleSheet("\n"
 "\n"
-"QHeaderView::section { background-color:gray };\n"
+"QHeaderView::section { background-color:rgba(0, 0, 0, 0.5);\n"
+"border-radius: 5px; };\n"
 "selection-background-color: rgb(220, 220, 220);\n"
 "selection-color: rgb(0,0,0);\n"
 "background-color: rgb(66, 73, 90);\n"
@@ -5332,13 +5334,17 @@ class Ui_MainWindow(object):
         self.pay_list_widget.setIndentation(0)
         self.pay_list_widget.setUniformRowHeights(True)
         self.pay_list_widget.setAllColumnsShowFocus(True)
+        self.pay_list_widget.setHeaderHidden(False)
         self.pay_list_widget.setColumnCount(2)
         self.pay_list_widget.setObjectName("pay_list_widget")
-        self.pay_list_widget.headerItem().setText(0, "1")
-        self.pay_list_widget.headerItem().setText(1, "2")
-        self.pay_list_widget.header().setVisible(False)
-        self.pay_list_widget.header().setDefaultSectionSize(344)
-        self.pay_list_widget.header().setMinimumSectionSize(172)
+        self.pay_list_widget.headerItem().setText(0, "Pet Name")
+        self.pay_list_widget.headerItem().setText(1, "Service Charge")
+        self.pay_list_widget.header().setVisible(True)
+        self.pay_list_widget.header().setCascadingSectionResizes(False)
+        self.pay_list_widget.header().setDefaultSectionSize(250)
+        self.pay_list_widget.header().setHighlightSections(False)
+        self.pay_list_widget.header().setMinimumSectionSize(120)
+        self.pay_list_widget.header().setStretchLastSection(True)
         self.verticalLayout_70.addWidget(self.pay_list_widget)
         self.verticalLayout_29.addWidget(self.frame_8)
         self.frame_81 = QtWidgets.QFrame(self.frame_18)
@@ -6748,7 +6754,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.Content_stacked_Widget.setCurrentIndex(11)
+        self.Content_stacked_Widget.setCurrentIndex(9)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -6966,9 +6972,9 @@ class Ui_MainWindow(object):
         self.home_checkout_tree.headerItem().setText(1, _translate("MainWindow", "Pet Name"))
         self.home_page_title_2.setText(_translate("MainWindow", "Select Customer"))
         self.pay_search_label.setText(_translate("MainWindow", "Search:"))
-        self.pay_search_list.headerItem().setText(0, _translate("MainWindow", "Animal Name"))
-        self.pay_search_list.headerItem().setText(1, _translate("MainWindow", "Owner Name"))
-        self.pay_search_list.headerItem().setText(2, _translate("MainWindow", "Status"))
+        self.pay_search_list.headerItem().setText(0, _translate("MainWindow", "Client Name"))
+        self.pay_search_list.headerItem().setText(1, _translate("MainWindow", "Animal Name"))
+        self.pay_search_list.headerItem().setText(2, _translate("MainWindow", "Balance"))
         self.xlabel.setText(_translate("MainWindow", "Name:"))
         self.ylabel.setText(_translate("MainWindow", "Size:"))
         self.label_4.setText(_translate("MainWindow", "Breed:"))

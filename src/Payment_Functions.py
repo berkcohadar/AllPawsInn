@@ -10,12 +10,16 @@ class PaymentFunctions(MainWindow):
 
     def updatePaymentDisplay(self):  
         self.ui.pay_search_list.clear()
+        object = Database_Class()
         for obj in self.paws:  
             animalID = str(obj[3]) 
             clientID = str(obj[4]) 
             animalName = obj[2] 
             ownerName = obj[0] + " " + obj[1]
-            self.ui.pay_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName,animalID,clientID] ) )
+            clientInfo = object.GetClientInfo(int(clientID))
+            for client in clientInfo:
+                clientBalance = client['AccountBalance']
+            self.ui.pay_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName, str(clientBalance) ,animalID,clientID] ) )
 
     def updatePaymentList(self):
 
@@ -44,8 +48,8 @@ class PaymentFunctions(MainWindow):
     def DisplayDetail(self): # THIS FUNCTION IS CALLED WHEN A CUSTOMER IS CHOSEN FROM THE SEARCH LIST IN THE PAYMENT PAGE
         global current_client   
         
-        animalId= self.ui.pay_search_list.currentItem().text(2)
-        clientId = self.ui.pay_search_list.currentItem().text(3)
+        animalId= self.ui.pay_search_list.currentItem().text(3)
+        clientId = self.ui.pay_search_list.currentItem().text(4)
         index = self.ui.pay_list_widget.topLevelItemCount() # index of the first element on the payListWidget. If -1, then the list is empty
 
         print("\n\nclients : ",current_client, clientId, index)
@@ -156,10 +160,10 @@ class PaymentFunctions(MainWindow):
         global current_client
         global TotalCharges     
         if(self.ui.pay_search_list.currentItem()):
-            clientId =self.ui.pay_search_list.currentItem().text(3)
+            clientId =self.ui.pay_search_list.currentItem().text(4)
             if(clientId == current_client):
                 object = Database_Class()
-                animalId= self.ui.pay_search_list.currentItem().text(2)
+                animalId= self.ui.pay_search_list.currentItem().text(3)
                 animalInfo = object.GetAnimalInfo(int(animalId))
                 for item in animalInfo:
                     animalName= item['AnimalName']
@@ -217,11 +221,11 @@ class PaymentFunctions(MainWindow):
         subTotal += (dayCareRate + othergoods - discount)
         subTotal += subTotal * tax 
 
-        Client_ID = int(self.ui.pay_search_list.currentItem().text(3))
+        Client_ID = int(self.ui.pay_search_list.currentItem().text(4))
 
         serviceID = object.addServicesDetails(dayCareRate, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax)
 
-        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([ str(serviceID), animalName, str(sub)] ))
+        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([  animalName, str(sub), str(serviceID)] ))
 
         TotalCharges += float(sub)
         TotalCharges = round(TotalCharges,2)
@@ -243,10 +247,11 @@ class PaymentFunctions(MainWindow):
             if (self.ui.pay_list_widget.currentItem()):
                 object = Database_Class()
                 
-                sub = self.ui.pay_list_widget.currentItem().text(2) # this is the subtotal that will be reducted from total charge.
+                sub = self.ui.pay_list_widget.currentItem().text(1) # this is the subtotal that will be reducted from total charge.
 
-                serviceID = self.ui.pay_list_widget.currentItem().text(0)
-                Client_ID = int(self.ui.pay_search_list.currentItem().text(3))
+                serviceID = self.ui.pay_list_widget.currentItem().text(2)
+                Client_ID = int(self.ui.pay_search_list.currentItem().text(4))
+
                 object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
 
                 # find item and remove it from list.
@@ -274,7 +279,7 @@ class PaymentFunctions(MainWindow):
         if(self.ui.pay_services_amt_recieved.text()):
             object = Database_Class()
             if(self.ui.pay_search_list.currentItem()):
-                clientId =self.ui.pay_search_list.currentItem().text(3) # CAN BE SELECTED FROM clients ARRAY
+                clientId =self.ui.pay_search_list.currentItem().text(4) # CAN BE SELECTED FROM clients ARRAY
 
                 total = float(self.ui.pay_client_balance.text())
 
@@ -337,7 +342,7 @@ class PaymentFunctions(MainWindow):
         if(self.ui.pay_remaining_amt_recieved.text()):
             if(self.ui.pay_search_list.currentItem()):
                 received = self.ui.pay_remaining_amt_recieved.text()
-                clientId =self.ui.pay_search_list.currentItem().text(3)
+                clientId =self.ui.pay_search_list.currentItem().text(4)
                 print(clientId)
                 object.DecreaseAccountBalance(int(clientId),float(received))
                 PaymentFunctions.DisplayDetail(self)
