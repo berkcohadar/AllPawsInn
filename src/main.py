@@ -167,6 +167,7 @@ class MainWindow(QMainWindow):
         #self.ui.menu_btn_daily.clicked.connect(lambda:HomeFunctions.ChangeColor(self) )
         self.ui.menu_btn_weekly.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_weekly))
         self.ui.menu_btn_payment.clicked.connect(lambda : self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_payment))
+        self.ui.menu_btn_reports.clicked.connect(lambda : self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_reports))
      #   self.ui.check_button.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.daycare_page))
         self.ui.menu_btn_reservation.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_reservation) )
         self.ui.menu_btn_editclient.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_editclient) )

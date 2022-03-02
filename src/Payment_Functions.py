@@ -382,5 +382,6 @@ class PaymentFunctions(MainWindow):
 
                 self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
                 self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
+                #self.ui.pay_total_balance.clear()
             else:
                 break
