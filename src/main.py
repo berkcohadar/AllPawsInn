@@ -1,11 +1,3 @@
-################################################################################
-##
-## BY: WANDERSON M.PIMENTA
-## PROJECT MADE WITH: Qt Designer and PySide2
-## V: 1.0.0
-##
-################################################################################
-
 import sys
 import platform
 
@@ -24,10 +16,19 @@ from ui_main import Ui_MainWindow
 import datetime
 
 global d
-# IMPORT FUNCTIONS
+
+## IMPORT FUNCTIONS ##
+# THERE IS AN IMPORT CIRCLE FOR THE CLASS FUNCTIONS. 
+# TO ADD A NEW ONE, YOU SHOULD BREAK THE CYCLE AND ADD YOUR CLASS BETWEEN TWO.
+# THE CIRCLE STARTS FROM HERE, BACK_END_FUNCTIONS AND GOES LIKE; 
+# Back_end_functions => Reservation_Functions => Payment_Functions => Reports_Functions => Home_Functions => Admin_Functions => AdditionalPet_Functions => EditClient_Functions => WeeklySchedule_Functions => ui_functions => main
+# Assume you created a class called "X_funcs". To add that class to program, you should import it.
+# To import it, you should break the cycle. For example, you can break the cycle after rezervation functions. 
+# Then, you must import "X_funcs", and remove "import Payment_Functions" inside Rezervation_Fuctions.
+# Then, you must import "Payment_Functions" inside "X_funcs". Then the cycle is completed again.
 
 from Back_end_functions import *
-#from Reservation_Functions import*
+
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -168,12 +169,16 @@ class MainWindow(QMainWindow):
         self.ui.menu_btn_weekly.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_weekly))
         self.ui.menu_btn_payment.clicked.connect(lambda : self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_payment))
         self.ui.menu_btn_reports.clicked.connect(lambda : self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_reports))
+
      #   self.ui.check_button.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.daycare_page))
         self.ui.menu_btn_reservation.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_reservation) )
         self.ui.menu_btn_editclient.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_editclient) )
         self.ui.menu_btn_addanimal.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_addpet) )
          ########################################################################
 
+        ############################################# REPORTS ############################################
+
+        self.ui.report_search_bar.textChanged.connect(lambda: ReportFunctions.updateClientsList(self))
          
         ############################################# EDIT CLIENT ############################################
 

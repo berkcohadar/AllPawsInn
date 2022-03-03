@@ -5,18 +5,26 @@
 - In the payment section, when a customer is chosen and some services 
     are added to the list, the client is unchangeable until the payment 
     action is completed, even we remove the service.
+    If clients.length > 1 and services.length == 0 => change client
+    scenario: select a customer, add a service to the list, 
+    remove this service, select another customer, try to add a service,
+    error: clients are not the same.
 
 - It is better to clean out some tables in the database. Tables are; 
     BookingObjects, Payments, Services Details. Also ClientDetails.AccountBalance should be set to 0.
 
+- if mandatory, dont let customer send it blank. OR change it with space.
+
+
+
 # DONEs
-- In Client info, "Notes" will be changed to "E-mail"
+- In Client info, "Notes" will be changed to "E-mail" - QTD
 
-- On the Edit Client page, add a field to edit "Name", "Surname"
+- On the Edit Client page, add a field to edit "Name", "Surname" -QTD
 
-- Improve the UX in the payment section. Take payment button is broking the structure.
+- Improve the UX in the payment section. Take payment button is broking the structure. - QTD
 
-- Check-in button on the Daily Schedule page needs to be resized.
+- Check-in button on the Daily Schedule page needs to be resized. -QTD
 
 - In client info, there is no space between name & surname. Add it.
 

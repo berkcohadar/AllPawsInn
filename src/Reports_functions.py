@@ -1,15 +1,16 @@
-TotalCharges=0
-current_client=-1
-from Reports_functions import *
 from reportlab.pdfgen.canvas import Canvas
+from DatabaseClass import Database_Class
+from Home_Functions import *
 
-class PaymentFunctions(MainWindow):
+#from main import MainWindow
 
-    def clearPayments(self):
-        self.ui.pay_search_list.clear()
+class ReportFunctions(MainWindow):
+
+    def clearSearch(self):
+        self.ui.report_search_list.clear()
 
     def updatePaymentDisplay(self):  
-        self.ui.pay_search_list.clear()
+        self.ui.report_search_list.clear()
         object = Database_Class()
         for obj in self.paws:  
             animalID = str(obj[3]) 
@@ -19,14 +20,13 @@ class PaymentFunctions(MainWindow):
             clientInfo = object.GetClientInfo(int(clientID))
             for client in clientInfo:
                 clientBalance = client['AccountBalance']
-            self.ui.pay_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName, str(clientBalance) ,animalID,clientID] ) )
+            self.ui.report_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName, str(clientBalance) ,animalID,clientID] ) )
 
-    def updatePaymentList(self):
-
-        text = self.ui.pay_search_bar.text()
+    def updateClientsList(self):
+        text = self.ui.report_search_bar.text()
             
         if len(text) < 3:
-            PaymentFunctions.clearPayments(self)
+            ReportFunctions.clearSearch(self)
             self.paws= []
         else:
             object = Database_Class()
@@ -43,18 +43,18 @@ class PaymentFunctions(MainWindow):
                     if paw in self.paws:
                         print(paw)
                         self.paws.remove(paw)
-            PaymentFunctions.updatePaymentDisplay(self)  
-
+            ReportFunctions.updatePaymentDisplay(self)  
+"""
     def DisplayDetail(self): # THIS FUNCTION IS CALLED WHEN A CUSTOMER IS CHOSEN FROM THE SEARCH LIST IN THE PAYMENT PAGE
         global current_client   
         
-        animalId= self.ui.pay_search_list.currentItem().text(3)
-        clientId = self.ui.pay_search_list.currentItem().text(4)
+        animalId= self.ui.report_search_list.currentItem().text(3)
+        clientId = self.ui.report_search_list.currentItem().text(4)
         index = self.ui.pay_list_widget.topLevelItemCount() # index of the first element on the payListWidget. If -1, then the list is empty
 
         print("\n\nclients : ",current_client, clientId, index)
         if(current_client != -1 and current_client != clientId and index != 0): # IF A CLIENT IS CHOSEN BEFORE, AND THIS CLIENT IS NOT THE SAME AS THE NEWLY CHOSEN CLIENT, AND THE SERVICES LIST IS NOT EMPTY.
-            PaymentFunctions.clearServicesList(self)
+            ReportFunctions.clearServicesList(self)
         
         current_client = clientId # selected client's id is saved to the global instance.
         print("\n\nclients : ",current_client, clientId, index)
@@ -105,7 +105,7 @@ class PaymentFunctions(MainWindow):
 
         self.ui.pay_daycare_rate.setText("{:.2f}".format(daycarerate))
         self.ui.pay_nys_tax.setText("{:.2f}".format(tax))
-        PaymentFunctions.AddServices(self)
+        ReportFunctions.AddServices(self)
        
     def AddServices(self):
         object = Database_Class()
@@ -159,16 +159,16 @@ class PaymentFunctions(MainWindow):
     def AddToList(self):
         global current_client
         global TotalCharges     
-        if(self.ui.pay_search_list.currentItem()):
-            clientId =self.ui.pay_search_list.currentItem().text(4)
+        if(self.ui.report_search_list.currentItem()):
+            clientId =self.ui.report_search_list.currentItem().text(4)
             if(clientId == current_client):
                 object = Database_Class()
-                animalId= self.ui.pay_search_list.currentItem().text(3)
+                animalId= self.ui.report_search_list.currentItem().text(3)
                 animalInfo = object.GetAnimalInfo(int(animalId))
                 for item in animalInfo:
                     animalName= item['AnimalName']
                     
-                PaymentFunctions.AddServiceDetail(self,animalName)
+                ReportFunctions.AddServiceDetail(self,animalName)
             else:
                 MainWindow.show_popup(self,"Wrong Client!","Client are not same.")
         else:
@@ -221,7 +221,7 @@ class PaymentFunctions(MainWindow):
         subTotal += (dayCareRate + othergoods - discount)
         subTotal += subTotal * tax 
 
-        Client_ID = int(self.ui.pay_search_list.currentItem().text(4))
+        Client_ID = int(self.ui.report_search_list.currentItem().text(4))
 
         serviceID = object.addServicesDetails(dayCareRate, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax)
 
@@ -240,17 +240,17 @@ class PaymentFunctions(MainWindow):
 
     def removeFromList(self):
         # ADD =>
-        # ` self.ui.BUTTON_NAME.clicked.connect(lambda: PaymentFunctions.removeFromList(self)) `
+        # ` self.ui.BUTTON_NAME.clicked.connect(lambda: ReportFunctions.removeFromList(self)) `
         # to main.py
         global TotalCharges         
-        if(self.ui.pay_search_list.currentItem()):
+        if(self.ui.report_search_list.currentItem()):
             if (self.ui.pay_list_widget.currentItem()):
                 object = Database_Class()
                 
                 sub = self.ui.pay_list_widget.currentItem().text(1) # this is the subtotal that will be reducted from total charge.
 
                 serviceID = self.ui.pay_list_widget.currentItem().text(2)
-                Client_ID = int(self.ui.pay_search_list.currentItem().text(4))
+                Client_ID = int(self.ui.report_search_list.currentItem().text(4))
 
                 object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
 
@@ -278,8 +278,8 @@ class PaymentFunctions(MainWindow):
         global TotalCharges
         if(self.ui.pay_services_amt_recieved.text()):
             object = Database_Class()
-            if(self.ui.pay_search_list.currentItem()):
-                clientId =self.ui.pay_search_list.currentItem().text(4) # CAN BE SELECTED FROM clients ARRAY
+            if(self.ui.report_search_list.currentItem()):
+                clientId =self.ui.report_search_list.currentItem().text(4) # CAN BE SELECTED FROM clients ARRAY
 
                 total = float(self.ui.pay_client_balance.text())
 
@@ -293,13 +293,13 @@ class PaymentFunctions(MainWindow):
                 iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
 
                 object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
-                PaymentFunctions.DisplayDetail(self)
+                ReportFunctions.DisplayDetail(self)
                 self.ui.pay_services_amt_recieved.clear()
                 self.ui.pay_total_balance.clear()
                 self.ui.pay_total_charge.clear()
 
                 if (iterator.value()): # Receipt
-                    name =self.ui.pay_search_list.currentItem().text(0)
+                    name =self.ui.report_search_list.currentItem().text(0)
                     canvas = Canvas(name+" receipt.pdf")
                     canvas.drawString(100, 500, "Name")
                     canvas.drawString(200, 500, name)
@@ -340,12 +340,12 @@ class PaymentFunctions(MainWindow):
         object = Database_Class()
         
         if(self.ui.pay_remaining_amt_recieved.text()):
-            if(self.ui.pay_search_list.currentItem()):
+            if(self.ui.report_search_list.currentItem()):
                 received = self.ui.pay_remaining_amt_recieved.text()
-                clientId =self.ui.pay_search_list.currentItem().text(4)
+                clientId =self.ui.report_search_list.currentItem().text(4)
                 print(clientId)
                 object.DecreaseAccountBalance(int(clientId),float(received))
-                PaymentFunctions.DisplayDetail(self)
+                ReportFunctions.DisplayDetail(self)
                 self.ui.pay_remaining_amt_recieved.clear()
             else:
                 MainWindow.show_popup(self,"Missing Client!","Please search and choose a client or pet")
@@ -385,3 +385,5 @@ class PaymentFunctions(MainWindow):
                 #self.ui.pay_total_balance.clear()
             else:
                 break
+
+"""
