@@ -23,6 +23,9 @@ class ReportFunctions(MainWindow):
             self.ui.report_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName, str(clientBalance) ,animalID,clientID] ) )
 
     def updateClientsList(self):
+        #   Payments.ClientID Payments.AmountReceived Payments.PaymentType Payments.BookingID
+        # ClientDetails.LastName ClientDetails.FirstName ClientDetails.AccountBalance
+
         text = self.ui.report_search_bar.text()
             
         if len(text) < 3:
