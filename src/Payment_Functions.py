@@ -1,7 +1,9 @@
 TotalCharges=0
 current_client=-1
+from http import client
 from Reports_functions import *
 from reportlab.pdfgen.canvas import Canvas
+from datetime import datetime
 
 class PaymentFunctions(MainWindow):
 
@@ -50,14 +52,11 @@ class PaymentFunctions(MainWindow):
         
         animalId= self.ui.pay_search_list.currentItem().text(3)
         clientId = self.ui.pay_search_list.currentItem().text(4)
-        index = self.ui.pay_list_widget.topLevelItemCount() # index of the first element on the payListWidget. If -1, then the list is empty
 
-        print("\n\nclients : ",current_client, clientId, index)
-        if(current_client != -1 and current_client != clientId and index != 0): # IF A CLIENT IS CHOSEN BEFORE, AND THIS CLIENT IS NOT THE SAME AS THE NEWLY CHOSEN CLIENT, AND THE SERVICES LIST IS NOT EMPTY.
-            PaymentFunctions.clearServicesList(self)
+        if(current_client != -1 and current_client != clientId): # IF A CLIENT IS CHOSEN BEFORE, AND THIS CLIENT IS NOT THE SAME AS THE NEWLY CHOSEN CLIENT, AND THE SERVICES LIST IS NOT EMPTY.
+            self.ui.pay_list_widget.clear()
         
         current_client = clientId # selected client's id is saved to the global instance.
-        print("\n\nclients : ",current_client, clientId, index)
 
         object = Database_Class()
         animalInfo = object.GetAnimalInfo(int(animalId))
@@ -129,9 +128,11 @@ class PaymentFunctions(MainWindow):
         discount = self.ui.pay_services_discount.text()
         if discount == '':
             discount= '0'
-
+        
+        daycarerate = 0
         for  service in servicesinfo:
-            daycarerate = service[0]
+            if self.ui.pay_daycare_checkbox.isChecked():
+                daycarerate = service[0]
             tax = service[1]
 
         servicesSubTotal = 0
@@ -142,7 +143,6 @@ class PaymentFunctions(MainWindow):
             
             servicesSubTotal += hairFee
         if self.ui.pay_services_nails.isChecked():
-            
             servicesSubTotal += nailFee
 
         floatTotal = float(servicesSubTotal)
@@ -156,33 +156,15 @@ class PaymentFunctions(MainWindow):
         round(Decimal(),2)   
         self.ui.pay_subtotal.setText("{:.2f}".format(output))
         
-    def AddToList(self):
-        global current_client
-        global TotalCharges     
-        if(self.ui.pay_search_list.currentItem()):
-            clientId =self.ui.pay_search_list.currentItem().text(4)
-            if(clientId == current_client):
-                object = Database_Class()
-                animalId= self.ui.pay_search_list.currentItem().text(3)
-                animalInfo = object.GetAnimalInfo(int(animalId))
-                for item in animalInfo:
-                    animalName= item['AnimalName']
-                    
-                PaymentFunctions.AddServiceDetail(self,animalName)
-            else:
-                MainWindow.show_popup(self,"Wrong Client!","Client are not same.")
-        else:
-            MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
-
-    def AddServiceDetail(self, animalName):
+    def AddServiceDetail(self,received):
         global TotalCharges
         object = Database_Class()
-
-        sub =  self.ui.pay_subtotal.text()
 
         foodFee = 0.0
         hairFee = 0.0
         nailFee = 0.0
+        careFee = 0.0
+
         othergoods = self.ui.pay_services_other_goods.text()
         discount = self.ui.pay_services_discount.text()
 
@@ -195,10 +177,12 @@ class PaymentFunctions(MainWindow):
             discount = 0.0
         else:
             discount = float(discount)
-
+        
+        
         dayCare = object.GetDayCareRateAndTax(4)
         for item in dayCare:
-            dayCareRate = float(item[0])
+            if self.ui.pay_daycare_checkbox.isChecked():
+                careFee = float(item[0])
             tax = float(item[1])/100
 
         subTotal = 0.0
@@ -218,61 +202,17 @@ class PaymentFunctions(MainWindow):
                 nailFee = float(i[0])
             subTotal += nailFee
         
-        subTotal += (dayCareRate + othergoods - discount)
+        subTotal += (careFee + othergoods - discount)
         subTotal += subTotal * tax 
 
+        paid = subTotal == received
         Client_ID = int(self.ui.pay_search_list.currentItem().text(4))
 
-        serviceID = object.addServicesDetails(dayCareRate, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax)
-
-        self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([  animalName, str(sub), str(serviceID)] ))
-
-        TotalCharges += float(sub)
-        TotalCharges = round(TotalCharges,2)
-
-        balance =self.ui.pay_client_balance.text()
-
-        totalBalance = TotalCharges + float(balance)
-        totalBalance = round(totalBalance,2)
-
-        self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
-        self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
-
-    def removeFromList(self):
-        # ADD =>
-        # ` self.ui.BUTTON_NAME.clicked.connect(lambda: PaymentFunctions.removeFromList(self)) `
-        # to main.py
-        global TotalCharges         
-        if(self.ui.pay_search_list.currentItem()):
-            if (self.ui.pay_list_widget.currentItem()):
-                object = Database_Class()
-                
-                sub = self.ui.pay_list_widget.currentItem().text(1) # this is the subtotal that will be reducted from total charge.
-
-                serviceID = self.ui.pay_list_widget.currentItem().text(2)
-                Client_ID = int(self.ui.pay_search_list.currentItem().text(4))
-
-                object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
-
-                # find item and remove it from list.
-                index = self.ui.pay_list_widget.indexOfTopLevelItem(self.ui.pay_list_widget.currentItem()) # this is the index of desired row.
-                print(index)
-                item = self.ui.pay_list_widget.takeTopLevelItem(index)
-
-                # subtract sub_total from total charges.
-                TotalCharges -= float(sub)
-                TotalCharges = round(TotalCharges,2)
-
-                # calculate total balance again.
-                balance =self.ui.pay_client_balance.text()
-                totalBalance = TotalCharges + float(balance)
-                totalBalance = round(totalBalance,2)
-                self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
-                self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
-            else:
-                MainWindow.show_popup(self,"Missing item!","Please choose an item from list and try again!")
-        else:
-            MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
+        dateIn = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+        dateOut = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+        #DATE CONVERSION FAILS
+        serviceID = object.addServicesDetails(careFee, nailFee, foodFee, hairFee, othergoods, subTotal, discount, "", Client_ID, tax, dateIn, dateOut, paid)
+        return subTotal
 
     def SubmitPayments(self):
         global TotalCharges
@@ -280,56 +220,38 @@ class PaymentFunctions(MainWindow):
             object = Database_Class()
             if(self.ui.pay_search_list.currentItem()):
                 clientId =self.ui.pay_search_list.currentItem().text(4) # CAN BE SELECTED FROM clients ARRAY
+                received = float(self.ui.pay_services_amt_recieved.text())
 
-                total = float(self.ui.pay_client_balance.text())
-
-                if (self.ui.pay_total_charge.text()):
-                    total += float(self.ui.pay_total_charge.text())
-            
-                received = self.ui.pay_services_amt_recieved.text()
-
-                newbalance = float(total) - float(received)
-
-                iterator = QtWidgets.QTreeWidgetItemIterator(self.ui.pay_list_widget)
-
-                object.SetClientAccountBalance(int(clientId),float(newbalance)) #!!!!!!!!!!!!!
-                PaymentFunctions.DisplayDetail(self)
-                self.ui.pay_services_amt_recieved.clear()
-                self.ui.pay_total_balance.clear()
-                self.ui.pay_total_charge.clear()
-
-                if (iterator.value()): # Receipt
-                    name =self.ui.pay_search_list.currentItem().text(0)
-                    canvas = Canvas(name+" receipt.pdf")
-                    canvas.drawString(100, 500, "Name")
-                    canvas.drawString(200, 500, name)
+                PaymentFunctions.AddServiceDetail(self,received)
+                PaymentFunctions.findUnpaidReservations(self)
+                # if (iterator.value()): # Receipt
+                #     name =self.ui.pay_search_list.currentItem().text(0)
+                #     canvas = Canvas(name+" receipt.pdf")
+                #     canvas.drawString(100, 500, "Name")
+                #     canvas.drawString(200, 500, name)
                     
-                    line_height_counter=0
-                    counter=1
-                    total=0
-                    canvas.drawString(100, 470, "Service Costs")
-                    while iterator.value():
-                        item = iterator.value()
-                        canvas.drawString(100, 455-line_height_counter, "Service-"+str(counter))
-                        canvas.drawString(200, 455-line_height_counter, item.text(1))
-                        line_height_counter += 15
-                        iterator += 1
-                        counter+=1
-                        total+=round(float(item.text(2)),2)
+                #     line_height_counter=0
+                #     counter=1
+                #     total=0
+                #     canvas.drawString(100, 470, "Service Costs")
+                #     while iterator.value():
+                #         item = iterator.value()
+                #         canvas.drawString(100, 455-line_height_counter, "Service-"+str(counter))
+                #         canvas.drawString(200, 455-line_height_counter, item.text(1))
+                #         line_height_counter += 15
+                #         iterator += 1
+                #         counter+=1
+                #         total+=round(float(item.text(2)),2)
 
-                    canvas.drawString(100, 440-line_height_counter, "Total Cost")
-                    canvas.drawString(200, 440-line_height_counter, str(total))
+                #     canvas.drawString(100, 440-line_height_counter, "Total Cost")
+                #     canvas.drawString(200, 440-line_height_counter, str(total))
 
-                    canvas.drawString(100, 410-line_height_counter, "Amount Paid")
-                    canvas.drawString(100, 395-line_height_counter, "Updated Balance")   
+                #     canvas.drawString(100, 410-line_height_counter, "Amount Paid")
+                #     canvas.drawString(100, 395-line_height_counter, "Updated Balance")   
 
-                    canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
-                    canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
-                    canvas.save()
-            
-                self.ui.pay_list_widget.clear()
-                TotalCharges = 0
-
+                #     canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
+                #     canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
+                #     canvas.save()
             else:
                 MainWindow.show_popup(self,"Missing Client!","Please search and choose a client")
             
@@ -351,37 +273,46 @@ class PaymentFunctions(MainWindow):
                 MainWindow.show_popup(self,"Missing Client!","Please search and choose a client or pet")
         else:
             MainWindow.show_popup(self,"Missing Arguments!","Please enter amount of received")
-       # object = Database_Class()
-       # object.SubmitPayment(row)
         
-    def clearServicesList(self):
-        global TotalCharges
+    def findUnpaidReservations(self):
+        self.ui.pay_list_widget.clear()
+        animalId= 1
+        clientId = int(self.ui.pay_search_list.currentItem().text(4))
+
         object = Database_Class()
 
-        root = self.ui.pay_list_widget.invisibleRootItem()
-        child_count = root.childCount()
-        for i in range(child_count-1,-1,-1):
-            item = root.child(i)
-            if (item):
-                sub = item.text(1)
-                serviceID = item.text(2)
-                Client_ID = current_client
-                object.removeServicesDetails(serviceID=serviceID,Client_ID=Client_ID,subTotal=sub)
+        result = object.findUnpaidReservations(animalID=animalId,clientID=clientId)
+        
+        for item in result:
+            self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["dateIn"].strftime("%m/%d/%Y"), item["dateOut"].strftime("%m/%d/%Y"), str(float(item["subTotal"]) - float(item["paidAmount"])) , str(float(item["subTotal"])), str(clientId), str(animalId), str(item["serviceID"])] ))
 
-                # remove the row
-                self.ui.pay_list_widget.takeTopLevelItem(i)
+    def payForUnpaidReservation(self):
+        if (self.ui.pay_list_widget.currentItem()):
+            clientId = int(self.ui.pay_list_widget.currentItem().text(4))
+            animalId = int(self.ui.pay_list_widget.currentItem().text(5))
+            serviceId = int(self.ui.pay_list_widget.currentItem().text(6))
 
-                # subtract sub_total from total charges.
-                TotalCharges -= float(sub)
-                TotalCharges = round(TotalCharges,2)
+            unpaid_balance = float(self.ui.pay_list_widget.currentItem().text(2))
+            total_balance = float(self.ui.pay_list_widget.currentItem().text(3))
 
-                # calculate total balance again.
-                balance =self.ui.pay_client_balance.text()
-                totalBalance = TotalCharges + float(balance)
-                totalBalance = round(totalBalance,2)
+            amount_received = float(self.ui.pay_services_amt_recieved_2.text())
+            object = Database_Class()
 
-                self.ui.pay_total_balance.setText("{:.2f}".format(totalBalance))
-                self.ui.pay_total_charge.setText("{:.2f}".format(TotalCharges))
-                #self.ui.pay_total_balance.clear()
+            if (amount_received > unpaid_balance):
+                MainWindow.show_popup(self,"Invalid Amount!","Received amaount must be less than Unpaid Balance")
             else:
-                break
+                totalPaid = amount_received + (total_balance - unpaid_balance)
+                debtClosed = totalPaid == total_balance
+                object.payForUnpaidReservation(amount=totalPaid,paid=debtClosed,animalID=animalId,clientID=clientId,serviceID=serviceId)
+
+                self.ui.pay_services_amt_recieved_2.clear()
+                PaymentFunctions.findUnpaidReservations(self)
+
+        else:
+            MainWindow.show_popup(self,"Invalid Operation!","Please select a reservation to take payment!")
+
+
+
+
+#self.ui.pay_add_list_btn_2.clicked.connect(lambda: PaymentFunctions.AddToList(self))
+#self.ui.deleteRow_button.clicked.connect(lambda: PaymentFunctions.removeFromList(self))
