@@ -46,7 +46,17 @@ class ReportFunctions(MainWindow):
                     if paw in self.paws:
                         print(paw)
                         self.paws.remove(paw)
-            ReportFunctions.updatePaymentDisplay(self)  
+            ReportFunctions.updatePaymentDisplay(self)        
+
+    def updatePaymentsList(self):
+        clientId = int(self.ui.report_search_list.currentItem().text(4))
+        object = Database_Class()
+
+        result = object.GetPaymentsbyClient(clientID=clientId)
+
+        for item in result:
+            self.ui.payment_history_table.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["PaymentDate"].strftime("%m/%d/%Y"), item["PaymentType"], "{:.2f}".format(float(item["AmountReceived"])), str(clientId), str(item["PaymentId"]), str(item["BookingID"])] ))
+
 """
     def DisplayDetail(self): # THIS FUNCTION IS CALLED WHEN A CUSTOMER IS CHOSEN FROM THE SEARCH LIST IN THE PAYMENT PAGE
         global current_client   
@@ -277,7 +287,7 @@ class ReportFunctions(MainWindow):
         else:
             MainWindow.show_popup(self,"Missing Client!","Please search and choose a pet")
 
-    def SubmitPayments(self):
+    def createService(self):
         global TotalCharges
         if(self.ui.pay_services_amt_recieved.text()):
             object = Database_Class()

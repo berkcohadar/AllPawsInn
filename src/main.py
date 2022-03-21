@@ -105,11 +105,11 @@ class MainWindow(QMainWindow):
         ########################################################################
 
         self.ui.pay_search_bar.textChanged.connect(lambda: PaymentFunctions.updatePaymentList(self))
-        self.ui.pay_take_payment_btn.clicked.connect(lambda: PaymentFunctions.SubmitPayments(self))
+        self.ui.pay_take_payment_btn.clicked.connect(lambda: PaymentFunctions.createService(self))
         #self.ui.res_list.setCurrentItem(self.ui.res_list.topLevelItem(0))
         self.ui.pay_search_list.itemClicked.connect(lambda: PaymentFunctions.DisplayDetail(self))
-        self.ui.pay_search_list.itemClicked.connect(lambda: PaymentFunctions.findUnpaidReservations(self))
-        self.ui.pay_take_payment_btn_2.clicked.connect(lambda: PaymentFunctions.payForUnpaidReservation(self))
+        self.ui.pay_search_list.itemClicked.connect(lambda: PaymentFunctions.findAllReservations(self))
+        self.ui.pay_take_payment_btn_2.clicked.connect(lambda: PaymentFunctions.payForClient(self))
 
         #self.ui.pay_add_list_btn_2.clicked.connect(lambda: PaymentFunctions.AddToList(self))
         #self.ui.deleteRow_button.clicked.connect(lambda: PaymentFunctions.removeFromList(self))
@@ -120,12 +120,13 @@ class MainWindow(QMainWindow):
         ## SERVICES
         ########################################################################
         self.ui.menu_btn_settings.clicked.connect(lambda: AdminFunctions.GetServices(self))
-        self.ui.pay_services_discount.textChanged.connect(lambda : PaymentFunctions.AddServices(self))
-        self.ui.pay_services_food.clicked.connect(lambda : PaymentFunctions.AddServices(self))
-        self.ui.pay_services_hair.clicked.connect(lambda : PaymentFunctions.AddServices(self))
-        self.ui.pay_services_nails.clicked.connect(lambda : PaymentFunctions.AddServices(self))
-        self.ui.pay_daycare_checkbox.clicked.connect(lambda : PaymentFunctions.AddServices(self))
-        self.ui.pay_services_other_goods.textChanged.connect(lambda : PaymentFunctions.AddServices(self))
+        self.ui.pay_services_discount.textChanged.connect(lambda : PaymentFunctions.calculateService(self))
+        self.ui.pay_services_food.clicked.connect(lambda : PaymentFunctions.calculateService(self))
+        self.ui.pay_services_hair.clicked.connect(lambda : PaymentFunctions.calculateService(self))
+        self.ui.pay_services_nails.clicked.connect(lambda : PaymentFunctions.calculateService(self))
+        self.ui.pay_daycare_checkbox.clicked.connect(lambda : PaymentFunctions.calculateService(self))
+        self.ui.pay_services_other_goods.textChanged.connect(lambda : PaymentFunctions.calculateService(self))
+        self.ui.pay_services_amt_recieved.textChanged.connect(lambda : PaymentFunctions.calculateService(self))
 
         self.ui.admin_service_change_cost_btn.clicked.connect(lambda: AdminFunctions.ChangeServiceCost(self))
         self.ui.admin_service_list.itemClicked.connect(lambda: AdminFunctions.ChangeCurrentService(self))
@@ -183,6 +184,7 @@ class MainWindow(QMainWindow):
         ############################################# REPORTS ############################################
 
         self.ui.report_search_bar.textChanged.connect(lambda: ReportFunctions.updateClientsList(self))
+        self.ui.report_search_list.itemClicked.connect(lambda: ReportFunctions.updatePaymentsList(self))
          
         ############################################# EDIT CLIENT ############################################
 

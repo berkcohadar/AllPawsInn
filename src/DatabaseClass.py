@@ -170,14 +170,11 @@ class Database_Class(object):
         results=cursor.execute(query)
         return results
 
-    def findUnpaidReservations(self, animalID, clientID):
-        # table  => ServicesDetails
-        # input  => .customerID=id .animalID=id .paid=0
-        # output => .subTotal .paidAmount .dateIn .dateOut
+    def findAllReservations(self, animalID, clientID):
         cursor = conn.cursor()
-        query="""SELECT ServicesDetails.subTotal,ServicesDetails.paidAmount, ServicesDetails.dateIn, ServicesDetails.dateOut, ServicesDetails.serviceID
+        query="""SELECT ServicesDetails.subTotal, ServicesDetails.dateIn, ServicesDetails.dateOut, ServicesDetails.serviceID
                      FROM ServicesDetails
-                     WHERE ServicesDetails.animalID='%d' AND ServicesDetails.customerID='%d' AND paid=0 """%(animalID,clientID)
+                     WHERE ServicesDetails.animalID='%d' AND ServicesDetails.customerID='%d'"""%(animalID,clientID)
         result = cursor.execute(query)
         columns = [column[0] for column in result.description]
         results = []
@@ -185,11 +182,25 @@ class Database_Class(object):
             results.append(dict(zip(columns, row)))
 
         return results  
-    def payForUnpaidReservation(self, amount, paid, animalID, clientID, serviceID):
+   
+    def createPayment(self, customerId, paymentAmount, paymentDate, paymentType, serviceID):
         cursor = conn.cursor()
-        query="""UPDATE ServicesDetails SET paidAmount='%2f', paid='%d' WHERE ServicesDetails.animalID='%d' AND ServicesDetails.customerID='%d' AND ServicesDetails.serviceID='%d'AND paid=0 """%(amount,paid,animalID,clientID,serviceID)
+        query="""INSERT INTO Payments 
+                    (PaymentDate,ClientID,AmountReceived,PaymentType) 
+                    VALUES ('%s','%d','%2f','%s')"""%(paymentDate, customerId, paymentAmount,  paymentType)
+        
+        if (serviceID):
+            query="""INSERT INTO Payments 
+                    (BookingID,PaymentDate,ClientID,AmountReceived,PaymentType) 
+                    VALUES ('%d','%s','%d','%2f','%s')"""%(serviceID, paymentDate, customerId, paymentAmount,  paymentType)
+
         cursor.execute(query)
         conn.commit()
+
+        currentBalance = float(Database_Class.GetClientAccountBalance(self, ClientID=customerId)[0])
+        newBalance = currentBalance-paymentAmount
+        Database_Class.SetClientAccountBalance(self, ClientID=customerId,NewBalance=newBalance)
+
     #---------------RESERVATION FUNCTIONS END-----------------------
 
 
@@ -282,8 +293,24 @@ class Database_Class(object):
         query="""UPDATE ClientDetails SET AccountBalance='%2f' WHERE ClientID='%d'"""%(newbalance,int(id))
         cursor.execute(query)
         conn.commit()
+    
+    def GetPaymentsbyClient(self,clientID):
+        cursor = conn.cursor()
+        query="""SELECT Payments.PaymentId, Payments.BookingID, Payments.PaymentDate, Payments.PaymentType, Payments.AmountReceived
+                     FROM Payments 
+                     WHERE ClientID='%d' """%(clientID)
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
           
     #---------------PAYMENT FUNCTIONS END-----------------------
+
+    #---------------REPORT FUCNTIONS START-------------------
+    
+    #---------------REPORT FUNCTIONS END-----------------------    
 
   #---------------ADDITIONAL PET FUNCTIONS STARTS-----------------------
 
@@ -303,7 +330,7 @@ class Database_Class(object):
 
   
     #---------------SERVICE FUNCTIONS STARTS-----------------------
-    def addServicesDetails(self,dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, Client_ID, tax, dateIn, dateOut, paid):
+    def addServicesDetails(self,dayCareRate, nails, food, hair, otherGoods, subTotal, discount, Client_ID, animalID, tax, dateIn, dateOut):
         cursor = conn.cursor()
 
         query="""SELECT TOP (1) [serviceID] FROM [ServicesDetails] ORDER BY serviceID DESC"""
@@ -312,9 +339,9 @@ class Database_Class(object):
         if (serviceID) :
             serviceID = serviceID[0] + 1
         else:
-            serviceID = 0
+            serviceID = 1
 
-        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, paymentType, customerID, tax, dateIn, dateOut, paid, serviceID) VALUES ('%d','%d','%d','%d','%d','%d','%d','%s','%d','%d','%s','%s','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,paymentType,Client_ID,tax, dateIn, dateOut, paid, serviceID)
+        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, customerID, tax, dateIn, dateOut, serviceID, animalID) VALUES ('%2f','%2f','%2f','%2f','%2f','%2f','%2f','%d','%2f','%s','%s','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,Client_ID,tax, dateIn, dateOut, serviceID, animalID)
         row=cursor.execute(query)
 
         query="""SELECT TOP (1) [AccountBalance] FROM [ClientDetails] WHERE ClientiD='%d'"""%(int(Client_ID))
