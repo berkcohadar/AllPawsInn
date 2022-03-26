@@ -187,7 +187,7 @@ class ReportFunctions(MainWindow):
         # canvas.showPage() # adds a blank page
         object = Database_Class()
         customer = object.GetClientInfo(id=customerID)[0]
-        payment = object.GetPaymentsbyID(id=paymentID)[0]
+        payment = object.GetPaymentsbyID(paymentID=paymentID)[0]
 
         startingLineY = 700 
         line_height_counter = 24

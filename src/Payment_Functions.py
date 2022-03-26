@@ -225,10 +225,10 @@ class PaymentFunctions(MainWindow):
         taxTotal = subTotal * tax 
         subTotal += taxTotal
 
-        # flag to check whether the payment is fully taken
-        received = float(self.ui.pay_services_amt_recieved.text())
-        paid = subTotal == received
-
+        received = 0.0
+        if (self.ui.pay_services_amt_recieved.text() != ''):
+            received = float(self.ui.pay_services_amt_recieved.text())
+            
         animalId= int(self.ui.pay_search_list.currentItem().text(3))
         clientId = int(self.ui.pay_search_list.currentItem().text(4))
         dateIn = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -266,20 +266,19 @@ class PaymentFunctions(MainWindow):
             today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             if (serviceID!=NULL):
-                object.createPayment(customerId=clientId, paymentAmount=paymentAmount, paymentDate= today, paymentType="", serviceID=serviceID)
+                paymentId = object.createPayment(customerId=clientId, paymentAmount=paymentAmount, paymentDate= today, paymentType="", serviceID=serviceID)
+                ReportFunctions.printReceiptWithService(ReportFunctions, customerID=clientId, serviceID=serviceID)
 
             else:
+                amount_received = 0.0
                 if (self.ui.pay_services_amt_recieved_2.text() != ''):
-                    amount_received = float(self.ui.pay_services_amt_recieved_2.text())
-                else:
-                    amount_received = 0.0
+                    amount_received = float(self.ui.pay_services_amt_recieved_2.text())                  
                 
-                object.createPayment(customerId=clientId, paymentAmount=amount_received, paymentDate= today, paymentType="", serviceID=NULL)
+                paymentId = object.createPayment(customerId=clientId, paymentAmount=amount_received, paymentDate= today, paymentType="", serviceID=NULL)
+                ReportFunctions.printReceiptWithoutService(ReportFunctions, customerID=clientId, paymentID=paymentId)
 
             PaymentFunctions.refreshPaymentPage(self)
-                
-            # CREATE RECEIPT
-
+            
         else:
             MainWindow.show_popup(self,"Invalid Operation!","Please select a customer to take payment!")
 

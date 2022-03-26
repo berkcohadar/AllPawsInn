@@ -201,6 +201,11 @@ class Database_Class(object):
         newBalance = currentBalance-paymentAmount
         Database_Class.SetClientAccountBalance(self, ClientID=customerId,NewBalance=newBalance)
 
+        query="""SELECT TOP (1) [PaymentId] FROM [Payments] ORDER BY PaymentId DESC"""
+        row=cursor.execute(query)
+        paymentID=row.fetchone()
+        return paymentID[0]
+
     #---------------RESERVATION FUNCTIONS END-----------------------
 
 
