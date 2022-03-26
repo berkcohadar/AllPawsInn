@@ -187,6 +187,8 @@ class MainWindow(QMainWindow):
         self.ui.report_search_list.itemClicked.connect(lambda: ReportFunctions.updatePaymentsList(self))
         self.ui.date_customer_receipt_button.clicked.connect(lambda:  ReportFunctions.printReceiptWithinDates(self))
         self.ui.get_single_receipt.clicked.connect(lambda:  ReportFunctions.printReceipt(self))
+        self.ui.monthly_report_button.clicked.connect(lambda:  ReportFunctions.printReportMonthly(self))
+        self.ui.annual_report_button.clicked.connect(lambda:  ReportFunctions.printReportYearly(self))
          
         ############################################# EDIT CLIENT ############################################
 

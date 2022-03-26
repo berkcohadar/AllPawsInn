@@ -340,6 +340,11 @@ class Database_Class(object):
         query="""SELECT Payments.PaymentId, Payments.BookingID, Payments.PaymentDate, Payments.PaymentType, Payments.AmountReceived
                      FROM Payments 
                      WHERE ClientID='%d' and  Payments.PaymentDate >='%s' and Payments.PaymentDate  <='%s' """%(customerID, startDate, endDate)
+        if (customerID == -1): ## No customer is specified
+            query="""SELECT Payments.PaymentId, Payments.BookingID, Payments.PaymentDate, Payments.PaymentType, Payments.AmountReceived
+                     FROM Payments 
+                     WHERE Payments.PaymentDate >='%s' and Payments.PaymentDate  <='%s' """%(startDate, endDate)
+
         result = cursor.execute(query)
         columns = [column[0] for column in result.description]
         results = []
@@ -349,11 +354,7 @@ class Database_Class(object):
           
     #---------------PAYMENT FUNCTIONS END-----------------------
 
-    #---------------REPORT FUCNTIONS START-------------------
-    
-    #---------------REPORT FUNCTIONS END-----------------------    
-
-  #---------------ADDITIONAL PET FUNCTIONS STARTS-----------------------
+    #---------------ADDITIONAL PET FUNCTIONS STARTS-----------------------
 
     def DeleteAnimal(self,id):
         cursor = conn.cursor()
@@ -365,7 +366,7 @@ class Database_Class(object):
         query="""INSERT INTO Animals (ClientID,AnimalName,TypeID,Breed,Sex,MedicalConditions,Food1Type,Food1Freq,Food1Amount,Age) VALUES ('%d','%s','%d','%s','%s','%s','%d','%s','%s','%d')"""%(int(clientid),animalrow[0],1,animalrow[1],animalrow[2],animalrow[3],int(animalrow[4]),animalrow[5],animalrow[6],int(animalrow[7]))
         cursor.execute(query)
         conn.commit()
-  #---------------ADDITIONAL PET FUNCTIONS END-----------------------
+    #---------------ADDITIONAL PET FUNCTIONS END-----------------------
 
 
 

@@ -299,7 +299,105 @@ class ReportFunctions(MainWindow):
         else:
             MainWindow.show_popup(self,"Invalid Operation!","Please select a customer & payment to take a receipt!")
 
-    
+    def printReportMonthly(self):
+        dayStart = "01"
+        dayEnd = "30"
+
+        months = {
+            "January":"1",
+            "February":"2",
+            "March":"3",
+            "April":"4",
+            "May":"5",
+            "June":"6",
+            "July":"7",
+            "August":"8",
+            "September":"9",
+            "October":"10",
+            "November":"11",
+            "December":"12",
+        }
+
+        month = self.ui.comboBox_4.currentText()
+        year = self.ui.comboBox_5.currentText()
+
+        startDate = year+"-"+months[month]+"-"+dayStart
+        endDate = year+"-"+months[month]+"-"+dayEnd
+
+        object = Database_Class()
+        payments = object.GetPaymentsbyDateRange(customerID=-1,startDate=startDate, endDate=endDate)
+        ReportFunctions.printReport(self, payments, "Monthly")
+
+    def printReportYearly(self):
+        dayStart = "01"
+        dayEnd = "30"
+
+        months = {
+            "January":"1",
+            "February":"2",
+            "March":"3",
+            "April":"4",
+            "May":"5",
+            "June":"6",
+            "July":"7",
+            "August":"8",
+            "September":"9",
+            "October":"10",
+            "November":"11",
+            "December":"12",
+        }
+
+        month = self.ui.comboBox_4.currentText()
+        year = self.ui.comboBox_5.currentText()
+        
+        startDate = str(int(year)-1)+"-"+months[month]+"-"+dayStart
+        endDate = year+"-"+months[month]+"-"+dayEnd
+
+        object = Database_Class()
+        payments = object.GetPaymentsbyDateRange(customerID=-1,startDate=startDate, endDate=endDate)
+        ReportFunctions.printReport(self, payments, "Yearly")
+
+    def printReport(self,payments, type):
+        object = Database_Class()
+        servicesinfo= object.GetDayCareRateAndTax(4)
+
+        tax = 0
+        for  service in servicesinfo:
+            tax = service[1]
+
+        total_paid = 0
+
+        startingLineY = 750 
+        startingLineX = 100
+        endingLineX = 250
+        line_height_counter = 24
+
+        canvas = Canvas(type+" Report.pdf")
+
+        for payment in payments:
+            total_paid += float(payment["AmountReceived"])
+
+        total_tax = float(total_paid)*(tax/100)
+            
+        canvas.drawString(startingLineX, startingLineY, "Total Income")
+        canvas.drawString(endingLineX, startingLineY, "$"+str(total_paid))
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Total Tax")
+        canvas.drawString(endingLineX, startingLineY, "$"+ str(total_tax) )
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Taxable Income")
+        canvas.drawString(endingLineX, startingLineY, "$"+str(total_paid-total_tax))
+        startingLineY -= line_height_counter
+
+        canvas.save()
+
+# taxable income - total income
+
+
+
+
 
 
 
