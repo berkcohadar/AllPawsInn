@@ -76,11 +76,7 @@ class ReportFunctions(MainWindow):
         service = object.getSingleServicesDetails(serviceID=serviceID)[0]
         animal = object.GetAnimalInfo(id=service['animalID'])[0]
         payment = object.GetPaymentsbyService(serviceID=serviceID)[0]
-
-        print("CUSTOMER: ", customer)
-        print("SERVICE: ", service)
-        print("ANIMAL: ", animal)
-
+        
         # customer['Address1'] # customer['Town'] # customer['PostcodeZIP']
         # customer['CellMobile']  # customer['Email']
         # payment["PaymentType"]
@@ -105,7 +101,7 @@ class ReportFunctions(MainWindow):
 
         canvas.drawString(startingLineX, startingLineY, "Account Debt")
         canvas.setFont('Helvetica-Bold', 12)
-        canvas.drawString(endingLineX, startingLineY, "$"+str(customer['AccountBalance']))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(customer['AccountBalance']))
         canvas.setFont('Helvetica', 12) 
         startingLineY -= line_height_counter
 
@@ -121,36 +117,36 @@ class ReportFunctions(MainWindow):
 
         if (int(service['dayCareRate']) > 0):
             canvas.drawString(startingLineX, startingLineY, "Day Care Fee")
-            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['dayCareRate']))
+            canvas.drawString(endingLineX, startingLineY, "+ $"+"{:.2f}".format(service['dayCareRate']))
             startingLineY -= line_height_counter
 
         if (int(service['nails']) > 0):
             canvas.drawString(startingLineX, startingLineY, "Nails Fee")
-            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['nails']))
+            canvas.drawString(endingLineX, startingLineY, "+ $"+"{:.2f}".format(service['nails']))
             startingLineY -= line_height_counter
 
         if (int(service['food']) > 0):
             canvas.drawString(startingLineX, startingLineY, "Food Fee")
-            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['food']))
+            canvas.drawString(endingLineX, startingLineY, "+ $"+"{:.2f}".format(service['food']))
             startingLineY -= line_height_counter
 
         if (int(service['otherGoods']) > 0):
             canvas.drawString(startingLineX, startingLineY, "Other Goods")
-            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['otherGoods']))
+            canvas.drawString(endingLineX, startingLineY, "+ $"+"{:.2f}".format(service['otherGoods']))
             startingLineY -= line_height_counter
 
         if (int(service['discount']) > 0):
             canvas.drawString(startingLineX, startingLineY, "Discount")
-            canvas.drawString(endingLineX, startingLineY, "- $"+str(service['discount']))
+            canvas.drawString(endingLineX, startingLineY, "- $"+"{:.2f}".format(service['discount']))
             startingLineY -= line_height_counter
 
         startingLineY -= line_height_counter
         canvas.drawString(startingLineX, startingLineY, "Subtotal")
-        canvas.drawString(endingLineX, startingLineY, "$"+str(float(service['subTotal']) - float(service['tax'])))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(float(service['subTotal']) - float(service['tax'])))
         startingLineY -= line_height_counter
 
         canvas.drawString(startingLineX, startingLineY, "Tax")
-        canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['tax']))
+        canvas.drawString(endingLineX, startingLineY, "+ $"+"{:.2f}".format(service['tax']))
         startingLineY -= line_height_counter
 
         startingLineY -= line_height_counter
@@ -165,19 +161,19 @@ class ReportFunctions(MainWindow):
 
         canvas.drawString(startingLineX, startingLineY, "Total")
         canvas.setFont('Helvetica-Bold', 12)
-        canvas.drawString(endingLineX, startingLineY, "$"+str(service['subTotal']))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(service['subTotal']))
         canvas.setFont('Helvetica', 12)
         startingLineY -= line_height_counter
 
         canvas.drawString(startingLineX, startingLineY, "Deposit")
         canvas.setFont('Helvetica-Bold', 12)    
-        canvas.drawString(endingLineX, startingLineY, "- $"+str(payment["AmountReceived"]))
+        canvas.drawString(endingLineX, startingLineY, "- $"+"{:.2f}".format(payment["AmountReceived"]))
         canvas.setFont('Helvetica', 12) 
         startingLineY -= line_height_counter
 
         canvas.drawString(startingLineX, startingLineY, "Remaining")
         canvas.setFont('Helvetica-Bold', 12)
-        canvas.drawString(endingLineX, startingLineY, "$"+str(float(service['subTotal']) - float(payment["AmountReceived"])))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(float(service['subTotal']) - float(payment["AmountReceived"])))
         canvas.setFont('Helvetica', 12)
         startingLineY -= line_height_counter
 
@@ -204,7 +200,7 @@ class ReportFunctions(MainWindow):
 
         canvas.drawString(startingLineX, startingLineY, "Account Debt")
         canvas.setFont('Helvetica-Bold', 12)
-        canvas.drawString(endingLineX, startingLineY, "$"+str(customer['AccountBalance']))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(customer['AccountBalance']))
         canvas.setFont('Helvetica', 12) 
         startingLineY -= line_height_counter
 
@@ -220,7 +216,7 @@ class ReportFunctions(MainWindow):
 
         canvas.drawString(startingLineX, startingLineY, "Deposit")
         canvas.setFont('Helvetica-Bold', 12)    
-        canvas.drawString(endingLineX, startingLineY, "- $"+str(payment["AmountReceived"]))
+        canvas.drawString(endingLineX, startingLineY, "- $"+"{:.2f}".format(payment["AmountReceived"]))
         canvas.setFont('Helvetica', 12) 
         startingLineY -= line_height_counter
 
@@ -254,7 +250,7 @@ class ReportFunctions(MainWindow):
 
             canvas.drawString(startingLineX, startingLineY, "Account Debt")
             canvas.setFont('Helvetica-Bold', 12)
-            canvas.drawString(endingLineX, startingLineY, "$"+str(customer['AccountBalance']))
+            canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(customer['AccountBalance']))
             canvas.setFont('Helvetica', 12) 
             startingLineY -= line_height_counter
 
@@ -277,7 +273,7 @@ class ReportFunctions(MainWindow):
 
                 canvas.drawString(startingLineX, startingLineY, "Amount")
                 canvas.setFont('Helvetica-Bold', 12)    
-                canvas.drawString(endingLineX, startingLineY, "$"+str(payment["AmountReceived"]))
+                canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(payment["AmountReceived"]))
                 canvas.setFont('Helvetica', 12) 
                 startingLineY -= line_height_counter
 
@@ -290,7 +286,7 @@ class ReportFunctions(MainWindow):
             startingLineY -= line_height_counter
             canvas.drawString(startingLineX, startingLineY, "Total Paid")
             canvas.setFont('Helvetica-Bold', 12)
-            canvas.drawString(endingLineX, startingLineY, "$"+str(total_paid))
+            canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(total_paid))
             canvas.setFont('Helvetica', 12) 
             startingLineY -= line_height_counter
 
@@ -380,15 +376,15 @@ class ReportFunctions(MainWindow):
         total_tax = float(total_paid)*(tax/100)
             
         canvas.drawString(startingLineX, startingLineY, "Total Income")
-        canvas.drawString(endingLineX, startingLineY, "$"+str(total_paid))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(total_paid))
         startingLineY -= line_height_counter
 
         canvas.drawString(startingLineX, startingLineY, "Total Tax")
-        canvas.drawString(endingLineX, startingLineY, "$"+ str(total_tax) )
+        canvas.drawString(endingLineX, startingLineY, "$"+ "{:.2f}".format(total_tax) )
         startingLineY -= line_height_counter
 
         canvas.drawString(startingLineX, startingLineY, "Taxable Income")
-        canvas.drawString(endingLineX, startingLineY, "$"+str(total_paid-total_tax))
+        canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(total_paid-total_tax))
         startingLineY -= line_height_counter
 
         canvas.save()
