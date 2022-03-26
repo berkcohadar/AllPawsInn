@@ -334,6 +334,18 @@ class Database_Class(object):
         for row in result.fetchall():
             results.append(dict(zip(columns, row)))
         return results
+
+    def GetPaymentsbyDateRange(self, customerID, startDate, endDate):
+        cursor = conn.cursor()
+        query="""SELECT Payments.PaymentId, Payments.BookingID, Payments.PaymentDate, Payments.PaymentType, Payments.AmountReceived
+                     FROM Payments 
+                     WHERE ClientID='%d' and  Payments.PaymentDate >='%s' and Payments.PaymentDate  <='%s' """%(customerID, startDate, endDate)
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
           
     #---------------PAYMENT FUNCTIONS END-----------------------
 

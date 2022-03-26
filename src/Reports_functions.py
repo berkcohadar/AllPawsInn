@@ -184,7 +184,6 @@ class ReportFunctions(MainWindow):
         canvas.save()
 
     def printReceiptWithoutService(self, customerID, paymentID):
-        # canvas.showPage() # adds a blank page
         object = Database_Class()
         customer = object.GetClientInfo(id=customerID)[0]
         payment = object.GetPaymentsbyID(paymentID=paymentID)[0]
@@ -227,8 +226,80 @@ class ReportFunctions(MainWindow):
 
         canvas.save()
 
+    def printReceiptWithinDates(self):
+        if (self.ui.report_search_list.currentItem()):
+            object = Database_Class()
+            customerID = int(self.ui.report_search_list.currentItem().text(4))
+            startDate = self.ui.report_date_start.date().toString("yyyy-MM-dd")
+            endDate = self.ui.report_date_end.date().toString("yyyy-MM-dd")
 
+            customer = object.GetClientInfo(id=customerID)[0]
+            payments = object.GetPaymentsbyDateRange(customerID=customerID, startDate=startDate, endDate=endDate)
 
+            startingLineY = 750 
+            line_height_counter = 24
+
+            startingLineX = 100
+            endingLineX = 250
+
+            total_paid = 0
+
+            name = customer['FirstName'] + " " + customer['LastName']
+            canvas = Canvas(name+" receipt.pdf")
+            canvas.setFont('Helvetica', 12)
+
+            canvas.drawString(startingLineX, startingLineY, "Customer")
+            canvas.drawString(endingLineX, startingLineY, name)
+            startingLineY -= line_height_counter
+
+            canvas.drawString(startingLineX, startingLineY, "Account Debt")
+            canvas.setFont('Helvetica-Bold', 12)
+            canvas.drawString(endingLineX, startingLineY, "$"+str(customer['AccountBalance']))
+            canvas.setFont('Helvetica', 12) 
+            startingLineY -= line_height_counter
+
+            startingLineY -= line_height_counter
+            canvas.setFont('Helvetica-Bold', 12)
+            canvas.drawString(startingLineX, startingLineY, "Payments")
+            canvas.setFont('Helvetica', 12)
+            startingLineY -= line_height_counter
+
+            for payment in payments:
+                total_paid += float(payment["AmountReceived"])
+
+                canvas.drawString(startingLineX, startingLineY, "Date")
+                canvas.drawString(endingLineX, startingLineY, payment['PaymentDate'].strftime("%m/%d/%Y"))
+                startingLineY -= line_height_counter
+
+                if (startingLineY<115):
+                    canvas.showPage() # adds a blank page
+                    startingLineY = 750
+
+                canvas.drawString(startingLineX, startingLineY, "Amount")
+                canvas.setFont('Helvetica-Bold', 12)    
+                canvas.drawString(endingLineX, startingLineY, "$"+str(payment["AmountReceived"]))
+                canvas.setFont('Helvetica', 12) 
+                startingLineY -= line_height_counter
+
+                startingLineY -= line_height_counter
+
+                if (startingLineY<115):
+                    canvas.showPage() # adds a blank page
+                    startingLineY = 750
+
+            startingLineY -= line_height_counter
+            canvas.drawString(startingLineX, startingLineY, "Total Paid")
+            canvas.setFont('Helvetica-Bold', 12)
+            canvas.drawString(endingLineX, startingLineY, "$"+str(total_paid))
+            canvas.setFont('Helvetica', 12) 
+            startingLineY -= line_height_counter
+
+            canvas.save()
+  
+        else:
+            MainWindow.show_popup(self,"Invalid Operation!","Please select a customer & payment to take a receipt!")
+
+    
 
 
 
