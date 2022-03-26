@@ -3,7 +3,6 @@ current_client=-1
 from asyncio.windows_events import NULL
 from http import client
 from Reports_functions import *
-from reportlab.pdfgen.canvas import Canvas
 from datetime import datetime
 
 class PaymentFunctions(MainWindow):
@@ -288,31 +287,3 @@ class PaymentFunctions(MainWindow):
         PaymentFunctions.findAllReservations(self)
         PaymentFunctions.DisplayDetail(self)
         PaymentFunctions.updatePaymentList(self)
-
-    def createReceipt(self):
-        # if (iterator.value()): # Receipt
-        #     name =self.ui.pay_search_list.currentItem().text(0)
-        #     canvas = Canvas(name+" receipt.pdf")
-        #     canvas.drawString(100, 500, "Name")
-        #     canvas.drawString(200, 500, name)
-            
-        #     line_height_counter=0
-        #     counter=1
-        #     total=0
-        #     canvas.drawString(100, 470, "Service Costs")
-        #     while iterator.value():
-        #         item = iterator.value()
-        #         canvas.drawString(100, 455-line_height_counter, "Service-"+str(counter))
-        #         canvas.drawString(200, 455-line_height_counter, item.text(1))
-        #         line_height_counter += 15
-        #         iterator += 1
-        #         counter+=1
-        #         total+=round(float(item.text(2)),2)
-        #     canvas.drawString(100, 440-line_height_counter, "Total Cost")
-        #     canvas.drawString(200, 440-line_height_counter, str(total))
-        #     canvas.drawString(100, 410-line_height_counter, "Amount Paid")
-        #     canvas.drawString(100, 395-line_height_counter, "Updated Balance")   
-        #     canvas.drawString(200, 410-line_height_counter, "{:.2f}".format(float(received)))
-        #     canvas.drawString(200, 395-line_height_counter, "{:.2f}".format(newbalance))
-        #     canvas.save()
-        return

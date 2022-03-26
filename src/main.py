@@ -185,6 +185,7 @@ class MainWindow(QMainWindow):
 
         self.ui.report_search_bar.textChanged.connect(lambda: ReportFunctions.updateClientsList(self))
         self.ui.report_search_list.itemClicked.connect(lambda: ReportFunctions.updatePaymentsList(self))
+        self.ui.get_single_receipt.clicked.connect(lambda:  ReportFunctions.printReceipt(self))
          
         ############################################# EDIT CLIENT ############################################
 

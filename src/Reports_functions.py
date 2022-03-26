@@ -57,6 +57,194 @@ class ReportFunctions(MainWindow):
         for item in result:
             self.ui.payment_history_table.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["PaymentDate"].strftime("%m/%d/%Y"), item["PaymentType"], "{:.2f}".format(float(item["AmountReceived"])), str(clientId), str(item["PaymentId"]), str(item["BookingID"])] ))
 
+    def printReceipt(self):
+        if (self.ui.payment_history_table.currentItem()):
+            if (self.ui.payment_history_table.currentItem().text(5) != "None"):
+                serviceID = int(self.ui.payment_history_table.currentItem().text(5))
+                customerID = int(self.ui.report_search_list.currentItem().text(4))
+                ReportFunctions.printReceiptWithService(self, customerID, serviceID)
+            else:
+                paymentID = int(self.ui.report_search_list.currentItem().text(4))
+                customerID = int(self.ui.report_search_list.currentItem().text(4))
+                ReportFunctions.printReceiptWithoutService(self, customerID, paymentID)
+        else:
+            MainWindow.show_popup(self,"Invalid Operation!","Please select a customer & payment to take a receipt!")
+
+    def printReceiptWithService(self,customerID, serviceID):
+        object = Database_Class()
+        customer = object.GetClientInfo(id=customerID)[0]
+        service = object.getSingleServicesDetails(serviceID=serviceID)[0]
+        animal = object.GetAnimalInfo(id=service['animalID'])[0]
+        payment = object.GetPaymentsbyService(serviceID=serviceID)[0]
+
+        print("CUSTOMER: ", customer)
+        print("SERVICE: ", service)
+        print("ANIMAL: ", animal)
+
+        # customer['Address1'] # customer['Town'] # customer['PostcodeZIP']
+        # customer['CellMobile']  # customer['Email']
+        # payment["PaymentType"]
+
+        startingLineY = 700 
+        line_height_counter = 24
+
+        startingLineX = 100
+        endingLineX = 250
+
+        name = customer['FirstName'] + " " + customer['LastName']
+        canvas = Canvas(name+" receipt.pdf")
+        canvas.setFont('Helvetica', 12)
+
+        canvas.drawString(startingLineX, startingLineY, "Customer")
+        canvas.drawString(endingLineX, startingLineY, name)
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Pet Name")
+        canvas.drawString(endingLineX, startingLineY, animal["AnimalName"])
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Account Debt")
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(endingLineX, startingLineY, "$"+str(customer['AccountBalance']))
+        canvas.setFont('Helvetica', 12) 
+        startingLineY -= line_height_counter
+
+        startingLineY -= line_height_counter
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(startingLineX, startingLineY, "Reservation Details")
+        canvas.setFont('Helvetica', 12)
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Reservation Dates")
+        canvas.drawString(endingLineX, startingLineY, service['dateIn'].strftime("%m/%d/%Y") + " - " + service['dateIn'].strftime("%m/%d/%Y"))
+        startingLineY -= line_height_counter
+
+        if (int(service['dayCareRate']) > 0):
+            canvas.drawString(startingLineX, startingLineY, "Day Care Fee")
+            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['dayCareRate']))
+            startingLineY -= line_height_counter
+
+        if (int(service['nails']) > 0):
+            canvas.drawString(startingLineX, startingLineY, "Nails Fee")
+            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['nails']))
+            startingLineY -= line_height_counter
+
+        if (int(service['food']) > 0):
+            canvas.drawString(startingLineX, startingLineY, "Food Fee")
+            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['food']))
+            startingLineY -= line_height_counter
+
+        if (int(service['otherGoods']) > 0):
+            canvas.drawString(startingLineX, startingLineY, "Other Goods")
+            canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['otherGoods']))
+            startingLineY -= line_height_counter
+
+        if (int(service['discount']) > 0):
+            canvas.drawString(startingLineX, startingLineY, "Discount")
+            canvas.drawString(endingLineX, startingLineY, "- $"+str(service['discount']))
+            startingLineY -= line_height_counter
+
+        startingLineY -= line_height_counter
+        canvas.drawString(startingLineX, startingLineY, "Subtotal")
+        canvas.drawString(endingLineX, startingLineY, "$"+str(float(service['subTotal']) - float(service['tax'])))
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Tax")
+        canvas.drawString(endingLineX, startingLineY, "+ $"+str(service['tax']))
+        startingLineY -= line_height_counter
+
+        startingLineY -= line_height_counter
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(startingLineX, startingLineY, "Payment Details")
+        canvas.setFont('Helvetica', 12)
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Payment Date")
+        canvas.drawString(endingLineX, startingLineY, payment['PaymentDate'].strftime("%m/%d/%Y"))
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Total")
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(endingLineX, startingLineY, "$"+str(service['subTotal']))
+        canvas.setFont('Helvetica', 12)
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Deposit")
+        canvas.setFont('Helvetica-Bold', 12)    
+        canvas.drawString(endingLineX, startingLineY, "- $"+str(payment["AmountReceived"]))
+        canvas.setFont('Helvetica', 12) 
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Remaining")
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(endingLineX, startingLineY, "$"+str(float(service['subTotal']) - float(payment["AmountReceived"])))
+        canvas.setFont('Helvetica', 12)
+        startingLineY -= line_height_counter
+
+        canvas.save()
+
+    def printReceiptWithoutService(self, customerID, paymentID):
+        # canvas.showPage() # adds a blank page
+        object = Database_Class()
+        customer = object.GetClientInfo(id=customerID)[0]
+        payment = object.GetPaymentsbyID(id=paymentID)[0]
+
+        startingLineY = 700 
+        line_height_counter = 24
+
+        startingLineX = 100
+        endingLineX = 250
+
+        name = customer['FirstName'] + " " + customer['LastName']
+        canvas = Canvas(name+" receipt.pdf")
+        canvas.setFont('Helvetica', 12)
+
+        canvas.drawString(startingLineX, startingLineY, "Customer")
+        canvas.drawString(endingLineX, startingLineY, name)
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Account Debt")
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(endingLineX, startingLineY, "$"+str(customer['AccountBalance']))
+        canvas.setFont('Helvetica', 12) 
+        startingLineY -= line_height_counter
+
+        startingLineY -= line_height_counter
+        canvas.setFont('Helvetica-Bold', 12)
+        canvas.drawString(startingLineX, startingLineY, "Payment Details")
+        canvas.setFont('Helvetica', 12)
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Payment Date")
+        canvas.drawString(endingLineX, startingLineY, payment['PaymentDate'].strftime("%m/%d/%Y"))
+        startingLineY -= line_height_counter
+
+        canvas.drawString(startingLineX, startingLineY, "Deposit")
+        canvas.setFont('Helvetica-Bold', 12)    
+        canvas.drawString(endingLineX, startingLineY, "- $"+str(payment["AmountReceived"]))
+        canvas.setFont('Helvetica', 12) 
+        startingLineY -= line_height_counter
+
+        canvas.save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """
     def DisplayDetail(self): # THIS FUNCTION IS CALLED WHEN A CUSTOMER IS CHOSEN FROM THE SEARCH LIST IN THE PAYMENT PAGE
         global current_client   

@@ -305,6 +305,30 @@ class Database_Class(object):
         for row in result.fetchall():
             results.append(dict(zip(columns, row)))
         return results
+
+    def GetPaymentsbyService(self,serviceID):
+        cursor = conn.cursor()
+        query="""SELECT Payments.PaymentId, Payments.BookingID, Payments.PaymentDate, Payments.PaymentType, Payments.AmountReceived
+                     FROM Payments 
+                     WHERE BookingID='%d' """%(serviceID)
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
+
+    def GetPaymentsbyID(self, paymentID):
+        cursor = conn.cursor()
+        query="""SELECT Payments.PaymentId, Payments.BookingID, Payments.PaymentDate, Payments.PaymentType, Payments.AmountReceived
+                     FROM Payments 
+                     WHERE PaymentId='%d' """%(paymentID)
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
           
     #---------------PAYMENT FUNCTIONS END-----------------------
 
@@ -379,6 +403,17 @@ class Database_Class(object):
         query="""UPDATE ClientDetails SET AccountBalance='%2f' WHERE ClientiD='%d'"""%(float(NewBalance),int(Client_ID))
         cursor.execute(query)
         conn.commit()
+
+    def getSingleServicesDetails(self, serviceID):
+        cursor = conn.cursor()
+        query="""SELECT * FROM ServicesDetails WHERE serviceID='%d' """%(int(serviceID))
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
+
     #---------------SERVICE FUNCTIONS STARTS-----------------------
 
     def GetDayCareRateAndTax(self, id):
