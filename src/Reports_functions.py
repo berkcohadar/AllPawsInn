@@ -64,7 +64,7 @@ class ReportFunctions(MainWindow):
                 customerID = int(self.ui.report_search_list.currentItem().text(4))
                 ReportFunctions.printReceiptWithService(self, customerID, serviceID)
             else:
-                paymentID = int(self.ui.report_search_list.currentItem().text(4))
+                paymentID = int(self.ui.payment_history_table.currentItem().text(4))
                 customerID = int(self.ui.report_search_list.currentItem().text(4))
                 ReportFunctions.printReceiptWithoutService(self, customerID, paymentID)
         else:
@@ -76,7 +76,7 @@ class ReportFunctions(MainWindow):
         service = object.getSingleServicesDetails(serviceID=serviceID)[0]
         animal = object.GetAnimalInfo(id=service['animalID'])[0]
         payment = object.GetPaymentsbyService(serviceID=serviceID)[0]
-        
+
         # customer['Address1'] # customer['Town'] # customer['PostcodeZIP']
         # customer['CellMobile']  # customer['Email']
         # payment["PaymentType"]

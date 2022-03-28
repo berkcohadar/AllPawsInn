@@ -48,7 +48,7 @@ class WeeklyScheduleFunctions(MainWindow):
             rowPosition = self.ui.weekly_shedule_table.rowCount()
             self.ui.weekly_shedule_table.insertRow(rowPosition)
 
-        sunday = obj.GetReservations(days[0],days[1])
+        sunday = obj.GetReservationByDate(days[0],days[1])
         j = 0
         for name in sunday:
             
@@ -56,7 +56,7 @@ class WeeklyScheduleFunctions(MainWindow):
             self.ui.weekly_shedule_table.setItem(j, 0, QtWidgets.QTableWidgetItem(asd));
             j+=1
 
-        monday = obj.GetReservations(days[2],days[3])
+        monday = obj.GetReservationByDate(days[2],days[3])
         j = 0
         for name in monday:
             
@@ -64,7 +64,7 @@ class WeeklyScheduleFunctions(MainWindow):
             self.ui.weekly_shedule_table.setItem(j, 1, QtWidgets.QTableWidgetItem(asd));
             j+=1
 
-        tuesday = obj.GetReservations(days[4],days[5])
+        tuesday = obj.GetReservationByDate(days[4],days[5])
         j = 0
         for name in tuesday:
             
@@ -72,7 +72,7 @@ class WeeklyScheduleFunctions(MainWindow):
             self.ui.weekly_shedule_table.setItem(j, 2, QtWidgets.QTableWidgetItem(asd));
             j+=1
 
-        wednesday = obj.GetReservations(days[6],days[7])
+        wednesday = obj.GetReservationByDate(days[6],days[7])
         j = 0
         for name in wednesday:
             
@@ -80,7 +80,7 @@ class WeeklyScheduleFunctions(MainWindow):
             self.ui.weekly_shedule_table.setItem(j, 3, QtWidgets.QTableWidgetItem(asd));
             j+=1
 
-        thursday = obj.GetReservations(days[8],days[9])
+        thursday = obj.GetReservationByDate(days[8],days[9])
         j = 0
         for name in thursday:
             
@@ -88,7 +88,7 @@ class WeeklyScheduleFunctions(MainWindow):
             self.ui.weekly_shedule_table.setItem(j, 4, QtWidgets.QTableWidgetItem(asd));
             j+=1
 
-        friday = obj.GetReservations(days[10],days[11])
+        friday = obj.GetReservationByDate(days[10],days[11])
         j = 0
         for name in friday:
             
@@ -96,7 +96,7 @@ class WeeklyScheduleFunctions(MainWindow):
             self.ui.weekly_shedule_table.setItem(j, 5, QtWidgets.QTableWidgetItem(asd));
             j+=1
 
-        saturday = obj.GetReservations(days[12],days[13])
+        saturday = obj.GetReservationByDate(days[12],days[13])
         j = 0
         for name in saturday:
             

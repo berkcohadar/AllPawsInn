@@ -61,21 +61,33 @@ class PaymentFunctions(MainWindow):
         object = Database_Class()
         animalInfo = object.GetAnimalInfo(int(animalId))
         clientInfo = object.GetClientInfo(int(clientId))
+        animalDateIn = ""
+        animalDateOut = ""
+        animalDaysIn = ""
+        serviceDetails = ""
+
+        try:
+            serviceDetails = object.getLastServicesDetails(animalId)[0]
+            animalDateIn = serviceDetails['resStartDate'].strftime("%Y-%m-%d")
+            animalDateOut = serviceDetails['resEndDate'].strftime("%Y-%m-%d")
+            animalDaysIn = str(serviceDetails['daysIn'])
+        except:
+            pass
+        
+        print(animalDateIn,animalDateOut,animalDaysIn)
 
         for item in animalInfo:
             animalName = item['AnimalName']
             animalSize = item['Size']
             animalBreed = item['Breed']
-            animalDateIn = item['DateIn']
-            animalDateOut = item['DateOut']
-            animalDaysIn = item['NoDays']
+
             
         self.ui.pay_animal_name.setText(animalName)
         self.ui.pay_animal_size.setText(animalSize)
         self.ui.pay_animal_breed.setText(animalBreed)
-        self.ui.pay_animal_date_in.setText(str(animalDateIn))
-        self.ui.pay_animal_date_out.setText(str(animalDateOut))
-        self.ui.pay_animal_day.setText(str(animalDaysIn))
+        self.ui.pay_animal_date_in.setText(animalDateIn)
+        self.ui.pay_animal_date_out.setText(animalDateOut)
+        self.ui.pay_animal_day.setText(animalDaysIn)
 
         for client in clientInfo:
             clientName = client['FirstName'] + " " + client['LastName']
@@ -233,8 +245,10 @@ class PaymentFunctions(MainWindow):
         clientId = int(self.ui.pay_search_list.currentItem().text(4))
         dateIn = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         dateOut = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-        serviceID = object.addServicesDetails(careFee, nailFee, foodFee, hairFee, othergoods, subTotal, discount, clientId, animalId, taxTotal, dateIn, dateOut)
+        resStartDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        resEndDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                
+        serviceID = object.addServicesDetails(careFee, nailFee, foodFee, hairFee, othergoods, subTotal, discount, clientId, animalId, taxTotal, dateIn, dateOut, resStartDate, resEndDate, 1, 1, 1, 1)
         PaymentFunctions.payForClient(self,serviceID=serviceID,paymentAmount=received)
         return subTotal
 
@@ -253,10 +267,21 @@ class PaymentFunctions(MainWindow):
         object = Database_Class()
 
         result = object.findAllReservations(animalID=animalId,clientID=clientId)
-        
-        # dateIn, dateOut, animalName, bookingTotal
+       
         for item in result:
-            self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["dateIn"].strftime("%m/%d/%Y"), item["dateOut"].strftime("%m/%d/%Y"), animalName ,"{:.2f}".format(float(item["subTotal"])), str(clientId), str(animalId), str(item["serviceID"])] ))
+            if item['checkedIn'] == 1:
+                status = "Checked In"
+            else:
+                status = "Reserved"
+            
+            if item['checkedOut'] == 1:
+                status = "Checked Out"
+
+            if item['completed'] == 1:
+                status = "Completed"
+            
+            
+            self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["resStartDate"].strftime("%m/%d/%Y"), item["resEndDate"].strftime("%m/%d/%Y"), animalName ,"{:.2f}".format(float(item["subTotal"])), status, str(clientId), str(animalId), str(item["serviceID"])] ))
 
     def payForClient(self,serviceID=NULL,paymentAmount=NULL):
         if (self.ui.pay_search_list.currentItem()):

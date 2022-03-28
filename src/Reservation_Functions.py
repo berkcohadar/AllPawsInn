@@ -11,10 +11,13 @@ class ReservationFunctions(MainWindow):
     def updateReservationDisplay(self):  
         self.ui.res_list.clear()
         for obj in self.paws:  
-            animalID = str(obj[3])  
+            animalID = str(obj[3])
+            customerID = str(obj[4])
             animalName = obj[2] 
             ownerName = obj[0] + " " + obj[1]
-            self.ui.res_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName,animalID ] ) )
+
+            self.ui.res_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName, animalID, customerID ] ) )
+
     def AddDaysToSelectedDayList(self):
         global selectedDays
         if  self.ui.res_list.currentItem():
@@ -36,7 +39,6 @@ class ReservationFunctions(MainWindow):
         global selectedDays
         if(self.ui.res_selected_days.currentItem()    ):
             selectedDays.remove(self.ui.res_selected_days.currentItem().text(0))
-            print(selectedDays)
             self.ui.res_selected_days.takeTopLevelItem(self.ui.res_selected_days.indexOfTopLevelItem(self.ui.res_selected_days.currentItem()))
         else:
                MainWindow.show_popup(self,"Invalid Operation!","Please choose a day to remove")
@@ -65,45 +67,37 @@ class ReservationFunctions(MainWindow):
                         self.paws.remove(paw)
             ReservationFunctions.updateReservationDisplay(self)  
 
-    def DisplayReservations(self,today,tommorrow):
-        object = Database_Class()
-
-        result = object.GetReservations(today,tommorrow)
-        
-    
-        self.ui.treeWidget.clear()
-        for obj in result:  
-            animalID = str(obj[3])  
-            animalName = obj[2] 
-            status = obj[4]
-            date = str(obj[6])          
-            ownerName = obj[0] + " " + obj[1]
-            item = QtWidgets.QTreeWidgetItem(self.ui.treeWidget,[ownerName , animalName,status,date ])
-            self.ui.treeWidget.addTopLevelItem(item)
-           # QTreeWidgetItem *items = new QTreeWidgetItem(self.ui.treeWidget)
-           # items.setText(0, tr("Owner Name"))
-           # self.ui.treeWidget.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName,status,date,animalID ] ) )
-
     def SubmitReservation(self):
-     
         global selectedDays
         if(self.ui.res_list.currentItem()):
-            AnimalID =self.ui.res_list.currentItem().text(2)
-            KennelID= 1
-            date = self.ui.res_calendar.selectedDate()
-            stringdate =date.toString("yyyy-MM-dd")
-    
+            animalID = int(self.ui.res_list.currentItem().text(2))
+            customerID = int(self.ui.res_list.currentItem().text(3))
 
-        
             if selectedDays != []:
+                selectedDays = sorted(selectedDays)
+                reservationDates = []
+                temp = 0
+                for i in range(len(selectedDays)-1):
+                    duration = datetime.strptime(selectedDays[i+1], '%Y-%m-%d') - datetime.strptime(selectedDays[i], '%Y-%m-%d')
+                    if ( duration.days > 1): # if there is a gap between reservation dates. That means we have to create several reservations
+                        reservationDates.append(selectedDays[temp:i+1])
+                        reservationDates.append("-1") 
+                        temp = i+1
+                if len(reservationDates) == 0:
+                    reservationDates.append(selectedDays)
+                if reservationDates[-1] == "-1":
+                    reservationDates.append(selectedDays[temp:])                   
+                
+                print(reservationDates)
+                for days in reservationDates:
+                    if days != '-1':
+                        resStartDate = days[0]
+                        resEndDate = days[-1]
+                        dayCount = len(days)
 
-            #UpdateStatus()
-                for days in selectedDays:
+                        object = Database_Class()
+                        object.submitReservation(customerID, animalID, resStartDate, resEndDate, 0)
 
-                    row = (AnimalID,KennelID,"Reserved",days)
-                    print(row)
-                    object = Database_Class()
-                    object.SubmitReservation(row)
                 selectedDays=[]
                 ReservationFunctions.clear_reservations(self)
                 self.ui.res_search_bar.setText("")
@@ -112,39 +106,9 @@ class ReservationFunctions(MainWindow):
                 MainWindow.show_popup(self,"Invalid Operation!","Please select a day")
             
         else:
-          
             MainWindow.show_popup(self,"Invalid Operation!","Please search for a client or pet name, then choose one")
-         
-
-    def NextDay(self):
-
-       
-        global day_swicher
-        day_swicher= day_swicher+1
-        day = QtCore.QDate.currentDate().addDays(day_swicher)
-        day1 = QtCore.QDate.currentDate().addDays(day_swicher).toString("yyyy-MM-dd")
-   
-        day2 = QtCore.QDate.currentDate().addDays(day_swicher+1).toString("yyyy-MM-dd")
-        print(day1 +""+day2)
-        self.ui.dateEdit.setDate(day)
-        ReservationFunctions.DisplayReservations(self,day1,day2)
-        
-
-    def PreviosDay(self):
-
-        global day_swicher
-        day_swicher= day_swicher-1
-        day = QtCore.QDate.currentDate().addDays(day_swicher)
-        day1 = QtCore.QDate.currentDate().addDays(day_swicher+1).toString("yyyy-MM-dd")
-   
-        day2 = QtCore.QDate.currentDate().addDays(day_swicher).toString("yyyy-MM-dd")
-        print(day2 +""+day1)
-        self.ui.dateEdit.setDate(day)
-        ReservationFunctions.DisplayReservations(self,day2,day1)
-        
 
     def GenerateDaylyView(self, row0):
-        
         object = Database_Class()
         
         result = object.GetDaycareForCurrentDate(row0)
@@ -154,11 +118,7 @@ class ReservationFunctions(MainWindow):
         for k in result:
             array.append(k)
             self.ui.tableWidget.setItem(i,j, QtWidgets.QTableWidgetItem(k[0]+" "+k[1]+"\n"+k[2]))
-         #   if(j ==  9):
-         #       i+= 1
-         #       j= 0
-         #   else:
-         #       j+=1
+
 
 
              

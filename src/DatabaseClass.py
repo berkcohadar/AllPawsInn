@@ -118,12 +118,18 @@ class Database_Class(object):
         cursor.execute(query)
         conn.commit()
 
-    def SetBookingStatusbyBookingID(self,BookingID,Date,NewStatus):
+    def SetBookingStatusbyBookingID(self,BookingID,Date):
         cursor = conn.cursor()
         if 'DateIn' in Date:
-            query="""UPDATE BookingObjects SET Status='%s', DateIn='%s' WHERE BookingID='%d'"""%(NewStatus,Date['DateIn'].toString("yyyy-MM-dd"),int(BookingID))
+            query="""UPDATE ServicesDetails SET checkedIn='%d', dateIn='%s' WHERE serviceID='%d'"""%(1,Date['DateIn'].toString("yyyy-MM-dd"),int(BookingID))
         elif 'DateOut' in Date:
-            query="""UPDATE BookingObjects SET Status='%s', DateOut='%s' WHERE BookingID='%d'"""%(NewStatus,Date['DateOut'].toString("yyyy-MM-dd"),int(BookingID))
+            dateIn = self.getSingleServicesDetails(BookingID)[0]['dateIn']
+            dateOut =  datetime.strptime(Date['DateOut'].toString("yyyy-MM-dd"), '%Y-%m-%d')
+            days = dateOut - dateIn # calculate daysIn
+            days = days.days + 1 
+            print(days)
+            query="""UPDATE ServicesDetails SET checkedOut='%d', dateOut='%s', daysIn='%d' WHERE serviceID='%d'"""%(1,Date['DateOut'].toString("yyyy-MM-dd"),days,int(BookingID))
+
         cursor.execute(query)
         conn.commit()
 
@@ -143,7 +149,7 @@ class Database_Class(object):
 
     def SearchForReservation(self):
         cursor = conn.cursor()
-        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID
+        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID, ClientDetails.ClientID
                      FROM ClientDetails,Animals 
                      WHERE Animals.ClientID=ClientDetails.ClientID"""
         results=cursor.execute(query)
@@ -156,23 +162,58 @@ class Database_Class(object):
         results=cursor.execute(query)
         return results
 
-    def SubmitReservation(self, row):
+    def submitReservation(self, Client_ID, animalID, resStartDate, resEndDate, days):
         cursor = conn.cursor()
-        query="""INSERT INTO BookingObjects (AnimalID,KennelID,Status,EditDate) VALUES ('%d','%d','%s','%s')"""%(int(row[0]),int(row[1]),row[2],row[3])
-        cursor.execute(query)
+
+        query="""SELECT TOP (1) [serviceID] FROM [ServicesDetails] ORDER BY serviceID DESC"""
+        row=cursor.execute(query)
+        serviceID=row.fetchone()
+        if (serviceID) :
+            serviceID = serviceID[0] + 1
+        else:
+            serviceID = 1
+
+        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, tax, customerID, resStartDate, resEndDate, serviceID, animalID, daysIn, checkedIn, checkedOut, completed) VALUES ('%2f','%2f','%2f','%2f','%2f','%2f','%2f','%2f','%d','%s','%s','%d','%d','%d','%d','%d','%d')"""%(0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, Client_ID, resStartDate, resEndDate, serviceID, animalID, days, 0, 0, 0)
+        row=cursor.execute(query)
         conn.commit()
 
-    def GetReservations(self,today,tommrw):
+        return int(serviceID)
+
+    def GetReservations(self,today, checkedIn, checkedOut):
         cursor = conn.cursor()
-        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID, BookingObjects.Status, BookingObjects.BookingID, BookingObjects.EditDate
-                     FROM ClientDetails,Animals,BookingObjects 
-                     WHERE Animals.ClientID=ClientDetails.ClientID and BookingObjects.AnimalID = Animals.AnimalID  and BookingObjects.Status = 'Reserved' and BookingObjects.EditDate >='%s' and BookingObjects.EditDate <'%s' """%(today,tommrw)
+        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID, ServicesDetails.serviceID, ClientDetails.ClientID 
+                     FROM ClientDetails,Animals,ServicesDetails 
+                     WHERE Animals.ClientID=ClientDetails.ClientID 
+                      AND ServicesDetails.animalID = Animals.AnimalID
+                      AND ServicesDetails.checkedIn = '%d'
+                      AND ServicesDetails.checkedOut = '%d'
+                      AND ServicesDetails.completed = '%d'
+                      AND ServicesDetails.resStartDate <='%s' 
+                      AND ServicesDetails.resEndDate >='%s' """%(checkedIn,checkedOut,0,today,today)
+        results=cursor.execute(query)
+        return results
+
+    def GetReservationByDate(self,today, tomorrow):
+        cursor = conn.cursor()
+        query="""SELECT ClientDetails.FirstName,
+        ClientDetails.LastName,
+        Animals.AnimalName,
+        Animals.AnimalID,
+        ServicesDetails.serviceID,
+        ClientDetails.ClientID 
+        FROM ClientDetails,Animals,ServicesDetails 
+        WHERE Animals.ClientID = ClientDetails.ClientID 
+        AND ServicesDetails.animalID = Animals.AnimalID 
+        AND ServicesDetails.checkedIn = '%d' 
+        AND ServicesDetails.checkedOut = '%d' 
+        AND ServicesDetails.resStartDate <='%s' 
+        AND ServicesDetails.resEndDate >='%s' """%(0,0,today,today)
         results=cursor.execute(query)
         return results
 
     def findAllReservations(self, animalID, clientID):
         cursor = conn.cursor()
-        query="""SELECT ServicesDetails.subTotal, ServicesDetails.dateIn, ServicesDetails.dateOut, ServicesDetails.serviceID
+        query="""SELECT ServicesDetails.subTotal, ServicesDetails.dateIn, ServicesDetails.dateOut, ServicesDetails.serviceID, ServicesDetails.resStartDate, ServicesDetails.resEndDate, ServicesDetails.checkedIn, ServicesDetails.checkedOut, ServicesDetails.completed 
                      FROM ServicesDetails
                      WHERE ServicesDetails.animalID='%d' AND ServicesDetails.customerID='%d'"""%(animalID,clientID)
         result = cursor.execute(query)
@@ -243,29 +284,30 @@ class Database_Class(object):
         results = []
         for row in result.fetchall():
             results.append(dict(zip(columns, row)))
-        if (status!=''):
-            query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
-                    FROM BookingObjects 
-                    WHERE BookingObjects.AnimalID='%d' AND Status='%s'
-                    ORDER BY BookingObjects.DateIn DESC """%(id,status)
-        else :
-            query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
-                    FROM BookingObjects 
-                    WHERE BookingObjects.AnimalID='%d'
-                    ORDER BY BookingObjects.DateIn DESC """%(id)
-        result = cursor.execute(query)
-        columns = [column[0] for column in result.description]
-        results2 = []
-        for row in result.fetchall():
-            results2.append(dict(zip(columns, row)))
+            
+        # if (status!=''):
+        #     query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
+        #             FROM BookingObjects 
+        #             WHERE BookingObjects.AnimalID='%d' AND Status='%s'
+        #             ORDER BY BookingObjects.DateIn DESC """%(id,status)
+        # else :
+        #     query = """SELECT BookingObjects.DateIn,BookingObjects.DateOut, BookingObjects.NoDays 
+        #             FROM BookingObjects 
+        #             WHERE BookingObjects.AnimalID='%d'
+        #             ORDER BY BookingObjects.DateIn DESC """%(id)
+        # result = cursor.execute(query)
+        # columns = [column[0] for column in result.description]
+        # results2 = []
+        # for row in result.fetchall():
+        #     results2.append(dict(zip(columns, row)))
 
-        if len(results2) == 0 :
-            results2.append({"DateIn":"Never","DateOut":"Never","NoDays":0})
+        # if len(results2) == 0 :
+        #     results2.append({"DateIn":"Never","DateOut":"Never","NoDays":0})
 
-        for i in range(len(results)):
-            results[i]["DateIn"] = results2[i]["DateIn"]
-            results[i]["DateOut"] = results2[i]["DateOut"]
-            results[i]["NoDays"] = results2[i]["NoDays"]
+        # for i in range(len(results)):
+        #     results[i]["DateIn"] = results2[i]["DateIn"]
+        #     results[i]["DateOut"] = results2[i]["DateOut"]
+        #     results[i]["NoDays"] = results2[i]["NoDays"]
 
         #reservation da bu kisim degsitirilcek
         # WHERE BookingObjects.AnimalID = Animals.AnimalID  and BookingObjects.Status = 'Reserved' and BookingObjects.EditDate >='%s' and BookingObjects.EditDate <'%s' """%(today,tommrw)
@@ -372,7 +414,7 @@ class Database_Class(object):
 
   
     #---------------SERVICE FUNCTIONS STARTS-----------------------
-    def addServicesDetails(self,dayCareRate, nails, food, hair, otherGoods, subTotal, discount, Client_ID, animalID, tax, dateIn, dateOut):
+    def addServicesDetails(self,dayCareRate, nails, food, hair, otherGoods, subTotal, discount, Client_ID, animalID, tax, dateIn, dateOut, resStartDate, resEndDate, daysIn, checkedIn, checkedOut, completed):
         cursor = conn.cursor()
 
         query="""SELECT TOP (1) [serviceID] FROM [ServicesDetails] ORDER BY serviceID DESC"""
@@ -383,7 +425,7 @@ class Database_Class(object):
         else:
             serviceID = 1
 
-        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, customerID, tax, dateIn, dateOut, serviceID, animalID) VALUES ('%2f','%2f','%2f','%2f','%2f','%2f','%2f','%d','%2f','%s','%s','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,Client_ID,tax, dateIn, dateOut, serviceID, animalID)
+        query="""INSERT INTO ServicesDetails (dayCareRate, nails, food, hair, otherGoods, subTotal, discount, customerID, tax, dateIn, dateOut, serviceID, animalID, resStartDate, resEndDate, daysIn, checkedIn, checkedOut, completed) VALUES ('%2f','%2f','%2f','%2f','%2f','%2f','%2f','%d','%2f','%s','%s','%d','%d','%s','%s','%d','%d','%d','%d')"""%(dayCareRate,nails,food,hair,otherGoods,subTotal,discount,Client_ID,tax, dateIn, dateOut, serviceID, animalID, resStartDate, resEndDate, daysIn, checkedIn, checkedOut, completed)
         row=cursor.execute(query)
 
         query="""SELECT TOP (1) [AccountBalance] FROM [ClientDetails] WHERE ClientiD='%d'"""%(int(Client_ID))
@@ -431,6 +473,29 @@ class Database_Class(object):
         for row in result.fetchall():
             results.append(dict(zip(columns, row)))
         return results
+
+    def getLastServicesDetails(self, animalID):
+        cursor = conn.cursor()
+        query="""SELECT TOP (1) * FROM [ServicesDetails] WHERE animalID='%d' AND checkedOut=1 """%(int(animalID))
+        result = cursor.execute(query)
+        columns = [column[0] for column in result.description]
+        results = []
+        for row in result.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
+    
+    def updateServicesDetails(self, customerId, serviceID, dayCareRate, nailFee, foodFee, hairFee, othergoods, discount, totalTax, subTotal, completed):
+        cursor = conn.cursor()
+        query="""UPDATE ServicesDetails 
+                SET dayCareRate='%2f', nails='%2f', food='%2f', hair='%2f', otherGoods='%2f', discount='%2f', tax='%2f', subTotal='%2f', completed='%d'
+                WHERE serviceID='%d' """%(dayCareRate, nailFee, foodFee, hairFee, othergoods, discount, totalTax, subTotal, completed, serviceID)
+                
+        cursor.execute(query)
+        conn.commit()
+
+        currentBalance = float(Database_Class.GetClientAccountBalance(self, ClientID=customerId)[0])
+        newBalance = currentBalance + float(subTotal)
+        Database_Class.SetClientAccountBalance(self, ClientID=customerId,NewBalance=newBalance)
 
     #---------------SERVICE FUNCTIONS STARTS-----------------------
 

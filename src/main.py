@@ -138,19 +138,20 @@ class MainWindow(QMainWindow):
         self.ui.home_checkin_btn.clicked.connect(lambda: HomeFunctions.CheckedIn(self))
         self.ui.home_checkin_btn.clicked.connect(lambda: HomeFunctions.UpdateDisplay(self))
         
-        self.ui.home_checkout_btn.clicked.connect(lambda: HomeFunctions.CheckedOutWithoutPayment(self))
         
         self.ui.mpayment_submt_services_btn.clicked.connect(lambda: HomeFunctions.CheckoutWithoutPaymentServices(self))
         self.ui.mpayment_submt_services_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
         
         
-        
-        self.ui.home_checkout_w_btn.clicked.connect(lambda: HomeFunctions.CheckedOutWithPayment(self))
-        
+        self.ui.home_checkout_btn.clicked.connect(lambda: HomeFunctions.CheckedOut(self))
+        self.ui.home_checkout_btn.clicked.connect(lambda: HomeFunctions.UpdateDisplay(self))
 
+        self.ui.home_pay_btn.clicked.connect(lambda: HomeFunctions.ComleteBooking(self))
+        
         self.ui.mpayment_make_payment_btn.clicked.connect(lambda : HomeFunctions.CheckOutWithPaymentMakePayment(self))
 
         self.ui.res_calendar.clicked.connect(lambda: ReservationFunctions.AddDaysToSelectedDayList(self))
+        self.ui.mpayment_daycare_checkbox.clicked.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_nails.clicked.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_hair.clicked.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
         self.ui.mpayment_other_goods.textChanged.connect(lambda : HomeFunctions.CheckoutWithPaymentServices(self))
@@ -286,6 +287,17 @@ class MainWindow(QMainWindow):
         msg.setText(text)
 
         x= msg.exec_()
+
+    def show_popup_button(self,title,text):
+        msgBox = QMessageBox()
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setText(text)
+        msgBox.setWindowTitle(title)
+        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+        returnValue = msgBox.exec()
+        return returnValue
+
     def Button(self):
         # GET BT CLICKED
         btnWidget = self.sender()
