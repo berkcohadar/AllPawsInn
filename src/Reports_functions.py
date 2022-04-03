@@ -53,18 +53,24 @@ class ReportFunctions(MainWindow):
         object = Database_Class()
 
         result = object.GetPaymentsbyClient(clientID=clientId)
+        self.ui.payment_history_table.clear()
 
         for item in result:
-            self.ui.payment_history_table.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["PaymentDate"].strftime("%m/%d/%Y"), item["PaymentType"], "{:.2f}".format(float(item["AmountReceived"])), str(clientId), str(item["PaymentId"]), str(item["BookingID"])] ))
+            paymentDetails = 'Single Payment'
+            print(str(item["BookingID"]))
+            print(str(item["BookingID"]) != "None")
+            if (str(item["BookingID"]) != "None"):
+                paymentDetails = 'Payment for a service'
+            self.ui.payment_history_table.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["PaymentDate"].strftime("%m/%d/%Y"), item["PaymentType"], "{:.2f}".format(float(item["AmountReceived"])), paymentDetails, str(clientId), str(item["PaymentId"]), str(item["BookingID"])] ))
 
     def printReceipt(self):
         if (self.ui.payment_history_table.currentItem()):
-            if (self.ui.payment_history_table.currentItem().text(5) != "None"):
-                serviceID = int(self.ui.payment_history_table.currentItem().text(5))
+            if (self.ui.payment_history_table.currentItem().text(6) != "None"):
+                serviceID = int(self.ui.payment_history_table.currentItem().text(6))
                 customerID = int(self.ui.report_search_list.currentItem().text(4))
                 ReportFunctions.printReceiptWithService(self, customerID, serviceID)
             else:
-                paymentID = int(self.ui.payment_history_table.currentItem().text(4))
+                paymentID = int(self.ui.payment_history_table.currentItem().text(5))
                 customerID = int(self.ui.report_search_list.currentItem().text(4))
                 ReportFunctions.printReceiptWithoutService(self, customerID, paymentID)
         else:
@@ -99,7 +105,7 @@ class ReportFunctions(MainWindow):
         canvas.drawString(endingLineX, startingLineY, animal["AnimalName"])
         startingLineY -= line_height_counter
 
-        canvas.drawString(startingLineX, startingLineY, "Account Debt")
+        canvas.drawString(startingLineX, startingLineY, "Balance")
         canvas.setFont('Helvetica-Bold', 12)
         canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(customer['AccountBalance']))
         canvas.setFont('Helvetica', 12) 
@@ -198,7 +204,7 @@ class ReportFunctions(MainWindow):
         canvas.drawString(endingLineX, startingLineY, name)
         startingLineY -= line_height_counter
 
-        canvas.drawString(startingLineX, startingLineY, "Account Debt")
+        canvas.drawString(startingLineX, startingLineY, "Balance")
         canvas.setFont('Helvetica-Bold', 12)
         canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(customer['AccountBalance']))
         canvas.setFont('Helvetica', 12) 
@@ -248,7 +254,7 @@ class ReportFunctions(MainWindow):
             canvas.drawString(endingLineX, startingLineY, name)
             startingLineY -= line_height_counter
 
-            canvas.drawString(startingLineX, startingLineY, "Account Debt")
+            canvas.drawString(startingLineX, startingLineY, "Balance")
             canvas.setFont('Helvetica-Bold', 12)
             canvas.drawString(endingLineX, startingLineY, "$"+"{:.2f}".format(customer['AccountBalance']))
             canvas.setFont('Helvetica', 12) 

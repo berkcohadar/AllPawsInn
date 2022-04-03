@@ -215,7 +215,7 @@ class Database_Class(object):
         cursor = conn.cursor()
         query="""SELECT ServicesDetails.subTotal, ServicesDetails.dateIn, ServicesDetails.dateOut, ServicesDetails.serviceID, ServicesDetails.resStartDate, ServicesDetails.resEndDate, ServicesDetails.checkedIn, ServicesDetails.checkedOut, ServicesDetails.completed 
                      FROM ServicesDetails
-                     WHERE ServicesDetails.animalID='%d' AND ServicesDetails.customerID='%d'"""%(animalID,clientID)
+                     WHERE ServicesDetails.animalID='%d' AND ServicesDetails.customerID='%d' ORDER BY resEndDate DESC"""%(animalID,clientID)
         result = cursor.execute(query)
         columns = [column[0] for column in result.description]
         results = []
