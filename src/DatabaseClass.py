@@ -1,4 +1,5 @@
 #MAKE COMMENT PURPOSE OF THIS MODULE:
+from numpy import var
 import pyodbc
 import sys
 from DATABASE_SETTINGS import SERVER, DATABASE
@@ -181,7 +182,7 @@ class Database_Class(object):
 
     def GetReservations(self,today, checkedIn, checkedOut):
         cursor = conn.cursor()
-        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID, ServicesDetails.serviceID, ClientDetails.ClientID 
+        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID, ServicesDetails.serviceID, ClientDetails.ClientID, ServicesDetails.resStartDate, ServicesDetails.dateIn, ServicesDetails.dateOut
                      FROM ClientDetails,Animals,ServicesDetails 
                      WHERE Animals.ClientID=ClientDetails.ClientID 
                       AND ServicesDetails.animalID = Animals.AnimalID
@@ -190,6 +191,19 @@ class Database_Class(object):
                       AND ServicesDetails.completed = '%d'
                       AND ServicesDetails.resStartDate <='%s' 
                       AND ServicesDetails.resEndDate >='%s' """%(checkedIn,checkedOut,0,today,today)
+        results=cursor.execute(query)
+        return results
+
+    def GetReservationsNoDate(self, checkedIn, checkedOut):
+        cursor = conn.cursor()
+        query="""SELECT ClientDetails.FirstName, ClientDetails.LastName, Animals.AnimalName, Animals.AnimalID, ServicesDetails.serviceID, ClientDetails.ClientID, ServicesDetails.resStartDate, ServicesDetails.dateIn, ServicesDetails.dateOut
+                     FROM ClientDetails,Animals,ServicesDetails 
+                     WHERE Animals.ClientID=ClientDetails.ClientID 
+                      AND ServicesDetails.animalID = Animals.AnimalID
+                      AND ServicesDetails.checkedIn = '%d'
+                      AND ServicesDetails.checkedOut = '%d'
+                      AND ServicesDetails.completed = '%d'
+                       """%(checkedIn,checkedOut,0)
         results=cursor.execute(query)
         return results
 
@@ -276,9 +290,27 @@ class Database_Class(object):
 
     def GetAnimalInfo(self,id,status=''):
         cursor = conn.cursor()
-        query="""SELECT Animals.AnimalName,Animals.Size, Animals.Breed, Animals.animalID
+        query="""SELECT 
+                    Animals.AnimalName
+                    ,Animals.Size
+                    ,Animals.Breed
+                    ,Animals.animalID
+                    ,Animals.TypeID
+                    ,Animals.Sex
+                    ,Animals.NeuteredSpayed
+                    ,Animals.MedicalConditions
+                    ,Animals.AnimalNotes
+                    ,Animals.Age
+                    ,Animals.DateOfBirth
+                    ,Animals.FoodNotes
+                    ,Animals.AnimalType
+                    ,Animals.Vaccinated
+                    ,Animals.Weight
+                    ,Animals.MicrochipID
+                    ,Animals.Deceased
                      FROM Animals
                      WHERE Animals.AnimalID='%d'"""%(id)
+  
         result = cursor.execute(query)
         columns = [column[0] for column in result.description]
         results = []
@@ -403,11 +435,72 @@ class Database_Class(object):
         query="""DELETE from Animals  WHERE AnimalID='%d'"""%(int(id))
         cursor.execute(query)
         conn.commit()
-    def CreateAnimal(self,clientid,animalrow):
+
+    def CreateAnimal(self,row):
+        # cursor = conn.cursor()
+        # query="""INSERT INTO Animals (ClientID,AnimalName,TypeID,Breed,Sex,MedicalConditions,Food1Type,Food1Freq,Food1Amount,Age) VALUES ('%d','%s','%d','%s','%s','%s','%d','%s','%s','%d')"""%(int(clientid),animalrow[0],1,animalrow[1],animalrow[2],animalrow[3],int(animalrow[4]),animalrow[5],animalrow[6],int(animalrow[7]))
+        # cursor.execute(query)
+        # conn.commit()
         cursor = conn.cursor()
-        query="""INSERT INTO Animals (ClientID,AnimalName,TypeID,Breed,Sex,MedicalConditions,Food1Type,Food1Freq,Food1Amount,Age) VALUES ('%d','%s','%d','%s','%s','%s','%d','%s','%s','%d')"""%(int(clientid),animalrow[0],1,animalrow[1],animalrow[2],animalrow[3],int(animalrow[4]),animalrow[5],animalrow[6],int(animalrow[7]))
+        query="INSERT INTO Animals ("
+        query_add = " VALUES ("
+        variables = []
+        for key in row:
+            if (row[key] != "" and key != "AnimalID"):
+                varType = ""
+
+                if (type(row[key]) == type(1)):
+                    varType = "d"
+
+                if (type(row[key]) == type(1.0)):
+                    varType = "2f"
+
+                if (type(row[key]) == type("string")):
+                    row[key] = row[key].replace("'","`")
+                    varType = "s"
+
+                query += key+","
+                query_add += "'%{}'".format(varType)+","
+                variables.append(row[key])
+
+        query = query[:-1]
+        query_add = query_add[:-1]
+        query +=  ")" + query_add + ")"
+
+        query= query%(tuple(variables))
+        print(query)
         cursor.execute(query)
         conn.commit()
+
+    def UpdateAnimalDetails(self, row):     
+        cursor = conn.cursor()
+        query="UPDATE Animals SET "
+        variables = []
+        for key in row:
+            if (row[key] != "" and key != "AnimalID"):
+                varType = ""
+
+                if (type(row[key]) == type(1)):
+                    varType = "d"
+
+                if (type(row[key]) == type(1.0)):
+                    varType = "2f"
+
+                if (type(row[key]) == type("string")):
+                    row[key] = row[key].replace("'","`")
+                    varType = "s"
+
+                query += key+"='%{}'".format(varType)+","
+                variables.append(row[key])
+        query = query[:-1]
+
+        query += " WHERE AnimalID='%d'"
+        variables.append(row["AnimalID"])
+
+        query= query%(tuple(variables))
+        cursor.execute(query)
+        conn.commit()
+
     #---------------ADDITIONAL PET FUNCTIONS END-----------------------
 
 

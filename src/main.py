@@ -94,13 +94,15 @@ class MainWindow(QMainWindow):
 
         ## ADditional Pet Page
         self.onlyInt = QIntValidator()
-        self.ui.addpet_foodtype_input.setValidator(self.onlyInt)
-        self.ui.addpet_age_input.setValidator(self.onlyInt)
-        self.ui.addpet_foodamount_input.setValidator(self.onlyInt)
+        
         self.ui.addpet_search_bar.textChanged.connect(lambda: AddPetFunctions.updateSearchList(self))
         self.ui.addpet_search_list.itemClicked.connect(lambda: AddPetFunctions.DisplayDetail(self))
         self.ui.addpet_delete_btn.clicked.connect(lambda: AddPetFunctions.Delete_pet(self))
-        self.ui.edit_client_submit_btn_2.clicked.connect(lambda: AddPetFunctions.Set_newPet(self))
+        self.ui.addpet_new_pet_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_newpet))
+        self.ui.addpet_new_pet_btn_4.clicked.connect(lambda: AddPetFunctions.add_new_pet(self))
+        
+        self.ui.addpet_apply_changes_btn.clicked.connect(lambda: AddPetFunctions.updateAnimalDetails(self))
+
         ## Payment Page Connections
         ########################################################################
 
@@ -244,7 +246,7 @@ class MainWindow(QMainWindow):
 
         
         self.ui.client_pet_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_animal))
-        self.ui.pet_vet_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_vet))
+        self.ui.addpet_new_pet_btn_2.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_vet))
         self.ui.vet_submit_btn.clicked.connect(lambda: BackEndFunctions.CREATE_CLIENT(self))
         self.ui.vet_submit_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
       #  self.ui.btn_client_info_3.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_client))

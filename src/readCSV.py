@@ -13,7 +13,6 @@ for i in range(0,length):
     if (str(data["Name"][i]) != "nan"):
         for key in data:
             if key == "Name":
-                print(data[key][i])
                 fullName = data[key][i].split()
 
                 if len(fullName) > 1:

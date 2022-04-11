@@ -47,20 +47,30 @@ class EditClientFunctions(MainWindow):
       
   
         animalInfo = object.GetAnimalInfo(int(animalId))
-       
+        animalDateIn = ""
+        animalDateOut = ""
+        animalDaysIn = ""
+        serviceDetails = ""
+
+        try:
+            serviceDetails = object.getLastServicesDetails(animalId)[0]
+            animalDateIn = serviceDetails['resStartDate'].strftime("%Y-%m-%d")
+            animalDateOut = serviceDetails['resEndDate'].strftime("%Y-%m-%d")
+            animalDaysIn = str(serviceDetails['daysIn'])
+        except:
+            pass
+
         for item in animalInfo:
             animalName = item['AnimalName']
             animalSize = item['Size']
             animalBreed = item['Breed']
-            animalDateIn = item['DateIn']
-            animalDateOut = item['DateOut']
-            animalDaysIn = item['NoDays']
+
         self.ui.edit_pet_name.setText(animalName)
         self.ui.edit_animal_size.setText(animalSize)
         self.ui.edit_animal_breed.setText(animalBreed)
-        # self.ui.edit_animal_date_in.setText(str(animalDateIn))
-        # self.ui.edit_animal_date_out.setText(str(animalDateOut))
-        # self.ui.edit_animal_day.setText(str(animalDaysIn))
+        self.ui.pay_animal_date_in_4.setText(str(animalDateIn))
+        self.ui.pay_animal_date_out_4.setText(str(animalDateOut))
+        self.ui.pay_animal_day_4.setText(str(animalDaysIn))
 
         clientInfo = object.GetClientInfo(int(clientId))
         for client in clientInfo:
