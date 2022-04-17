@@ -35,22 +35,67 @@ class Database_Class(object):
         else:
             return {-1}
 
-    def setNewClient(self,row,animalrow,vetrow):
+    def setNewClient(self, client, pet):
         cursor = conn.cursor()
-        query="""INSERT INTO ClientDetails (LastName,FirstName,Title,Address1,Address2,Address3,Region,PostcodeZip,Country,Email,TelHome,TelWork,CellMobile,Discount,VetSurgeryID,ClientNotes,Mailings,WebContact,ClientIdent,Referred,PartnerName,Archived,AccountBalance,Town) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%f','%s')"""%(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[12],int(row[13]),int(row[14]),row[15],row[16],row[17],row[18],row[19],row[20],row[21],float(row[22]),row[23])
+        query="INSERT INTO ClientDetails ("
+        query_add = " VALUES ("
+        variables = []
+        for key in client:
+            if (client[key] != ""):
+                varType = ""
+
+                if (type(client[key]) == type(1)):
+                    varType = "d"
+
+                if (type(client[key]) == type("string")):
+                    client[key] = client[key].replace("'","`")
+                    varType = "s"
+
+                query += key+","
+                query_add += "'%{}'".format(varType)+","
+                variables.append(client[key])
+
+        query = query[:-1]
+        query_add = query_add[:-1]
+        query +=  ")" + query_add + ")"
+        query= query%(tuple(variables))
         cursor.execute(query)
         conn.commit()
-        query2="""SELECT TOP (1) [ClientID] FROM [ClientDetails] ORDER BY ClientID DESC"""
-        row=cursor.execute(query2)
-        result1=row.fetchone()
-        query="""INSERT INTO Animals (ClientID,AnimalName,TypeID,Breed,Sex,NeuteredSpayed,Bites,ShareKennel,MedicalConditions,AnimalNotes,Food1Type,Food1Freq,Food1Amount,FoodChews,Age,DateOfBirth,FoodNotes,Image,Size,TagRef,Food2Type,Food2Freq,Food2Amount,Food1TypeName,Food2TypeName,AnimalType,DailyCharge,DayCareCharge,Archived,Colour) VALUES ('%d','%s','%d','%s','%s','%s','%s','%s','%s','%s','%d','%s','%s','%s','%d','%s','%s','%s','%s','%s','%d','%s','%s','%s','%s','%s','%f','%f','%s','%s')"""%(int(result1[0]),animalrow[0],int(animalrow[1]),animalrow[2],animalrow[3],animalrow[4],animalrow[5],animalrow[6],animalrow[7],animalrow[8],int(animalrow[9]),animalrow[10],animalrow[11],animalrow[12],int(animalrow[13]),animalrow[14],animalrow[15],animalrow[16],animalrow[17],animalrow[18],int(animalrow[19]),animalrow[20],animalrow[21],animalrow[22],animalrow[23],animalrow[24],float(animalrow[25]),float(animalrow[26]),animalrow[27],animalrow[28])
+
+        query = """SELECT TOP (1) [ClientID] FROM [ClientDetails] ORDER BY ClientID DESC""" # Get the lastly created Client's ID. Client is the one we created above.
+        res = cursor.execute(query)
+        result = res.fetchone()
+
+        pet["ClientID"] = result[0] # index 0 is the ClientID
+
+        query="INSERT INTO Animals ("
+        query_add = " VALUES ("
+        variables = []
+        for key in pet:
+            if (pet[key] != ""):
+                varType = ""
+
+                if (type(pet[key]) == type(1)):
+                    varType = "d"
+                
+                if (type(pet[key]) == type(1.1)):
+                    varType = "2f"
+
+                if (type(pet[key]) == type("string")):
+                    pet[key] = pet[key].replace("'","`")
+                    varType = "s"
+
+                query += key+","
+                query_add += "'%{}'".format(varType)+","
+                variables.append(pet[key])
+
+        query = query[:-1]
+        query_add = query_add[:-1]
+        query +=  ")" + query_add + ")"
+        query= query%(tuple(variables))
         cursor.execute(query)
         conn.commit()
-        query="""INSERT INTO VetDetails (PracticeName,VetName,ContactNo,Address1,Address2,Town,PostcodeZIP,Email,AddRegion) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')"""%(vetrow[0],vetrow[1],vetrow[2],vetrow[3],vetrow[4],vetrow[5],vetrow[6],vetrow[7],vetrow[8])
-        cursor.execute(query)
-        conn.commit()
-        print(result1[0])
-        return True
+
     def DirectCheckInDB(self ,row):
         cursor = conn.cursor()
         query="""Update BookingObjects SET Status='%s' Where BookingID ='%d'"""%(row[1],int(row[0])) 
@@ -308,6 +353,7 @@ class Database_Class(object):
                     ,Animals.Weight
                     ,Animals.MicrochipID
                     ,Animals.Deceased
+                    ,Animals.AnimalVet
                      FROM Animals
                      WHERE Animals.AnimalID='%d'"""%(id)
   
@@ -437,10 +483,6 @@ class Database_Class(object):
         conn.commit()
 
     def CreateAnimal(self,row):
-        # cursor = conn.cursor()
-        # query="""INSERT INTO Animals (ClientID,AnimalName,TypeID,Breed,Sex,MedicalConditions,Food1Type,Food1Freq,Food1Amount,Age) VALUES ('%d','%s','%d','%s','%s','%s','%d','%s','%s','%d')"""%(int(clientid),animalrow[0],1,animalrow[1],animalrow[2],animalrow[3],int(animalrow[4]),animalrow[5],animalrow[6],int(animalrow[7]))
-        # cursor.execute(query)
-        # conn.commit()
         cursor = conn.cursor()
         query="INSERT INTO Animals ("
         query_add = " VALUES ("

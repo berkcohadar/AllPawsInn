@@ -118,14 +118,3 @@ class Client:
 
 	def getTown(self):
 		self.Town = input()
-
-	def setNewClient(self,row):
-		conn=pyodbc.connect('Driver={SQL Server};'
-                      'Server='+SERVER+';'
-                      'Database='+DATABASE+';'
-                      'Trusted_Connection=yes;')
-		cursor = conn.cursor()
-		query="""INSERT INTO ClientDetails (LastName,FirstName,Title,Address1,Address2,Address3,Region,PostcodeZip,Country,Email,TelHome,TelWork,CellMobile,Discount,VetSurgeryID,ClientNotes,Mailings,WebContact,ClientIdent,Referred,PartnerName,Archived,AccountBalance,Town) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%d','%d','%s','%s','%s','%s','%s','%s','%s','%f','%s')"""%(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[12],int(row[13]),int(row[14]),row[15],row[17],row[18],row[19],row[20],row[21],row[22],float(row[23]),row[24])
-		cursor.execute(query)
-		conn.commit()
-		return True

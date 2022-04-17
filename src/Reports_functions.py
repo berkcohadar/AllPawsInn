@@ -56,7 +56,7 @@ class ReportFunctions(MainWindow):
         self.ui.payment_history_table.clear()
 
         for item in result:
-            paymentDetails = 'Single Payment'
+            paymentDetails = 'Payment Towards Balance'
             print(str(item["BookingID"]))
             print(str(item["BookingID"]) != "None")
             if (str(item["BookingID"]) != "None"):

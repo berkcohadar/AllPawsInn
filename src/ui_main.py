@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1363, 903)
+        MainWindow.resize(1445, 893)
         MainWindow.setMinimumSize(QtCore.QSize(500, 40))
         MainWindow.setMaximumSize(QtCore.QSize(1704, 1162))
         palette = QtGui.QPalette()
@@ -197,10 +197,10 @@ class Ui_MainWindow(object):
         self.centralwidget.setStyleSheet("background: transparent;\n"
 "color: rgb(210, 210, 210);")
         self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setContentsMargins(10, 10, 10, 10)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout_49 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_49.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout_49.setSpacing(0)
+        self.verticalLayout_49.setObjectName("verticalLayout_49")
         self.frame_main = QtWidgets.QFrame(self.centralwidget)
         self.frame_main.setStyleSheet("")
         self.frame_main.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -634,6 +634,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_15.addWidget(self.menu_btn_editclient)
         self.menu_btn_reports = QtWidgets.QPushButton(self.frame_menus)
         self.menu_btn_reports.setMinimumSize(QtCore.QSize(0, 60))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        self.menu_btn_reports.setFont(font)
         self.menu_btn_reports.setStyleSheet("QPushButton {    \n"
 "    background-image: url(:/16x16/icons/16x16/cil-chart.png);\n"
 "    background-position: left center;\n"
@@ -814,22 +817,6 @@ class Ui_MainWindow(object):
         self.client_fname.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.client_fname.setObjectName("client_fname")
         self.verticalLayout_64.addWidget(self.client_fname)
-        self.client_email_label = QtWidgets.QLabel(self.frame_44)
-        self.client_email_label.setMinimumSize(QtCore.QSize(0, 16))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.client_email_label.setFont(font)
-        self.client_email_label.setObjectName("client_email_label")
-        self.verticalLayout_64.addWidget(self.client_email_label, 0, QtCore.Qt.AlignBottom)
-        self.client_email = QtWidgets.QLineEdit(self.frame_44)
-        self.client_email.setMinimumSize(QtCore.QSize(350, 36))
-        self.client_email.setMaximumSize(QtCore.QSize(350, 36))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.client_email.setFont(font)
-        self.client_email.setStyleSheet("background-color: rgb(65, 75, 90);")
-        self.client_email.setObjectName("client_email")
-        self.verticalLayout_64.addWidget(self.client_email)
         self.client_address_label = QtWidgets.QLabel(self.frame_44)
         self.client_address_label.setMinimumSize(QtCore.QSize(0, 16))
         font = QtGui.QFont()
@@ -854,15 +841,15 @@ class Ui_MainWindow(object):
         self.client_zipcode_label.setFont(font)
         self.client_zipcode_label.setObjectName("client_zipcode_label")
         self.verticalLayout_64.addWidget(self.client_zipcode_label, 0, QtCore.Qt.AlignBottom)
-        self.client_town = QtWidgets.QLineEdit(self.frame_44)
-        self.client_town.setMinimumSize(QtCore.QSize(350, 36))
-        self.client_town.setMaximumSize(QtCore.QSize(350, 36))
+        self.client_zipcode = QtWidgets.QLineEdit(self.frame_44)
+        self.client_zipcode.setMinimumSize(QtCore.QSize(350, 36))
+        self.client_zipcode.setMaximumSize(QtCore.QSize(350, 36))
         font = QtGui.QFont()
         font.setPointSize(11)
-        self.client_town.setFont(font)
-        self.client_town.setStyleSheet("background-color: rgb(65, 75, 90);")
-        self.client_town.setObjectName("client_town")
-        self.verticalLayout_64.addWidget(self.client_town)
+        self.client_zipcode.setFont(font)
+        self.client_zipcode.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.client_zipcode.setObjectName("client_zipcode")
+        self.verticalLayout_64.addWidget(self.client_zipcode)
         self.client_hcontact_label = QtWidgets.QLabel(self.frame_44)
         self.client_hcontact_label.setMinimumSize(QtCore.QSize(0, 16))
         self.client_hcontact_label.setMaximumSize(QtCore.QSize(350, 16777215))
@@ -880,13 +867,43 @@ class Ui_MainWindow(object):
         self.client_hcontact.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.client_hcontact.setObjectName("client_hcontact")
         self.verticalLayout_64.addWidget(self.client_hcontact)
-        self.client_allow_mailings_label = QtWidgets.QLabel(self.frame_44)
+        self.label_123 = QtWidgets.QLabel(self.frame_44)
+        self.label_123.setMinimumSize(QtCore.QSize(0, 16))
+        self.label_123.setMaximumSize(QtCore.QSize(350, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_123.setFont(font)
+        self.label_123.setObjectName("label_123")
+        self.verticalLayout_64.addWidget(self.label_123, 0, QtCore.Qt.AlignBottom)
+        self.client_emergency_name = QtWidgets.QLineEdit(self.frame_44)
+        self.client_emergency_name.setMinimumSize(QtCore.QSize(350, 36))
+        self.client_emergency_name.setMaximumSize(QtCore.QSize(350, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.client_emergency_name.setFont(font)
+        self.client_emergency_name.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.client_emergency_name.setObjectName("client_emergency_name")
+        self.verticalLayout_64.addWidget(self.client_emergency_name)
+        self.horizontalFrame = QtWidgets.QFrame(self.frame_44)
+        self.horizontalFrame.setObjectName("horizontalFrame")
+        self.horizontalLayout_22 = QtWidgets.QHBoxLayout(self.horizontalFrame)
+        self.horizontalLayout_22.setObjectName("horizontalLayout_22")
+        self.client_amailing_check = QtWidgets.QCheckBox(self.horizontalFrame)
+        self.client_amailing_check.setMaximumSize(QtCore.QSize(20, 16777215))
+        self.client_amailing_check.setText("")
+        self.client_amailing_check.setChecked(True)
+        self.client_amailing_check.setTristate(False)
+        self.client_amailing_check.setObjectName("client_amailing_check")
+        self.horizontalLayout_22.addWidget(self.client_amailing_check)
+        self.client_allow_mailings_label = QtWidgets.QLabel(self.horizontalFrame)
         self.client_allow_mailings_label.setMinimumSize(QtCore.QSize(0, 45))
+        self.client_allow_mailings_label.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.client_allow_mailings_label.setFont(font)
         self.client_allow_mailings_label.setObjectName("client_allow_mailings_label")
-        self.verticalLayout_64.addWidget(self.client_allow_mailings_label, 0, QtCore.Qt.AlignBottom)
+        self.horizontalLayout_22.addWidget(self.client_allow_mailings_label)
+        self.verticalLayout_64.addWidget(self.horizontalFrame)
         self.frame_51 = QtWidgets.QFrame(self.frame_44)
         self.frame_51.setMinimumSize(QtCore.QSize(0, 45))
         self.frame_51.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -894,12 +911,6 @@ class Ui_MainWindow(object):
         self.frame_51.setObjectName("frame_51")
         self.verticalLayout_37 = QtWidgets.QVBoxLayout(self.frame_51)
         self.verticalLayout_37.setObjectName("verticalLayout_37")
-        self.client_amailing_check = QtWidgets.QCheckBox(self.frame_51)
-        self.client_amailing_check.setText("")
-        self.client_amailing_check.setChecked(True)
-        self.client_amailing_check.setTristate(False)
-        self.client_amailing_check.setObjectName("client_amailing_check")
-        self.verticalLayout_37.addWidget(self.client_amailing_check)
         self.verticalLayout_64.addWidget(self.frame_51)
         self.horizontalLayout_49.addWidget(self.frame_44)
         self.frame_7 = QtWidgets.QFrame(self.frame_3)
@@ -927,13 +938,6 @@ class Ui_MainWindow(object):
         self.client_lname.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.client_lname.setObjectName("client_lname")
         self.verticalLayout_12.addWidget(self.client_lname)
-        self.frame_6 = QtWidgets.QFrame(self.frame_7)
-        self.frame_6.setMinimumSize(QtCore.QSize(0, 100))
-        self.frame_6.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_6.setObjectName("frame_6")
-        self.verticalLayout_12.addWidget(self.frame_6)
         self.client_town_label = QtWidgets.QLabel(self.frame_7)
         self.client_town_label.setMinimumSize(QtCore.QSize(0, 16))
         self.client_town_label.setMaximumSize(QtCore.QSize(350, 16777215))
@@ -942,22 +946,31 @@ class Ui_MainWindow(object):
         self.client_town_label.setFont(font)
         self.client_town_label.setObjectName("client_town_label")
         self.verticalLayout_12.addWidget(self.client_town_label, 0, QtCore.Qt.AlignBottom)
-        self.client_zipcode = QtWidgets.QLineEdit(self.frame_7)
-        self.client_zipcode.setMinimumSize(QtCore.QSize(350, 36))
-        self.client_zipcode.setMaximumSize(QtCore.QSize(350, 36))
+        self.client_town = QtWidgets.QLineEdit(self.frame_7)
+        self.client_town.setMinimumSize(QtCore.QSize(350, 36))
+        self.client_town.setMaximumSize(QtCore.QSize(350, 36))
         font = QtGui.QFont()
         font.setPointSize(11)
-        self.client_zipcode.setFont(font)
-        self.client_zipcode.setStyleSheet("background-color: rgb(65, 75, 90);")
-        self.client_zipcode.setObjectName("client_zipcode")
-        self.verticalLayout_12.addWidget(self.client_zipcode)
-        self.frame_14 = QtWidgets.QFrame(self.frame_7)
-        self.frame_14.setMinimumSize(QtCore.QSize(0, 100))
-        self.frame_14.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.frame_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_14.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_14.setObjectName("frame_14")
-        self.verticalLayout_12.addWidget(self.frame_14)
+        self.client_town.setFont(font)
+        self.client_town.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.client_town.setObjectName("client_town")
+        self.verticalLayout_12.addWidget(self.client_town)
+        self.client_email_label = QtWidgets.QLabel(self.frame_7)
+        self.client_email_label.setMinimumSize(QtCore.QSize(0, 16))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.client_email_label.setFont(font)
+        self.client_email_label.setObjectName("client_email_label")
+        self.verticalLayout_12.addWidget(self.client_email_label, 0, QtCore.Qt.AlignBottom)
+        self.client_email = QtWidgets.QLineEdit(self.frame_7)
+        self.client_email.setMinimumSize(QtCore.QSize(350, 36))
+        self.client_email.setMaximumSize(QtCore.QSize(350, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.client_email.setFont(font)
+        self.client_email.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.client_email.setObjectName("client_email")
+        self.verticalLayout_12.addWidget(self.client_email)
         self.client_wcontact_label = QtWidgets.QLabel(self.frame_7)
         self.client_wcontact_label.setMinimumSize(QtCore.QSize(0, 16))
         self.client_wcontact_label.setMaximumSize(QtCore.QSize(350, 16777215))
@@ -975,44 +988,66 @@ class Ui_MainWindow(object):
         self.client_wcontact.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.client_wcontact.setObjectName("client_wcontact")
         self.verticalLayout_12.addWidget(self.client_wcontact)
+        self.label_124 = QtWidgets.QLabel(self.frame_7)
+        self.label_124.setMinimumSize(QtCore.QSize(0, 16))
+        self.label_124.setMaximumSize(QtCore.QSize(350, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_124.setFont(font)
+        self.label_124.setObjectName("label_124")
+        self.verticalLayout_12.addWidget(self.label_124, 0, QtCore.Qt.AlignBottom)
+        self.client_emergency_phone = QtWidgets.QLineEdit(self.frame_7)
+        self.client_emergency_phone.setMinimumSize(QtCore.QSize(350, 36))
+        self.client_emergency_phone.setMaximumSize(QtCore.QSize(350, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.client_emergency_phone.setFont(font)
+        self.client_emergency_phone.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.client_emergency_phone.setObjectName("client_emergency_phone")
+        self.verticalLayout_12.addWidget(self.client_emergency_phone)
         self.frame_13 = QtWidgets.QFrame(self.frame_7)
         self.frame_13.setMinimumSize(QtCore.QSize(0, 130))
         self.frame_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_13.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_13.setObjectName("frame_13")
-        self.verticalLayout_12.addWidget(self.frame_13)
-        self.horizontalLayout_49.addWidget(self.frame_7)
-        self.frame_4 = QtWidgets.QFrame(self.frame_3)
-        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_4.setObjectName("frame_4")
-        self.verticalLayout_63 = QtWidgets.QVBoxLayout(self.frame_4)
-        self.verticalLayout_63.setObjectName("verticalLayout_63")
-        self.client_pet_btn = QtWidgets.QPushButton(self.frame_4)
+        self.verticalLayout_150 = QtWidgets.QVBoxLayout(self.frame_13)
+        self.verticalLayout_150.setObjectName("verticalLayout_150")
+        self.client_pet_btn = QtWidgets.QPushButton(self.frame_13)
         self.client_pet_btn.setMinimumSize(QtCore.QSize(200, 35))
         self.client_pet_btn.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
+        font.setBold(False)
         font.setUnderline(False)
+        font.setWeight(50)
         font.setStrikeOut(False)
         self.client_pet_btn.setFont(font)
-        self.client_pet_btn.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
+        self.client_pet_btn.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    display: inline-block;\n"
+"    background-repeat :norepeat;\n"
+"    background-position:center;\n"
+"    background-image: url( :/20x20/icons/20x20/cil-arrow-circle-right.png); \n"
+"}\n"
 "\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;\n"
-"background-repeat :norepeat;\n"
-"     background-position:center;\n"
-"background-image: url( :/20x20/icons/20x20/cil-arrow-circle-right.png); ")
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
         self.client_pet_btn.setText("")
         self.client_pet_btn.setIconSize(QtCore.QSize(0, 0))
         self.client_pet_btn.setAutoRepeat(False)
         self.client_pet_btn.setObjectName("client_pet_btn")
-        self.verticalLayout_63.addWidget(self.client_pet_btn, 0, QtCore.Qt.AlignLeft|QtCore.Qt.AlignBottom)
-        self.horizontalLayout_49.addWidget(self.frame_4, 0, QtCore.Qt.AlignBottom)
-        self.verticalLayout_11.addWidget(self.frame_3)
+        self.verticalLayout_150.addWidget(self.client_pet_btn)
+        self.verticalLayout_12.addWidget(self.frame_13, 0, QtCore.Qt.AlignRight|QtCore.Qt.AlignVCenter)
+        self.horizontalLayout_49.addWidget(self.frame_7)
+        self.verticalLayout_11.addWidget(self.frame_3, 0, QtCore.Qt.AlignHCenter)
         self.verticalLayout_6.addWidget(self.frame)
         self.Content_stacked_Widget.addWidget(self.page_client)
         self.page = QtWidgets.QWidget()
@@ -1994,8 +2029,12 @@ class Ui_MainWindow(object):
         self.label_17.setMaximumSize(QtCore.QSize(16777215, 60))
         self.label_17.setBaseSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_17.setFont(font)
+        self.label_17.setStyleSheet("color:white;\n"
+"")
         self.label_17.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_17.setObjectName("label_17")
         self.verticalLayout_27.addWidget(self.label_17)
@@ -2012,27 +2051,27 @@ class Ui_MainWindow(object):
         self.frame_73.setObjectName("frame_73")
         self.verticalLayout_130 = QtWidgets.QVBoxLayout(self.frame_73)
         self.verticalLayout_130.setObjectName("verticalLayout_130")
-        self.horizontalFrame = QtWidgets.QFrame(self.frame_73)
-        self.horizontalFrame.setMinimumSize(QtCore.QSize(0, 60))
-        self.horizontalFrame.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.horizontalFrame.setObjectName("horizontalFrame")
-        self.horizontalLayout_93 = QtWidgets.QHBoxLayout(self.horizontalFrame)
+        self.horizontalFrame1 = QtWidgets.QFrame(self.frame_73)
+        self.horizontalFrame1.setMinimumSize(QtCore.QSize(0, 60))
+        self.horizontalFrame1.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.horizontalFrame1.setObjectName("horizontalFrame1")
+        self.horizontalLayout_93 = QtWidgets.QHBoxLayout(self.horizontalFrame1)
         self.horizontalLayout_93.setObjectName("horizontalLayout_93")
-        self.mpayment_daycare_rate = QtWidgets.QLabel(self.horizontalFrame)
+        self.mpayment_daycare_rate = QtWidgets.QLabel(self.horizontalFrame1)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.mpayment_daycare_rate.setFont(font)
         self.mpayment_daycare_rate.setText("")
         self.mpayment_daycare_rate.setObjectName("mpayment_daycare_rate")
         self.horizontalLayout_93.addWidget(self.mpayment_daycare_rate)
-        self.mpayment_daycare_checkbox = QtWidgets.QCheckBox(self.horizontalFrame)
+        self.mpayment_daycare_checkbox = QtWidgets.QCheckBox(self.horizontalFrame1)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.mpayment_daycare_checkbox.setFont(font)
         self.mpayment_daycare_checkbox.setChecked(True)
         self.mpayment_daycare_checkbox.setObjectName("mpayment_daycare_checkbox")
         self.horizontalLayout_93.addWidget(self.mpayment_daycare_checkbox)
-        self.verticalLayout_130.addWidget(self.horizontalFrame)
+        self.verticalLayout_130.addWidget(self.horizontalFrame1)
         self.mpayment_daysIn = QtWidgets.QLabel(self.frame_73)
         self.mpayment_daysIn.setMinimumSize(QtCore.QSize(0, 60))
         self.mpayment_daysIn.setMaximumSize(QtCore.QSize(16777215, 60))
@@ -2133,7 +2172,11 @@ class Ui_MainWindow(object):
         self.mpayment_subtotal.setMaximumSize(QtCore.QSize(500, 60))
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
         self.mpayment_subtotal.setFont(font)
+        self.mpayment_subtotal.setStyleSheet("color:white;\n"
+"")
         self.mpayment_subtotal.setText("")
         self.mpayment_subtotal.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.mpayment_subtotal.setObjectName("mpayment_subtotal")
@@ -2199,14 +2242,9 @@ class Ui_MainWindow(object):
         self.frame_188.setObjectName("frame_188")
         self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.frame_188)
         self.verticalLayout_77.setObjectName("verticalLayout_77")
-        self.label_48 = QtWidgets.QLabel(self.frame_188)
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.label_48.setFont(font)
-        self.label_48.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_48.setObjectName("label_48")
-        self.verticalLayout_77.addWidget(self.label_48)
         self.label_49 = QtWidgets.QLabel(self.frame_188)
+        self.label_49.setMinimumSize(QtCore.QSize(0, 80))
+        self.label_49.setMaximumSize(QtCore.QSize(16777215, 80))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label_49.setFont(font)
@@ -2214,6 +2252,8 @@ class Ui_MainWindow(object):
         self.label_49.setObjectName("label_49")
         self.verticalLayout_77.addWidget(self.label_49)
         self.label_50 = QtWidgets.QLabel(self.frame_188)
+        self.label_50.setMinimumSize(QtCore.QSize(0, 80))
+        self.label_50.setMaximumSize(QtCore.QSize(16777215, 80))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label_50.setFont(font)
@@ -2221,16 +2261,33 @@ class Ui_MainWindow(object):
         self.label_50.setObjectName("label_50")
         self.verticalLayout_77.addWidget(self.label_50)
         self.label_51 = QtWidgets.QLabel(self.frame_188)
+        self.label_51.setMinimumSize(QtCore.QSize(0, 80))
+        self.label_51.setMaximumSize(QtCore.QSize(16777215, 80))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label_51.setFont(font)
         self.label_51.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_51.setObjectName("label_51")
         self.verticalLayout_77.addWidget(self.label_51)
-        self.label_52 = QtWidgets.QLabel(self.frame_188)
+        self.label_48 = QtWidgets.QLabel(self.frame_188)
+        self.label_48.setMinimumSize(QtCore.QSize(0, 80))
+        self.label_48.setMaximumSize(QtCore.QSize(16777215, 80))
         font = QtGui.QFont()
         font.setPointSize(11)
+        self.label_48.setFont(font)
+        self.label_48.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_48.setObjectName("label_48")
+        self.verticalLayout_77.addWidget(self.label_48)
+        self.label_52 = QtWidgets.QLabel(self.frame_188)
+        self.label_52.setMinimumSize(QtCore.QSize(0, 80))
+        self.label_52.setMaximumSize(QtCore.QSize(16777215, 80))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_52.setFont(font)
+        self.label_52.setStyleSheet("color:white;\n"
+"")
         self.label_52.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_52.setObjectName("label_52")
         self.verticalLayout_77.addWidget(self.label_52)
@@ -2246,9 +2303,46 @@ class Ui_MainWindow(object):
         self.frame_189.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_189.setObjectName("frame_189")
         self.verticalLayout_76 = QtWidgets.QVBoxLayout(self.frame_189)
-        self.verticalLayout_76.setContentsMargins(-1, 50, -1, 50)
+        self.verticalLayout_76.setContentsMargins(-1, 9, -1, 9)
         self.verticalLayout_76.setObjectName("verticalLayout_76")
-        self.comboBox_3 = QtWidgets.QComboBox(self.frame_189)
+        self.mpayment_prev_bal = QtWidgets.QLabel(self.frame_189)
+        self.mpayment_prev_bal.setMinimumSize(QtCore.QSize(0, 80))
+        self.mpayment_prev_bal.setMaximumSize(QtCore.QSize(500, 80))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.mpayment_prev_bal.setFont(font)
+        self.mpayment_prev_bal.setText("")
+        self.mpayment_prev_bal.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.mpayment_prev_bal.setObjectName("mpayment_prev_bal")
+        self.verticalLayout_76.addWidget(self.mpayment_prev_bal)
+        self.mpayment_total_charge = QtWidgets.QLabel(self.frame_189)
+        self.mpayment_total_charge.setMinimumSize(QtCore.QSize(0, 80))
+        self.mpayment_total_charge.setMaximumSize(QtCore.QSize(500, 80))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.mpayment_total_charge.setFont(font)
+        self.mpayment_total_charge.setText("")
+        self.mpayment_total_charge.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.mpayment_total_charge.setObjectName("mpayment_total_charge")
+        self.verticalLayout_76.addWidget(self.mpayment_total_charge)
+        self.mpayment_total_bal = QtWidgets.QLabel(self.frame_189)
+        self.mpayment_total_bal.setMinimumSize(QtCore.QSize(0, 80))
+        self.mpayment_total_bal.setMaximumSize(QtCore.QSize(500, 80))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.mpayment_total_bal.setFont(font)
+        self.mpayment_total_bal.setText("")
+        self.mpayment_total_bal.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.mpayment_total_bal.setObjectName("mpayment_total_bal")
+        self.verticalLayout_76.addWidget(self.mpayment_total_bal)
+        self.verticalFrame = QtWidgets.QFrame(self.frame_189)
+        self.verticalFrame.setMinimumSize(QtCore.QSize(0, 80))
+        self.verticalFrame.setMaximumSize(QtCore.QSize(16777215, 80))
+        self.verticalFrame.setObjectName("verticalFrame")
+        self.horizontalLayout_20 = QtWidgets.QHBoxLayout(self.verticalFrame)
+        self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_20.setObjectName("horizontalLayout_20")
+        self.comboBox_3 = QtWidgets.QComboBox(self.verticalFrame)
         self.comboBox_3.setMinimumSize(QtCore.QSize(0, 32))
         self.comboBox_3.setMaximumSize(QtCore.QSize(200, 32))
         font = QtGui.QFont()
@@ -2260,57 +2354,42 @@ class Ui_MainWindow(object):
         self.comboBox_3.addItem("")
         self.comboBox_3.addItem("")
         self.comboBox_3.addItem("")
-        self.verticalLayout_76.addWidget(self.comboBox_3)
-        self.mpayment_prev_bal = QtWidgets.QLabel(self.frame_189)
-        self.mpayment_prev_bal.setMinimumSize(QtCore.QSize(0, 0))
-        self.mpayment_prev_bal.setMaximumSize(QtCore.QSize(500, 16777215))
+        self.horizontalLayout_20.addWidget(self.comboBox_3)
+        self.verticalLayout_76.addWidget(self.verticalFrame)
+        self.verticalFrame1 = QtWidgets.QFrame(self.frame_189)
+        self.verticalFrame1.setMinimumSize(QtCore.QSize(0, 80))
+        self.verticalFrame1.setMaximumSize(QtCore.QSize(16777215, 80))
+        self.verticalFrame1.setObjectName("verticalFrame1")
+        self.verticalLayout_152 = QtWidgets.QVBoxLayout(self.verticalFrame1)
+        self.verticalLayout_152.setObjectName("verticalLayout_152")
+        self.label_128 = QtWidgets.QLabel(self.verticalFrame1)
+        self.label_128.setText("")
+        self.label_128.setObjectName("label_128")
+        self.verticalLayout_152.addWidget(self.label_128)
+        self.mpayment_amt_recieved = QtWidgets.QLineEdit(self.verticalFrame1)
+        self.mpayment_amt_recieved.setMinimumSize(QtCore.QSize(0, 32))
+        self.mpayment_amt_recieved.setMaximumSize(QtCore.QSize(200, 32))
         font = QtGui.QFont()
-        font.setPointSize(11)
-        self.mpayment_prev_bal.setFont(font)
-        self.mpayment_prev_bal.setText("")
-        self.mpayment_prev_bal.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.mpayment_prev_bal.setObjectName("mpayment_prev_bal")
-        self.verticalLayout_76.addWidget(self.mpayment_prev_bal)
-        self.mpayment_total_charge = QtWidgets.QLabel(self.frame_189)
-        self.mpayment_total_charge.setMinimumSize(QtCore.QSize(0, 0))
-        self.mpayment_total_charge.setMaximumSize(QtCore.QSize(500, 16777215))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.mpayment_total_charge.setFont(font)
-        self.mpayment_total_charge.setText("")
-        self.mpayment_total_charge.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.mpayment_total_charge.setObjectName("mpayment_total_charge")
-        self.verticalLayout_76.addWidget(self.mpayment_total_charge)
-        self.mpayment_total_bal = QtWidgets.QLabel(self.frame_189)
-        self.mpayment_total_bal.setMinimumSize(QtCore.QSize(0, 0))
-        self.mpayment_total_bal.setMaximumSize(QtCore.QSize(500, 16777215))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.mpayment_total_bal.setFont(font)
-        self.mpayment_total_bal.setText("")
-        self.mpayment_total_bal.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.mpayment_total_bal.setObjectName("mpayment_total_bal")
-        self.verticalLayout_76.addWidget(self.mpayment_total_bal)
-        self.frame_119 = QtWidgets.QFrame(self.frame_189)
-        self.frame_119.setMaximumSize(QtCore.QSize(16777215, 38))
-        self.frame_119.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_119.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_119.setObjectName("frame_119")
-        self.verticalLayout_76.addWidget(self.frame_119)
-        self.mpayment_amt_recieved = QtWidgets.QLineEdit(self.frame_189)
-        self.mpayment_amt_recieved.setMaximumSize(QtCore.QSize(200, 26))
-        font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
         self.mpayment_amt_recieved.setFont(font)
-        self.mpayment_amt_recieved.setStyleSheet("background-color: rgb(90, 100, 120);")
+        self.mpayment_amt_recieved.setStyleSheet("background-color: rgb(90, 100, 120);\n"
+"color: white;\n"
+"")
         self.mpayment_amt_recieved.setInputMethodHints(QtCore.Qt.ImhPreferNumbers)
         self.mpayment_amt_recieved.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.mpayment_amt_recieved.setObjectName("mpayment_amt_recieved")
-        self.verticalLayout_76.addWidget(self.mpayment_amt_recieved)
+        self.verticalLayout_152.addWidget(self.mpayment_amt_recieved)
+        self.label_129 = QtWidgets.QLabel(self.verticalFrame1)
+        self.label_129.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_129.setObjectName("label_129")
+        self.verticalLayout_152.addWidget(self.label_129)
+        self.verticalLayout_76.addWidget(self.verticalFrame1)
         self.horizontalLayout_80.addWidget(self.frame_189)
-        self.verticalLayout_74.addWidget(self.frame_187)
+        self.verticalLayout_74.addWidget(self.frame_187, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.frame_352 = QtWidgets.QFrame(self.frame_185)
-        self.frame_352.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.frame_352.setMaximumSize(QtCore.QSize(16777215, 80))
         self.frame_352.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_352.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_352.setObjectName("frame_352")
@@ -2318,32 +2397,33 @@ class Ui_MainWindow(object):
         self.horizontalLayout_31.setObjectName("horizontalLayout_31")
         self.mpayment_make_payment_btn = QtWidgets.QPushButton(self.frame_352)
         self.mpayment_make_payment_btn.setMinimumSize(QtCore.QSize(150, 30))
-        self.mpayment_make_payment_btn.setMaximumSize(QtCore.QSize(150, 30))
+        self.mpayment_make_payment_btn.setMaximumSize(QtCore.QSize(150, 32))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         self.mpayment_make_payment_btn.setFont(font)
         self.mpayment_make_payment_btn.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.mpayment_make_payment_btn.setStyleSheet("\n"
-"\n"
-"QPushButton {    \n"
+        self.mpayment_make_payment_btn.setStyleSheet("QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color:     rgb(25, 135, 84);\n"
 "    text-align: center;\n"
-"    border-radius: 5px;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}")
         self.mpayment_make_payment_btn.setObjectName("mpayment_make_payment_btn")
         self.horizontalLayout_31.addWidget(self.mpayment_make_payment_btn)
         self.mpayment_cancel_payment_btn = QtWidgets.QPushButton(self.frame_352)
         self.mpayment_cancel_payment_btn.setMinimumSize(QtCore.QSize(150, 30))
-        self.mpayment_cancel_payment_btn.setMaximumSize(QtCore.QSize(150, 30))
+        self.mpayment_cancel_payment_btn.setMaximumSize(QtCore.QSize(150, 32))
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setBold(True)
@@ -2352,18 +2432,20 @@ class Ui_MainWindow(object):
         font.setStrikeOut(False)
         self.mpayment_cancel_payment_btn.setFont(font)
         self.mpayment_cancel_payment_btn.setStyleSheet("\n"
-"\n"
 "QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color: rgb(223, 71, 89);\n"
 "    text-align: center;\n"
-"    border-radius: 5px;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(201, 64, 80);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(201, 64, 80);\n"
 "}")
         self.mpayment_cancel_payment_btn.setIconSize(QtCore.QSize(0, 0))
         self.mpayment_cancel_payment_btn.setAutoRepeat(False)
@@ -3379,6 +3461,9 @@ class Ui_MainWindow(object):
         self.addpet_pet_type_2 = QtWidgets.QComboBox(self.verticalFrame_5)
         self.addpet_pet_type_2.setMinimumSize(QtCore.QSize(150, 36))
         self.addpet_pet_type_2.setMaximumSize(QtCore.QSize(350, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_type_2.setFont(font)
         self.addpet_pet_type_2.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_type_2.setObjectName("addpet_pet_type_2")
@@ -3407,7 +3492,7 @@ class Ui_MainWindow(object):
         self.addpet_pet_gender_2.setMinimumSize(QtCore.QSize(150, 36))
         self.addpet_pet_gender_2.setMaximumSize(QtCore.QSize(350, 36))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.addpet_pet_gender_2.setFont(font)
         self.addpet_pet_gender_2.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
@@ -3443,6 +3528,9 @@ class Ui_MainWindow(object):
         self.addpet_pet_size_2 = QtWidgets.QLineEdit(self.verticalFrame_7)
         self.addpet_pet_size_2.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_pet_size_2.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_size_2.setFont(font)
         self.addpet_pet_size_2.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_pet_size_2.setObjectName("addpet_pet_size_2")
         self.verticalLayout_46.addWidget(self.addpet_pet_size_2)
@@ -3466,6 +3554,9 @@ class Ui_MainWindow(object):
         self.addpet_weight_input_2 = QtWidgets.QLineEdit(self.verticalFrame_8)
         self.addpet_weight_input_2.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_weight_input_2.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_weight_input_2.setFont(font)
         self.addpet_weight_input_2.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_weight_input_2.setObjectName("addpet_weight_input_2")
         self.verticalLayout_47.addWidget(self.addpet_weight_input_2)
@@ -3534,6 +3625,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_139.addWidget(self.label_117)
         self.addpet_pet_neutered_2 = QtWidgets.QComboBox(self.verticalFrame_9)
         self.addpet_pet_neutered_2.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_neutered_2.setFont(font)
         self.addpet_pet_neutered_2.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_neutered_2.setObjectName("addpet_pet_neutered_2")
@@ -3559,6 +3653,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_140.addWidget(self.label_118)
         self.addpet_pet_vaccinated_2 = QtWidgets.QComboBox(self.verticalFrame_10)
         self.addpet_pet_vaccinated_2.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_vaccinated_2.setFont(font)
         self.addpet_pet_vaccinated_2.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_vaccinated_2.setObjectName("addpet_pet_vaccinated_2")
@@ -3583,6 +3680,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_141.addWidget(self.label_119)
         self.addpet_pet_inactive_2 = QtWidgets.QComboBox(self.verticalFrame_11)
         self.addpet_pet_inactive_2.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_inactive_2.setFont(font)
         self.addpet_pet_inactive_2.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_inactive_2.setObjectName("addpet_pet_inactive_2")
@@ -3643,6 +3743,9 @@ class Ui_MainWindow(object):
         self.addpet_medical_input_2 = QtWidgets.QLineEdit(self.verticalFrame_13)
         self.addpet_medical_input_2.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_medical_input_2.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_medical_input_2.setFont(font)
         self.addpet_medical_input_2.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_medical_input_2.setObjectName("addpet_medical_input_2")
         self.verticalLayout_143.addWidget(self.addpet_medical_input_2)
@@ -3673,6 +3776,9 @@ class Ui_MainWindow(object):
         self.addpet_chip_input_2 = QtWidgets.QLineEdit(self.verticalFrame_14)
         self.addpet_chip_input_2.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_chip_input_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_chip_input_2.setFont(font)
         self.addpet_chip_input_2.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_chip_input_2.setObjectName("addpet_chip_input_2")
         self.verticalLayout_144.addWidget(self.addpet_chip_input_2)
@@ -3694,13 +3800,16 @@ class Ui_MainWindow(object):
         self.verticalLayout_145.addWidget(self.label_122)
         self.addpet_vetname_input_2 = QtWidgets.QLineEdit(self.verticalFrame_15)
         self.addpet_vetname_input_2.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_vetname_input_2.setFont(font)
         self.addpet_vetname_input_2.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_vetname_input_2.setObjectName("addpet_vetname_input_2")
         self.verticalLayout_145.addWidget(self.addpet_vetname_input_2)
         self.horizontalLayout_112.addWidget(self.verticalFrame_15)
         self.verticalLayout_199.addWidget(self.horizontalFrame_7)
         self.frame_388 = QtWidgets.QFrame(self.frame_387)
-        self.frame_388.setMinimumSize(QtCore.QSize(600, 0))
+        self.frame_388.setMinimumSize(QtCore.QSize(0, 0))
         self.frame_388.setMaximumSize(QtCore.QSize(800, 16777215))
         self.frame_388.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_388.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -3711,22 +3820,67 @@ class Ui_MainWindow(object):
         self.addpet_new_pet_btn_2.setMinimumSize(QtCore.QSize(200, 35))
         self.addpet_new_pet_btn_2.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
+        font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         self.addpet_new_pet_btn_2.setFont(font)
-        self.addpet_new_pet_btn_2.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.addpet_new_pet_btn_2.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"     background-color:     rgb(25, 135, 84);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(28, 149, 93);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(28, 149, 93);\n"
+"}")
         self.addpet_new_pet_btn_2.setObjectName("addpet_new_pet_btn_2")
         self.horizontalLayout_168.addWidget(self.addpet_new_pet_btn_2)
-        self.verticalLayout_199.addWidget(self.frame_388)
+        self.verticalLayout_199.addWidget(self.frame_388, 0, QtCore.Qt.AlignRight)
         self.verticalLayout_16.addWidget(self.frame_387)
         self.verticalLayout_45.addWidget(self.frame_57, 0, QtCore.Qt.AlignHCenter)
+        self.verticalFrame2 = QtWidgets.QFrame(self.frame_39)
+        self.verticalFrame2.setMinimumSize(QtCore.QSize(0, 35))
+        self.verticalFrame2.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.verticalFrame2.setObjectName("verticalFrame2")
+        self.verticalLayout_147 = QtWidgets.QVBoxLayout(self.verticalFrame2)
+        self.verticalLayout_147.setContentsMargins(-1, 0, 0, 0)
+        self.verticalLayout_147.setObjectName("verticalLayout_147")
+        self.addpet_back_btn_2 = QtWidgets.QPushButton(self.verticalFrame2)
+        self.addpet_back_btn_2.setMinimumSize(QtCore.QSize(200, 35))
+        self.addpet_back_btn_2.setMaximumSize(QtCore.QSize(200, 35))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_back_btn_2.setFont(font)
+        self.addpet_back_btn_2.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    display: inline-block;\n"
+"    background-repeat :norepeat;\n"
+"    background-position:center;\n"
+"    background-image: url( :/20x20/icons/20x20/cil-arrow-circle-left.png); \n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
+        self.addpet_back_btn_2.setText("")
+        self.addpet_back_btn_2.setObjectName("addpet_back_btn_2")
+        self.verticalLayout_147.addWidget(self.addpet_back_btn_2)
+        self.verticalLayout_45.addWidget(self.verticalFrame2, 0, QtCore.Qt.AlignVCenter)
         self.verticalLayout_19.addWidget(self.frame_39)
         self.Content_stacked_Widget.addWidget(self.page_animal)
         self.page_vet = QtWidgets.QWidget()
@@ -4062,7 +4216,7 @@ class Ui_MainWindow(object):
         self.home_page_title_8.setMinimumSize(QtCore.QSize(300, 50))
         self.home_page_title_8.setMaximumSize(QtCore.QSize(300, 50))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
         self.home_page_title_8.setFont(font)
@@ -4143,7 +4297,13 @@ class Ui_MainWindow(object):
         self.res_list.setAllColumnsShowFocus(True)
         self.res_list.setObjectName("res_list")
         self.res_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.res_list.headerItem().setFont(0, font)
         self.res_list.headerItem().setTextAlignment(1, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.res_list.headerItem().setFont(1, font)
         self.res_list.header().setVisible(False)
         self.res_list.header().setCascadingSectionResizes(False)
         self.res_list.header().setDefaultSectionSize(315)
@@ -4196,11 +4356,11 @@ class Ui_MainWindow(object):
         self.res_calendar.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.res_calendar.setAutoFillBackground(False)
         self.res_calendar.setStyleSheet("gridline-color: rgb(99, 99, 99);\n"
-"background-color: rgb(147, 167, 214);\n"
-"alternate-background-color: rgb(65, 130, 195);\n"
-"selection-color: rgb(0, 134, 4);\n"
+"background-color:white;\n"
+"alternate-background-color: rgb(220,220,220);\n"
+"selection-color: white;\n"
 "color: rgb(0, 0, 0);\n"
-"selection-background-color: rgb(0, 0,100);\n"
+"selection-background-color:rgb(25, 135, 84);\n"
 "")
         self.res_calendar.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.res_calendar.setInputMethodHints(QtCore.Qt.ImhDate)
@@ -4223,6 +4383,7 @@ class Ui_MainWindow(object):
         self.res_selected_days.setMinimumSize(QtCore.QSize(625, 0))
         self.res_selected_days.setMaximumSize(QtCore.QSize(625, 16777215))
         font = QtGui.QFont()
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.res_selected_days.setFont(font)
@@ -4238,6 +4399,9 @@ class Ui_MainWindow(object):
 "")
         self.res_selected_days.setObjectName("res_selected_days")
         self.res_selected_days.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.res_selected_days.headerItem().setFont(0, font)
         self.verticalLayout_93.addWidget(self.res_selected_days)
         self.frame_213 = QtWidgets.QFrame(self.frame_55)
         self.frame_213.setMinimumSize(QtCore.QSize(625, 0))
@@ -4247,56 +4411,61 @@ class Ui_MainWindow(object):
         self.frame_213.setObjectName("frame_213")
         self.horizontalLayout_46 = QtWidgets.QHBoxLayout(self.frame_213)
         self.horizontalLayout_46.setObjectName("horizontalLayout_46")
-        self.res_cancel = QtWidgets.QPushButton(self.frame_213)
-        self.res_cancel.setMinimumSize(QtCore.QSize(200, 35))
-        self.res_cancel.setMaximumSize(QtCore.QSize(200, 35))
-        font = QtGui.QFont()
-        font.setPointSize(-1)
-        font.setUnderline(False)
-        font.setStrikeOut(False)
-        self.res_cancel.setFont(font)
-        self.res_cancel.setStyleSheet("background-color: rgb(255, 0, 4);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;\n"
-"border-radius: 5px;")
-        self.res_cancel.setObjectName("res_cancel")
-        self.horizontalLayout_46.addWidget(self.res_cancel)
         self.res_remove = QtWidgets.QPushButton(self.frame_213)
         self.res_remove.setMinimumSize(QtCore.QSize(200, 35))
         self.res_remove.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
+        font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         self.res_remove.setFont(font)
-        self.res_remove.setStyleSheet("background-color: rgb(245, 207, 56);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.res_remove.setStyleSheet("\n"
+"QPushButton {    \n"
+"    border: none;\n"
+"     background-color: rgb(223, 71, 89);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(201, 64, 80);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(201, 64, 80);\n"
+"}\n"
+"\n"
+"")
         self.res_remove.setObjectName("res_remove")
         self.horizontalLayout_46.addWidget(self.res_remove)
         self.res_submit = QtWidgets.QPushButton(self.frame_213)
         self.res_submit.setMinimumSize(QtCore.QSize(200, 35))
         self.res_submit.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
+        font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         self.res_submit.setFont(font)
-        self.res_submit.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.res_submit.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"     background-color:     rgb(25, 135, 84);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(28, 149, 93);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(28, 149, 93);\n"
+"}")
         self.res_submit.setObjectName("res_submit")
         self.horizontalLayout_46.addWidget(self.res_submit)
         self.verticalLayout_93.addWidget(self.frame_213)
@@ -4434,7 +4603,7 @@ class Ui_MainWindow(object):
 "    background-repeat: no-repeat;\n"
 "    border: none;\n"
 "     border-radius: 5px;\n"
-"     background-color:     rgb(25, 135, 84);\n"
+"background-color: rgb(93, 113, 185);\n"
 "background-image: url( :/16x16/icons/16x16/cil-alarm.png);\n"
 "\n"
 "")
@@ -4503,11 +4672,18 @@ class Ui_MainWindow(object):
         self.home_reserved_tree.headerItem().setText(0, "Client Name")
         self.home_reserved_tree.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
         font = QtGui.QFont()
+        font.setPointSize(11)
         font.setStrikeOut(False)
         self.home_reserved_tree.headerItem().setFont(0, font)
         self.home_reserved_tree.headerItem().setText(1, "Pet Name")
         self.home_reserved_tree.headerItem().setTextAlignment(1, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_reserved_tree.headerItem().setFont(1, font)
         self.home_reserved_tree.headerItem().setTextAlignment(2, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_reserved_tree.headerItem().setFont(2, font)
         self.home_reserved_tree.header().setCascadingSectionResizes(False)
         self.home_reserved_tree.header().setDefaultSectionSize(125)
         self.home_reserved_tree.header().setMinimumSectionSize(125)
@@ -4532,15 +4708,16 @@ class Ui_MainWindow(object):
         self.home_checkin_btn.setFont(font)
         self.home_checkin_btn.setStyleSheet("QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color:     rgb(25, 135, 84);\n"
 "    text-align: center;\n"
-"border-radius: 10px;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}")
         self.home_checkin_btn.setObjectName("home_checkin_btn")
         self.horizontalLayout_75.addWidget(self.home_checkin_btn)
@@ -4596,8 +4773,17 @@ class Ui_MainWindow(object):
         self.home_checked_in_tree.setColumnCount(3)
         self.home_checked_in_tree.setObjectName("home_checked_in_tree")
         self.home_checked_in_tree.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_checked_in_tree.headerItem().setFont(0, font)
         self.home_checked_in_tree.headerItem().setTextAlignment(1, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_checked_in_tree.headerItem().setFont(1, font)
         self.home_checked_in_tree.headerItem().setTextAlignment(2, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_checked_in_tree.headerItem().setFont(2, font)
         self.home_checked_in_tree.header().setCascadingSectionResizes(False)
         self.home_checked_in_tree.header().setDefaultSectionSize(125)
         self.home_checked_in_tree.header().setMinimumSectionSize(125)
@@ -4625,15 +4811,16 @@ class Ui_MainWindow(object):
         self.home_checkout_btn.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.home_checkout_btn.setStyleSheet("QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color:     rgb(25, 135, 84);\n"
 "    text-align: center;\n"
-"border-radius:15px;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}")
         self.home_checkout_btn.setObjectName("home_checkout_btn")
         self.horizontalLayout_69.addWidget(self.home_checkout_btn)
@@ -4690,8 +4877,17 @@ class Ui_MainWindow(object):
         self.home_checkout_tree.setColumnCount(3)
         self.home_checkout_tree.setObjectName("home_checkout_tree")
         self.home_checkout_tree.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_checkout_tree.headerItem().setFont(0, font)
         self.home_checkout_tree.headerItem().setTextAlignment(1, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_checkout_tree.headerItem().setFont(1, font)
         self.home_checkout_tree.headerItem().setTextAlignment(2, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.home_checkout_tree.headerItem().setFont(2, font)
         self.home_checkout_tree.header().setCascadingSectionResizes(False)
         self.home_checkout_tree.header().setDefaultSectionSize(125)
         self.home_checkout_tree.header().setMinimumSectionSize(120)
@@ -4716,15 +4912,16 @@ class Ui_MainWindow(object):
         self.home_pay_btn.setFont(font)
         self.home_pay_btn.setStyleSheet("QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color:     rgb(25, 135, 84);\n"
 "    text-align: center;\n"
-"border-radius:15px;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}")
         self.home_pay_btn.setObjectName("home_pay_btn")
         self.horizontalLayout_73.addWidget(self.home_pay_btn)
@@ -4735,8 +4932,28 @@ class Ui_MainWindow(object):
         self.Content_stacked_Widget.addWidget(self.page_home)
         self.page_payment = QtWidgets.QWidget()
         self.page_payment.setObjectName("page_payment")
-        self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.page_payment)
-        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.verticalLayout_50 = QtWidgets.QVBoxLayout(self.page_payment)
+        self.verticalLayout_50.setObjectName("verticalLayout_50")
+        self.verticalFrame3 = QtWidgets.QFrame(self.page_payment)
+        self.verticalFrame3.setMinimumSize(QtCore.QSize(0, 50))
+        self.verticalFrame3.setObjectName("verticalFrame3")
+        self.verticalLayout_146 = QtWidgets.QVBoxLayout(self.verticalFrame3)
+        self.verticalLayout_146.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_146.setObjectName("verticalLayout_146")
+        self.label_127 = QtWidgets.QLabel(self.verticalFrame3)
+        self.label_127.setMinimumSize(QtCore.QSize(200, 40))
+        self.label_127.setMaximumSize(QtCore.QSize(200, 40))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_127.setFont(font)
+        self.label_127.setStyleSheet("background-color:rgba(0, 0, 0, 0.5);\n"
+"border-radius: 5px;")
+        self.label_127.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_127.setObjectName("label_127")
+        self.verticalLayout_146.addWidget(self.label_127)
+        self.verticalLayout_50.addWidget(self.verticalFrame3, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.frame_16 = QtWidgets.QFrame(self.page_payment)
         self.frame_16.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_16.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -4839,7 +5056,16 @@ class Ui_MainWindow(object):
         self.pay_search_list.setColumnCount(3)
         self.pay_search_list.setObjectName("pay_search_list")
         self.pay_search_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_search_list.headerItem().setFont(0, font)
         self.pay_search_list.headerItem().setTextAlignment(1, QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_search_list.headerItem().setFont(1, font)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_search_list.headerItem().setFont(2, font)
         self.pay_search_list.header().setVisible(True)
         self.pay_search_list.header().setCascadingSectionResizes(False)
         self.pay_search_list.header().setDefaultSectionSize(195)
@@ -5128,31 +5354,30 @@ class Ui_MainWindow(object):
         self.verticalLayout_29.setContentsMargins(1, 1, 1, 1)
         self.verticalLayout_29.setObjectName("verticalLayout_29")
         self.frame_211 = QtWidgets.QFrame(self.frame_18)
-        self.frame_211.setMinimumSize(QtCore.QSize(0, 50))
-        self.frame_211.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.frame_211.setMinimumSize(QtCore.QSize(0, 20))
+        self.frame_211.setMaximumSize(QtCore.QSize(16777215, 20))
         self.frame_211.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_211.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_211.setObjectName("frame_211")
         self.horizontalLayout_48 = QtWidgets.QHBoxLayout(self.frame_211)
-        self.horizontalLayout_48.setContentsMargins(-1, 9, -1, 9)
+        self.horizontalLayout_48.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_48.setObjectName("horizontalLayout_48")
         self.home_page_title_10 = QtWidgets.QLabel(self.frame_211)
-        self.home_page_title_10.setMinimumSize(QtCore.QSize(150, 32))
-        self.home_page_title_10.setMaximumSize(QtCore.QSize(150, 32))
+        self.home_page_title_10.setMinimumSize(QtCore.QSize(150, 16))
+        self.home_page_title_10.setMaximumSize(QtCore.QSize(150, 16))
         font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
         self.home_page_title_10.setFont(font)
         self.home_page_title_10.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.home_page_title_10.setFocusPolicy(QtCore.Qt.WheelFocus)
-        self.home_page_title_10.setStyleSheet("background-color:rgba(0, 0, 0, 0.5);\n"
-"border-radius: 5px;")
+        self.home_page_title_10.setStyleSheet("")
         self.home_page_title_10.setTextFormat(QtCore.Qt.RichText)
-        self.home_page_title_10.setAlignment(QtCore.Qt.AlignCenter)
+        self.home_page_title_10.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft)
         self.home_page_title_10.setObjectName("home_page_title_10")
-        self.horizontalLayout_48.addWidget(self.home_page_title_10)
-        self.verticalLayout_29.addWidget(self.frame_211)
+        self.horizontalLayout_48.addWidget(self.home_page_title_10, 0, QtCore.Qt.AlignLeft|QtCore.Qt.AlignBottom)
+        self.verticalLayout_29.addWidget(self.frame_211, 0, QtCore.Qt.AlignLeft|QtCore.Qt.AlignBottom)
         self.pay_list_widget = QtWidgets.QTreeWidget(self.frame_18)
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -5183,9 +5408,24 @@ class Ui_MainWindow(object):
         self.pay_list_widget.setColumnCount(5)
         self.pay_list_widget.setObjectName("pay_list_widget")
         self.pay_list_widget.headerItem().setText(0, "Starting")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_list_widget.headerItem().setFont(0, font)
         self.pay_list_widget.headerItem().setText(1, "Ending")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_list_widget.headerItem().setFont(1, font)
         self.pay_list_widget.headerItem().setText(2, "Animal")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_list_widget.headerItem().setFont(2, font)
         self.pay_list_widget.headerItem().setText(3, "Cost")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_list_widget.headerItem().setFont(3, font)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_list_widget.headerItem().setFont(4, font)
         self.pay_list_widget.header().setVisible(True)
         self.pay_list_widget.header().setCascadingSectionResizes(False)
         self.pay_list_widget.header().setDefaultSectionSize(100)
@@ -5193,14 +5433,15 @@ class Ui_MainWindow(object):
         self.pay_list_widget.header().setMinimumSectionSize(100)
         self.pay_list_widget.header().setStretchLastSection(True)
         self.verticalLayout_29.addWidget(self.pay_list_widget)
-        self.horizontalFrame1 = QtWidgets.QFrame(self.frame_18)
-        self.horizontalFrame1.setMinimumSize(QtCore.QSize(0, 50))
-        self.horizontalFrame1.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.horizontalFrame1.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.horizontalFrame1.setObjectName("horizontalFrame1")
-        self.horizontalLayout_77 = QtWidgets.QHBoxLayout(self.horizontalFrame1)
+        self.horizontalFrame2 = QtWidgets.QFrame(self.frame_18)
+        self.horizontalFrame2.setMinimumSize(QtCore.QSize(0, 40))
+        self.horizontalFrame2.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.horizontalFrame2.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.horizontalFrame2.setObjectName("horizontalFrame2")
+        self.horizontalLayout_77 = QtWidgets.QHBoxLayout(self.horizontalFrame2)
+        self.horizontalLayout_77.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_77.setObjectName("horizontalLayout_77")
-        self.label_86 = QtWidgets.QLabel(self.horizontalFrame1)
+        self.label_86 = QtWidgets.QLabel(self.horizontalFrame2)
         self.label_86.setMinimumSize(QtCore.QSize(150, 32))
         self.label_86.setMaximumSize(QtCore.QSize(150, 32))
         font = QtGui.QFont()
@@ -5211,7 +5452,7 @@ class Ui_MainWindow(object):
         self.label_86.setAlignment(QtCore.Qt.AlignCenter)
         self.label_86.setObjectName("label_86")
         self.horizontalLayout_77.addWidget(self.label_86)
-        self.verticalLayout_29.addWidget(self.horizontalFrame1)
+        self.verticalLayout_29.addWidget(self.horizontalFrame2)
         self.frame_8 = QtWidgets.QFrame(self.frame_18)
         self.frame_8.setMinimumSize(QtCore.QSize(0, 50))
         self.frame_8.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -5226,6 +5467,7 @@ class Ui_MainWindow(object):
         self.frame_37.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_37.setObjectName("frame_37")
         self.horizontalLayout_61 = QtWidgets.QHBoxLayout(self.frame_37)
+        self.horizontalLayout_61.setContentsMargins(9, 9, 9, 9)
         self.horizontalLayout_61.setObjectName("horizontalLayout_61")
         self.pay_total_charge_label_4 = QtWidgets.QLabel(self.frame_37)
         self.pay_total_charge_label_4.setMaximumSize(QtCore.QSize(200, 16777215))
@@ -5248,41 +5490,49 @@ class Ui_MainWindow(object):
         self.horizontalLayout_59.addWidget(self.frame_37)
         self.frame_81 = QtWidgets.QFrame(self.frame_8)
         self.frame_81.setMinimumSize(QtCore.QSize(270, 0))
-        self.frame_81.setStyleSheet("background-color: rgb(66, 73, 90);")
+        self.frame_81.setStyleSheet("")
         self.frame_81.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_81.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_81.setObjectName("frame_81")
         self.horizontalLayout_70 = QtWidgets.QHBoxLayout(self.frame_81)
+        self.horizontalLayout_70.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_70.setObjectName("horizontalLayout_70")
         self.pay_take_payment_btn_2 = QtWidgets.QPushButton(self.frame_81)
-        self.pay_take_payment_btn_2.setMinimumSize(QtCore.QSize(0, 25))
+        self.pay_take_payment_btn_2.setMinimumSize(QtCore.QSize(150, 32))
+        self.pay_take_payment_btn_2.setMaximumSize(QtCore.QSize(150, 16777215))
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
         self.pay_take_payment_btn_2.setFont(font)
         self.pay_take_payment_btn_2.setStyleSheet("QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color:     rgb(25, 135, 84);\n"
 "    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}")
         self.pay_take_payment_btn_2.setObjectName("pay_take_payment_btn_2")
         self.horizontalLayout_70.addWidget(self.pay_take_payment_btn_2)
         self.horizontalLayout_59.addWidget(self.frame_81)
         self.verticalLayout_29.addWidget(self.frame_8)
-        self.horizontalFrame2 = QtWidgets.QFrame(self.frame_18)
-        self.horizontalFrame2.setMinimumSize(QtCore.QSize(0, 50))
-        self.horizontalFrame2.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.horizontalFrame2.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.horizontalFrame2.setObjectName("horizontalFrame2")
-        self.horizontalLayout_52 = QtWidgets.QHBoxLayout(self.horizontalFrame2)
-        self.horizontalLayout_52.setContentsMargins(-1, -1, -1, 9)
+        self.horizontalFrame3 = QtWidgets.QFrame(self.frame_18)
+        self.horizontalFrame3.setMinimumSize(QtCore.QSize(0, 40))
+        self.horizontalFrame3.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.horizontalFrame3.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.horizontalFrame3.setObjectName("horizontalFrame3")
+        self.horizontalLayout_52 = QtWidgets.QHBoxLayout(self.horizontalFrame3)
+        self.horizontalLayout_52.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_52.setObjectName("horizontalLayout_52")
-        self.label_9 = QtWidgets.QLabel(self.horizontalFrame2)
+        self.label_9 = QtWidgets.QLabel(self.horizontalFrame3)
         self.label_9.setMinimumSize(QtCore.QSize(150, 32))
         self.label_9.setMaximumSize(QtCore.QSize(150, 32))
         font = QtGui.QFont()
@@ -5293,7 +5543,7 @@ class Ui_MainWindow(object):
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
         self.horizontalLayout_52.addWidget(self.label_9, 0, QtCore.Qt.AlignVCenter)
-        self.verticalLayout_29.addWidget(self.horizontalFrame2, 0, QtCore.Qt.AlignVCenter)
+        self.verticalLayout_29.addWidget(self.horizontalFrame3, 0, QtCore.Qt.AlignVCenter)
         self.frame_21 = QtWidgets.QFrame(self.frame_18)
         self.frame_21.setMinimumSize(QtCore.QSize(0, 0))
         self.frame_21.setMaximumSize(QtCore.QSize(16777215, 16777215))
@@ -5346,14 +5596,6 @@ class Ui_MainWindow(object):
         self.label_35.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_35.setObjectName("label_35")
         self.verticalLayout_59.addWidget(self.label_35, 0, QtCore.Qt.AlignVCenter)
-        self.label_32 = QtWidgets.QLabel(self.frame_23)
-        self.label_32.setMinimumSize(QtCore.QSize(0, 32))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.label_32.setFont(font)
-        self.label_32.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.label_32.setObjectName("label_32")
-        self.verticalLayout_59.addWidget(self.label_32)
         self.label_33 = QtWidgets.QLabel(self.frame_23)
         self.label_33.setMinimumSize(QtCore.QSize(0, 32))
         font = QtGui.QFont()
@@ -5384,6 +5626,8 @@ class Ui_MainWindow(object):
         self.label_88.setMinimumSize(QtCore.QSize(0, 32))
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_88.setFont(font)
         self.label_88.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_88.setObjectName("label_88")
@@ -5400,13 +5644,13 @@ class Ui_MainWindow(object):
         self.frame_24.setObjectName("frame_24")
         self.verticalLayout_44 = QtWidgets.QVBoxLayout(self.frame_24)
         self.verticalLayout_44.setObjectName("verticalLayout_44")
-        self.horizontalFrame3 = QtWidgets.QFrame(self.frame_24)
-        self.horizontalFrame3.setMinimumSize(QtCore.QSize(0, 32))
-        self.horizontalFrame3.setMaximumSize(QtCore.QSize(16777215, 32))
-        self.horizontalFrame3.setObjectName("horizontalFrame3")
-        self.horizontalLayout_71 = QtWidgets.QHBoxLayout(self.horizontalFrame3)
+        self.horizontalFrame4 = QtWidgets.QFrame(self.frame_24)
+        self.horizontalFrame4.setMinimumSize(QtCore.QSize(0, 32))
+        self.horizontalFrame4.setMaximumSize(QtCore.QSize(16777215, 32))
+        self.horizontalFrame4.setObjectName("horizontalFrame4")
+        self.horizontalLayout_71 = QtWidgets.QHBoxLayout(self.horizontalFrame4)
         self.horizontalLayout_71.setObjectName("horizontalLayout_71")
-        self.pay_daycare_checkbox = QtWidgets.QCheckBox(self.horizontalFrame3)
+        self.pay_daycare_checkbox = QtWidgets.QCheckBox(self.horizontalFrame4)
         self.pay_daycare_checkbox.setMinimumSize(QtCore.QSize(0, 26))
         self.pay_daycare_checkbox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
@@ -5416,7 +5660,7 @@ class Ui_MainWindow(object):
         self.pay_daycare_checkbox.setChecked(True)
         self.pay_daycare_checkbox.setObjectName("pay_daycare_checkbox")
         self.horizontalLayout_71.addWidget(self.pay_daycare_checkbox)
-        self.pay_daycare_rate = QtWidgets.QTextEdit(self.horizontalFrame3)
+        self.pay_daycare_rate = QtWidgets.QTextEdit(self.horizontalFrame4)
         self.pay_daycare_rate.setEnabled(True)
         self.pay_daycare_rate.setMinimumSize(QtCore.QSize(0, 32))
         self.pay_daycare_rate.setMaximumSize(QtCore.QSize(200, 32))
@@ -5430,7 +5674,7 @@ class Ui_MainWindow(object):
         self.pay_daycare_rate.setReadOnly(True)
         self.pay_daycare_rate.setObjectName("pay_daycare_rate")
         self.horizontalLayout_71.addWidget(self.pay_daycare_rate)
-        self.verticalLayout_44.addWidget(self.horizontalFrame3, 0, QtCore.Qt.AlignLeft)
+        self.verticalLayout_44.addWidget(self.horizontalFrame4, 0, QtCore.Qt.AlignLeft)
         self.frame_35 = QtWidgets.QFrame(self.frame_24)
         self.frame_35.setMinimumSize(QtCore.QSize(0, 32))
         self.frame_35.setMaximumSize(QtCore.QSize(300, 32))
@@ -5481,22 +5725,6 @@ class Ui_MainWindow(object):
         self.pay_services_discount.setInputMethodHints(QtCore.Qt.ImhPreferNumbers)
         self.pay_services_discount.setObjectName("pay_services_discount")
         self.verticalLayout_44.addWidget(self.pay_services_discount)
-        self.pay_nys_tax = QtWidgets.QTextEdit(self.frame_24)
-        self.pay_nys_tax.setEnabled(True)
-        self.pay_nys_tax.setMinimumSize(QtCore.QSize(0, 32))
-        self.pay_nys_tax.setMaximumSize(QtCore.QSize(200, 32))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        self.pay_nys_tax.setFont(font)
-        self.pay_nys_tax.setStyleSheet("")
-        self.pay_nys_tax.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.pay_nys_tax.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.pay_nys_tax.setLineWidth(1)
-        self.pay_nys_tax.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
-        self.pay_nys_tax.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
-        self.pay_nys_tax.setReadOnly(True)
-        self.pay_nys_tax.setObjectName("pay_nys_tax")
-        self.verticalLayout_44.addWidget(self.pay_nys_tax)
         self.comboBox_2 = QtWidgets.QComboBox(self.frame_24)
         self.comboBox_2.setMinimumSize(QtCore.QSize(0, 32))
         self.comboBox_2.setMaximumSize(QtCore.QSize(200, 32))
@@ -5510,16 +5738,38 @@ class Ui_MainWindow(object):
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
         self.verticalLayout_44.addWidget(self.comboBox_2)
-        self.pay_subtotal = QtWidgets.QLabel(self.frame_24)
-        self.pay_subtotal.setMinimumSize(QtCore.QSize(0, 32))
-        self.pay_subtotal.setMaximumSize(QtCore.QSize(250, 32))
+        self.horizontalFrame5 = QtWidgets.QFrame(self.frame_24)
+        self.horizontalFrame5.setMinimumSize(QtCore.QSize(0, 0))
+        self.horizontalFrame5.setObjectName("horizontalFrame5")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalFrame5)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.pay_subtotal = QtWidgets.QLabel(self.horizontalFrame5)
+        self.pay_subtotal.setMinimumSize(QtCore.QSize(100, 32))
+        self.pay_subtotal.setMaximumSize(QtCore.QSize(100, 16777215))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.pay_subtotal.setFont(font)
         self.pay_subtotal.setText("")
         self.pay_subtotal.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.pay_subtotal.setObjectName("pay_subtotal")
-        self.verticalLayout_44.addWidget(self.pay_subtotal)
+        self.horizontalLayout.addWidget(self.pay_subtotal)
+        self.label_32 = QtWidgets.QLabel(self.horizontalFrame5)
+        self.label_32.setMinimumSize(QtCore.QSize(0, 32))
+        self.label_32.setMaximumSize(QtCore.QSize(50, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.label_32.setFont(font)
+        self.label_32.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_32.setObjectName("label_32")
+        self.horizontalLayout.addWidget(self.label_32)
+        self.pay_nys_tax = QtWidgets.QLabel(self.horizontalFrame5)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pay_nys_tax.setFont(font)
+        self.pay_nys_tax.setText("")
+        self.pay_nys_tax.setObjectName("pay_nys_tax")
+        self.horizontalLayout.addWidget(self.pay_nys_tax)
+        self.verticalLayout_44.addWidget(self.horizontalFrame5)
         self.pay_services_amt_recieved = QtWidgets.QLineEdit(self.frame_24)
         self.pay_services_amt_recieved.setMinimumSize(QtCore.QSize(0, 32))
         self.pay_services_amt_recieved.setMaximumSize(QtCore.QSize(200, 32))
@@ -5535,6 +5785,8 @@ class Ui_MainWindow(object):
         self.pay_remaining.setMaximumSize(QtCore.QSize(250, 32))
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
         self.pay_remaining.setFont(font)
         self.pay_remaining.setText("")
         self.pay_remaining.setObjectName("pay_remaining")
@@ -5552,34 +5804,40 @@ class Ui_MainWindow(object):
         self.horizontalLayout_18.setObjectName("horizontalLayout_18")
         self.frame_34 = QtWidgets.QFrame(self.frame_22)
         self.frame_34.setMinimumSize(QtCore.QSize(270, 0))
-        self.frame_34.setStyleSheet("background-color: rgb(66, 73, 90);")
+        self.frame_34.setStyleSheet("")
         self.frame_34.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_34.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_34.setObjectName("frame_34")
         self.horizontalLayout_57 = QtWidgets.QHBoxLayout(self.frame_34)
+        self.horizontalLayout_57.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_57.setObjectName("horizontalLayout_57")
         self.pay_take_payment_btn = QtWidgets.QPushButton(self.frame_34)
-        self.pay_take_payment_btn.setMinimumSize(QtCore.QSize(0, 25))
+        self.pay_take_payment_btn.setMinimumSize(QtCore.QSize(150, 32))
+        self.pay_take_payment_btn.setMaximumSize(QtCore.QSize(150, 32))
         font = QtGui.QFont()
         font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
         self.pay_take_payment_btn.setFont(font)
         self.pay_take_payment_btn.setStyleSheet("QPushButton {    \n"
 "    border: none;\n"
-"    background-color: rgb(27, 29, 35);\n"
+"     background-color:     rgb(25, 135, 84);\n"
 "    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
+"background-color:     rgb(28, 149, 93);\n"
 "}")
         self.pay_take_payment_btn.setObjectName("pay_take_payment_btn")
         self.horizontalLayout_57.addWidget(self.pay_take_payment_btn)
         self.horizontalLayout_18.addWidget(self.frame_34)
         self.verticalLayout_29.addWidget(self.frame_22)
         self.horizontalLayout_11.addWidget(self.frame_18)
-        self.horizontalLayout_8.addWidget(self.frame_16)
+        self.verticalLayout_50.addWidget(self.frame_16)
         self.Content_stacked_Widget.addWidget(self.page_payment)
         self.page_editclient = QtWidgets.QWidget()
         self.page_editclient.setObjectName("page_editclient")
@@ -5612,7 +5870,7 @@ class Ui_MainWindow(object):
         self.home_page_title_9.setMinimumSize(QtCore.QSize(200, 40))
         self.home_page_title_9.setMaximumSize(QtCore.QSize(200, 40))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.home_page_title_9.setFont(font)
@@ -5686,6 +5944,9 @@ class Ui_MainWindow(object):
         self.editclient_search_list.setHeaderHidden(True)
         self.editclient_search_list.setObjectName("editclient_search_list")
         self.editclient_search_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.editclient_search_list.headerItem().setFont(0, font)
         self.editclient_search_list.header().setVisible(False)
         self.editclient_search_list.header().setCascadingSectionResizes(False)
         self.editclient_search_list.header().setDefaultSectionSize(609)
@@ -5760,7 +6021,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_81.setFont(font)
-        self.label_81.setText("")
         self.label_81.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_81.setObjectName("label_81")
         self.verticalLayout_96.addWidget(self.label_81)
@@ -5819,13 +6079,13 @@ class Ui_MainWindow(object):
         self.edit_client_email.setText("")
         self.edit_client_email.setObjectName("edit_client_email")
         self.verticalLayout_97.addWidget(self.edit_client_email)
-        self.label_84 = QtWidgets.QLabel(self.frame_50)
+        self.edit_client_emergency = QtWidgets.QLabel(self.frame_50)
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label_84.setFont(font)
-        self.label_84.setText("")
-        self.label_84.setObjectName("label_84")
-        self.verticalLayout_97.addWidget(self.label_84)
+        self.edit_client_emergency.setFont(font)
+        self.edit_client_emergency.setText("")
+        self.edit_client_emergency.setObjectName("edit_client_emergency")
+        self.verticalLayout_97.addWidget(self.edit_client_emergency)
         self.edit_client_balance = QtWidgets.QLabel(self.frame_50)
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -6108,6 +6368,34 @@ class Ui_MainWindow(object):
         self.edit_client_alternate_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.edit_client_alternate_input.setObjectName("edit_client_alternate_input")
         self.verticalLayout_189.addWidget(self.edit_client_alternate_input)
+        self.label_84 = QtWidgets.QLabel(self.frame_52)
+        self.label_84.setMinimumSize(QtCore.QSize(0, 16))
+        self.label_84.setMaximumSize(QtCore.QSize(350, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_84.setFont(font)
+        self.label_84.setObjectName("label_84")
+        self.verticalLayout_189.addWidget(self.label_84)
+        self.edit_client_emergency_name_input = QtWidgets.QLineEdit(self.frame_52)
+        self.edit_client_emergency_name_input.setMinimumSize(QtCore.QSize(350, 36))
+        self.edit_client_emergency_name_input.setMaximumSize(QtCore.QSize(350, 36))
+        self.edit_client_emergency_name_input.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.edit_client_emergency_name_input.setObjectName("edit_client_emergency_name_input")
+        self.verticalLayout_189.addWidget(self.edit_client_emergency_name_input)
+        self.label_125 = QtWidgets.QLabel(self.frame_52)
+        self.label_125.setMinimumSize(QtCore.QSize(0, 16))
+        self.label_125.setMaximumSize(QtCore.QSize(350, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_125.setFont(font)
+        self.label_125.setObjectName("label_125")
+        self.verticalLayout_189.addWidget(self.label_125)
+        self.edit_client_emergency_phone_input = QtWidgets.QLineEdit(self.frame_52)
+        self.edit_client_emergency_phone_input.setMinimumSize(QtCore.QSize(350, 36))
+        self.edit_client_emergency_phone_input.setMaximumSize(QtCore.QSize(350, 36))
+        self.edit_client_emergency_phone_input.setStyleSheet("background-color: rgb(65, 75, 90);")
+        self.edit_client_emergency_phone_input.setObjectName("edit_client_emergency_phone_input")
+        self.verticalLayout_189.addWidget(self.edit_client_emergency_phone_input)
         self.frame_373 = QtWidgets.QFrame(self.frame_52)
         self.frame_373.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_373.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -6118,17 +6406,25 @@ class Ui_MainWindow(object):
         self.edit_client_submit_btn.setMinimumSize(QtCore.QSize(200, 35))
         self.edit_client_submit_btn.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
+        font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         self.edit_client_submit_btn.setFont(font)
-        self.edit_client_submit_btn.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.edit_client_submit_btn.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"     background-color:     rgb(25, 135, 84);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(28, 149, 93);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(28, 149, 93);\n"
+"}")
         self.edit_client_submit_btn.setObjectName("edit_client_submit_btn")
         self.horizontalLayout_161.addWidget(self.edit_client_submit_btn)
         self.verticalLayout_189.addWidget(self.frame_373, 0, QtCore.Qt.AlignRight)
@@ -6269,6 +6565,9 @@ class Ui_MainWindow(object):
         self.addpet_search_list.setHeaderHidden(True)
         self.addpet_search_list.setObjectName("addpet_search_list")
         self.addpet_search_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_search_list.headerItem().setFont(0, font)
         self.addpet_search_list.header().setVisible(False)
         self.addpet_search_list.header().setCascadingSectionResizes(False)
         self.addpet_search_list.header().setDefaultSectionSize(200)
@@ -6573,20 +6872,29 @@ class Ui_MainWindow(object):
         self.addpet_animal_date_in.setObjectName("addpet_animal_date_in")
         self.verticalLayout_196.addWidget(self.addpet_animal_date_in)
         self.addpet_delete_btn = QtWidgets.QPushButton(self.frame_384)
-        self.addpet_delete_btn.setMinimumSize(QtCore.QSize(150, 40))
-        self.addpet_delete_btn.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.addpet_delete_btn.setMinimumSize(QtCore.QSize(150, 35))
+        self.addpet_delete_btn.setMaximumSize(QtCore.QSize(150, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
         font.setUnderline(False)
         font.setStrikeOut(False)
         self.addpet_delete_btn.setFont(font)
-        self.addpet_delete_btn.setStyleSheet("background-color: rgb(145, 1, 1);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.addpet_delete_btn.setStyleSheet("\n"
+"QPushButton {    \n"
+"    border: none;\n"
+"     background-color: rgb(223, 71, 89);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(201, 64, 80);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(201, 64, 80);\n"
+"}")
         self.addpet_delete_btn.setObjectName("addpet_delete_btn")
         self.verticalLayout_196.addWidget(self.addpet_delete_btn)
         self.horizontalLayout_166.addWidget(self.frame_384)
@@ -6642,21 +6950,21 @@ class Ui_MainWindow(object):
         self.addpet_name_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_name_input.setObjectName("addpet_name_input")
         self.verticalLayout_197.addWidget(self.addpet_name_input)
-        self.horizontalFrame4 = QtWidgets.QFrame(self.frame_385)
-        self.horizontalFrame4.setMinimumSize(QtCore.QSize(0, 0))
-        self.horizontalFrame4.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.horizontalFrame4.setObjectName("horizontalFrame4")
-        self.horizontalLayout_107 = QtWidgets.QHBoxLayout(self.horizontalFrame4)
+        self.horizontalFrame6 = QtWidgets.QFrame(self.frame_385)
+        self.horizontalFrame6.setMinimumSize(QtCore.QSize(0, 0))
+        self.horizontalFrame6.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.horizontalFrame6.setObjectName("horizontalFrame6")
+        self.horizontalLayout_107 = QtWidgets.QHBoxLayout(self.horizontalFrame6)
         self.horizontalLayout_107.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_107.setObjectName("horizontalLayout_107")
-        self.verticalFrame = QtWidgets.QFrame(self.horizontalFrame4)
-        self.verticalFrame.setMinimumSize(QtCore.QSize(0, 0))
-        self.verticalFrame.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.verticalFrame.setObjectName("verticalFrame")
-        self.verticalLayout_123 = QtWidgets.QVBoxLayout(self.verticalFrame)
+        self.verticalFrame4 = QtWidgets.QFrame(self.horizontalFrame6)
+        self.verticalFrame4.setMinimumSize(QtCore.QSize(0, 0))
+        self.verticalFrame4.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.verticalFrame4.setObjectName("verticalFrame4")
+        self.verticalLayout_123 = QtWidgets.QVBoxLayout(self.verticalFrame4)
         self.verticalLayout_123.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_123.setObjectName("verticalLayout_123")
-        self.client_fname_label_10 = QtWidgets.QLabel(self.verticalFrame)
+        self.client_fname_label_10 = QtWidgets.QLabel(self.verticalFrame4)
         self.client_fname_label_10.setMinimumSize(QtCore.QSize(0, 16))
         self.client_fname_label_10.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
@@ -6666,7 +6974,7 @@ class Ui_MainWindow(object):
         self.client_fname_label_10.setFont(font)
         self.client_fname_label_10.setObjectName("client_fname_label_10")
         self.verticalLayout_123.addWidget(self.client_fname_label_10)
-        self.addpet_breed_input = QtWidgets.QLineEdit(self.verticalFrame)
+        self.addpet_breed_input = QtWidgets.QLineEdit(self.verticalFrame4)
         self.addpet_breed_input.setMinimumSize(QtCore.QSize(300, 36))
         self.addpet_breed_input.setMaximumSize(QtCore.QSize(300, 36))
         font = QtGui.QFont()
@@ -6675,15 +6983,15 @@ class Ui_MainWindow(object):
         self.addpet_breed_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_breed_input.setObjectName("addpet_breed_input")
         self.verticalLayout_123.addWidget(self.addpet_breed_input)
-        self.horizontalLayout_107.addWidget(self.verticalFrame)
-        self.verticalFrame1 = QtWidgets.QFrame(self.horizontalFrame4)
-        self.verticalFrame1.setMinimumSize(QtCore.QSize(0, 0))
-        self.verticalFrame1.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.verticalFrame1.setObjectName("verticalFrame1")
-        self.verticalLayout_122 = QtWidgets.QVBoxLayout(self.verticalFrame1)
+        self.horizontalLayout_107.addWidget(self.verticalFrame4)
+        self.verticalFrame5 = QtWidgets.QFrame(self.horizontalFrame6)
+        self.verticalFrame5.setMinimumSize(QtCore.QSize(0, 0))
+        self.verticalFrame5.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.verticalFrame5.setObjectName("verticalFrame5")
+        self.verticalLayout_122 = QtWidgets.QVBoxLayout(self.verticalFrame5)
         self.verticalLayout_122.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_122.setObjectName("verticalLayout_122")
-        self.label_105 = QtWidgets.QLabel(self.verticalFrame1)
+        self.label_105 = QtWidgets.QLabel(self.verticalFrame5)
         self.label_105.setMinimumSize(QtCore.QSize(0, 16))
         self.label_105.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
@@ -6692,24 +7000,27 @@ class Ui_MainWindow(object):
         self.label_105.setFont(font)
         self.label_105.setObjectName("label_105")
         self.verticalLayout_122.addWidget(self.label_105)
-        self.addpet_pet_type = QtWidgets.QComboBox(self.verticalFrame1)
+        self.addpet_pet_type = QtWidgets.QComboBox(self.verticalFrame5)
         self.addpet_pet_type.setMinimumSize(QtCore.QSize(150, 36))
         self.addpet_pet_type.setMaximumSize(QtCore.QSize(350, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_type.setFont(font)
         self.addpet_pet_type.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_type.setObjectName("addpet_pet_type")
         self.addpet_pet_type.addItem("")
         self.addpet_pet_type.addItem("")
         self.verticalLayout_122.addWidget(self.addpet_pet_type)
-        self.horizontalLayout_107.addWidget(self.verticalFrame1)
-        self.verticalFrame2 = QtWidgets.QFrame(self.horizontalFrame4)
-        self.verticalFrame2.setMinimumSize(QtCore.QSize(0, 0))
-        self.verticalFrame2.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.verticalFrame2.setObjectName("verticalFrame2")
-        self.verticalLayout_129 = QtWidgets.QVBoxLayout(self.verticalFrame2)
+        self.horizontalLayout_107.addWidget(self.verticalFrame5)
+        self.verticalFrame6 = QtWidgets.QFrame(self.horizontalFrame6)
+        self.verticalFrame6.setMinimumSize(QtCore.QSize(0, 0))
+        self.verticalFrame6.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.verticalFrame6.setObjectName("verticalFrame6")
+        self.verticalLayout_129 = QtWidgets.QVBoxLayout(self.verticalFrame6)
         self.verticalLayout_129.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_129.setObjectName("verticalLayout_129")
-        self.client_fname_label_11 = QtWidgets.QLabel(self.verticalFrame2)
+        self.client_fname_label_11 = QtWidgets.QLabel(self.verticalFrame6)
         self.client_fname_label_11.setMinimumSize(QtCore.QSize(0, 16))
         self.client_fname_label_11.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
@@ -6719,11 +7030,11 @@ class Ui_MainWindow(object):
         self.client_fname_label_11.setFont(font)
         self.client_fname_label_11.setObjectName("client_fname_label_11")
         self.verticalLayout_129.addWidget(self.client_fname_label_11)
-        self.addpet_pet_gender = QtWidgets.QComboBox(self.verticalFrame2)
+        self.addpet_pet_gender = QtWidgets.QComboBox(self.verticalFrame6)
         self.addpet_pet_gender.setMinimumSize(QtCore.QSize(150, 36))
         self.addpet_pet_gender.setMaximumSize(QtCore.QSize(350, 36))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.addpet_pet_gender.setFont(font)
         self.addpet_pet_gender.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
@@ -6731,23 +7042,23 @@ class Ui_MainWindow(object):
         self.addpet_pet_gender.addItem("")
         self.addpet_pet_gender.addItem("")
         self.verticalLayout_129.addWidget(self.addpet_pet_gender)
-        self.horizontalLayout_107.addWidget(self.verticalFrame2)
-        self.verticalLayout_197.addWidget(self.horizontalFrame4, 0, QtCore.Qt.AlignLeft)
-        self.horizontalFrame5 = QtWidgets.QFrame(self.frame_385)
-        self.horizontalFrame5.setMinimumSize(QtCore.QSize(0, 65))
-        self.horizontalFrame5.setMaximumSize(QtCore.QSize(16777215, 65))
-        self.horizontalFrame5.setObjectName("horizontalFrame5")
-        self.horizontalLayout_95 = QtWidgets.QHBoxLayout(self.horizontalFrame5)
+        self.horizontalLayout_107.addWidget(self.verticalFrame6)
+        self.verticalLayout_197.addWidget(self.horizontalFrame6, 0, QtCore.Qt.AlignLeft)
+        self.horizontalFrame7 = QtWidgets.QFrame(self.frame_385)
+        self.horizontalFrame7.setMinimumSize(QtCore.QSize(0, 65))
+        self.horizontalFrame7.setMaximumSize(QtCore.QSize(16777215, 65))
+        self.horizontalFrame7.setObjectName("horizontalFrame7")
+        self.horizontalLayout_95 = QtWidgets.QHBoxLayout(self.horizontalFrame7)
         self.horizontalLayout_95.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_95.setObjectName("horizontalLayout_95")
-        self.verticalFrame3 = QtWidgets.QFrame(self.horizontalFrame5)
-        self.verticalFrame3.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame3.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame3.setObjectName("verticalFrame3")
-        self.verticalLayout_39 = QtWidgets.QVBoxLayout(self.verticalFrame3)
+        self.verticalFrame7 = QtWidgets.QFrame(self.horizontalFrame7)
+        self.verticalFrame7.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame7.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame7.setObjectName("verticalFrame7")
+        self.verticalLayout_39 = QtWidgets.QVBoxLayout(self.verticalFrame7)
         self.verticalLayout_39.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_39.setObjectName("verticalLayout_39")
-        self.label_104 = QtWidgets.QLabel(self.verticalFrame3)
+        self.label_104 = QtWidgets.QLabel(self.verticalFrame7)
         self.label_104.setMinimumSize(QtCore.QSize(0, 16))
         self.label_104.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
@@ -6756,21 +7067,24 @@ class Ui_MainWindow(object):
         self.label_104.setFont(font)
         self.label_104.setObjectName("label_104")
         self.verticalLayout_39.addWidget(self.label_104)
-        self.addpet_pet_size = QtWidgets.QLineEdit(self.verticalFrame3)
+        self.addpet_pet_size = QtWidgets.QLineEdit(self.verticalFrame7)
         self.addpet_pet_size.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_pet_size.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_size.setFont(font)
         self.addpet_pet_size.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_pet_size.setObjectName("addpet_pet_size")
         self.verticalLayout_39.addWidget(self.addpet_pet_size)
-        self.horizontalLayout_95.addWidget(self.verticalFrame3)
-        self.verticalFrame4 = QtWidgets.QFrame(self.horizontalFrame5)
-        self.verticalFrame4.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame4.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame4.setObjectName("verticalFrame4")
-        self.verticalLayout_35 = QtWidgets.QVBoxLayout(self.verticalFrame4)
+        self.horizontalLayout_95.addWidget(self.verticalFrame7)
+        self.verticalFrame8 = QtWidgets.QFrame(self.horizontalFrame7)
+        self.verticalFrame8.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame8.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame8.setObjectName("verticalFrame8")
+        self.verticalLayout_35 = QtWidgets.QVBoxLayout(self.verticalFrame8)
         self.verticalLayout_35.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_35.setObjectName("verticalLayout_35")
-        self.label_106 = QtWidgets.QLabel(self.verticalFrame4)
+        self.label_106 = QtWidgets.QLabel(self.verticalFrame8)
         self.label_106.setMinimumSize(QtCore.QSize(0, 16))
         self.label_106.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
@@ -6779,14 +7093,17 @@ class Ui_MainWindow(object):
         self.label_106.setFont(font)
         self.label_106.setObjectName("label_106")
         self.verticalLayout_35.addWidget(self.label_106)
-        self.addpet_weight_input = QtWidgets.QLineEdit(self.verticalFrame4)
+        self.addpet_weight_input = QtWidgets.QLineEdit(self.verticalFrame8)
         self.addpet_weight_input.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_weight_input.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_weight_input.setFont(font)
         self.addpet_weight_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_weight_input.setObjectName("addpet_weight_input")
         self.verticalLayout_35.addWidget(self.addpet_weight_input)
-        self.horizontalLayout_95.addWidget(self.verticalFrame4)
-        self.verticalLayout_197.addWidget(self.horizontalFrame5)
+        self.horizontalLayout_95.addWidget(self.verticalFrame8)
+        self.verticalLayout_197.addWidget(self.horizontalFrame7)
         self.client_fname_label_12 = QtWidgets.QLabel(self.frame_385)
         self.client_fname_label_12.setMinimumSize(QtCore.QSize(0, 16))
         self.client_fname_label_12.setMaximumSize(QtCore.QSize(350, 16))
@@ -6825,21 +7142,21 @@ class Ui_MainWindow(object):
         self.addpet_foodtype_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_foodtype_input.setObjectName("addpet_foodtype_input")
         self.verticalLayout_197.addWidget(self.addpet_foodtype_input)
-        self.horizontalFrame6 = QtWidgets.QFrame(self.frame_385)
-        self.horizontalFrame6.setMinimumSize(QtCore.QSize(0, 65))
-        self.horizontalFrame6.setMaximumSize(QtCore.QSize(16777215, 65))
-        self.horizontalFrame6.setObjectName("horizontalFrame6")
-        self.horizontalLayout_100 = QtWidgets.QHBoxLayout(self.horizontalFrame6)
+        self.horizontalFrame8 = QtWidgets.QFrame(self.frame_385)
+        self.horizontalFrame8.setMinimumSize(QtCore.QSize(0, 65))
+        self.horizontalFrame8.setMaximumSize(QtCore.QSize(16777215, 65))
+        self.horizontalFrame8.setObjectName("horizontalFrame8")
+        self.horizontalLayout_100 = QtWidgets.QHBoxLayout(self.horizontalFrame8)
         self.horizontalLayout_100.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_100.setObjectName("horizontalLayout_100")
-        self.verticalFrame5 = QtWidgets.QFrame(self.horizontalFrame6)
-        self.verticalFrame5.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame5.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame5.setObjectName("verticalFrame5")
-        self.verticalLayout_70 = QtWidgets.QVBoxLayout(self.verticalFrame5)
+        self.verticalFrame9 = QtWidgets.QFrame(self.horizontalFrame8)
+        self.verticalFrame9.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame9.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame9.setObjectName("verticalFrame9")
+        self.verticalLayout_70 = QtWidgets.QVBoxLayout(self.verticalFrame9)
         self.verticalLayout_70.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_70.setObjectName("verticalLayout_70")
-        self.label_107 = QtWidgets.QLabel(self.verticalFrame5)
+        self.label_107 = QtWidgets.QLabel(self.verticalFrame9)
         self.label_107.setMinimumSize(QtCore.QSize(0, 16))
         self.label_107.setMaximumSize(QtCore.QSize(350, 16777215))
         font = QtGui.QFont()
@@ -6848,23 +7165,26 @@ class Ui_MainWindow(object):
         self.label_107.setFont(font)
         self.label_107.setObjectName("label_107")
         self.verticalLayout_70.addWidget(self.label_107)
-        self.addpet_pet_neutered = QtWidgets.QComboBox(self.verticalFrame5)
+        self.addpet_pet_neutered = QtWidgets.QComboBox(self.verticalFrame9)
         self.addpet_pet_neutered.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_neutered.setFont(font)
         self.addpet_pet_neutered.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_neutered.setObjectName("addpet_pet_neutered")
         self.addpet_pet_neutered.addItem("")
         self.addpet_pet_neutered.addItem("")
         self.verticalLayout_70.addWidget(self.addpet_pet_neutered)
-        self.horizontalLayout_100.addWidget(self.verticalFrame5)
-        self.verticalFrame6 = QtWidgets.QFrame(self.horizontalFrame6)
-        self.verticalFrame6.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame6.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame6.setObjectName("verticalFrame6")
-        self.verticalLayout_61 = QtWidgets.QVBoxLayout(self.verticalFrame6)
+        self.horizontalLayout_100.addWidget(self.verticalFrame9)
+        self.verticalFrame10 = QtWidgets.QFrame(self.horizontalFrame8)
+        self.verticalFrame10.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame10.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame10.setObjectName("verticalFrame10")
+        self.verticalLayout_61 = QtWidgets.QVBoxLayout(self.verticalFrame10)
         self.verticalLayout_61.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_61.setObjectName("verticalLayout_61")
-        self.label_108 = QtWidgets.QLabel(self.verticalFrame6)
+        self.label_108 = QtWidgets.QLabel(self.verticalFrame10)
         self.label_108.setMinimumSize(QtCore.QSize(0, 16))
         self.label_108.setMaximumSize(QtCore.QSize(350, 16777215))
         font = QtGui.QFont()
@@ -6873,23 +7193,26 @@ class Ui_MainWindow(object):
         self.label_108.setFont(font)
         self.label_108.setObjectName("label_108")
         self.verticalLayout_61.addWidget(self.label_108)
-        self.addpet_pet_vaccinated = QtWidgets.QComboBox(self.verticalFrame6)
+        self.addpet_pet_vaccinated = QtWidgets.QComboBox(self.verticalFrame10)
         self.addpet_pet_vaccinated.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_vaccinated.setFont(font)
         self.addpet_pet_vaccinated.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_vaccinated.setObjectName("addpet_pet_vaccinated")
         self.addpet_pet_vaccinated.addItem("")
         self.addpet_pet_vaccinated.addItem("")
         self.verticalLayout_61.addWidget(self.addpet_pet_vaccinated)
-        self.horizontalLayout_100.addWidget(self.verticalFrame6)
-        self.verticalFrame7 = QtWidgets.QFrame(self.horizontalFrame6)
-        self.verticalFrame7.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame7.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame7.setObjectName("verticalFrame7")
-        self.verticalLayout_125 = QtWidgets.QVBoxLayout(self.verticalFrame7)
+        self.horizontalLayout_100.addWidget(self.verticalFrame10)
+        self.verticalFrame11 = QtWidgets.QFrame(self.horizontalFrame8)
+        self.verticalFrame11.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame11.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame11.setObjectName("verticalFrame11")
+        self.verticalLayout_125 = QtWidgets.QVBoxLayout(self.verticalFrame11)
         self.verticalLayout_125.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_125.setObjectName("verticalLayout_125")
-        self.label_111 = QtWidgets.QLabel(self.verticalFrame7)
+        self.label_111 = QtWidgets.QLabel(self.verticalFrame11)
         self.label_111.setMinimumSize(QtCore.QSize(0, 16))
         font = QtGui.QFont()
         font.setBold(True)
@@ -6897,31 +7220,34 @@ class Ui_MainWindow(object):
         self.label_111.setFont(font)
         self.label_111.setObjectName("label_111")
         self.verticalLayout_125.addWidget(self.label_111)
-        self.addpet_pet_inactive = QtWidgets.QComboBox(self.verticalFrame7)
+        self.addpet_pet_inactive = QtWidgets.QComboBox(self.verticalFrame11)
         self.addpet_pet_inactive.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_inactive.setFont(font)
         self.addpet_pet_inactive.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_inactive.setObjectName("addpet_pet_inactive")
         self.addpet_pet_inactive.addItem("")
         self.addpet_pet_inactive.addItem("")
         self.verticalLayout_125.addWidget(self.addpet_pet_inactive)
-        self.horizontalLayout_100.addWidget(self.verticalFrame7)
-        self.verticalLayout_197.addWidget(self.horizontalFrame6)
-        self.horizontalFrame7 = QtWidgets.QFrame(self.frame_385)
-        self.horizontalFrame7.setMinimumSize(QtCore.QSize(0, 65))
-        self.horizontalFrame7.setMaximumSize(QtCore.QSize(16777215, 65))
-        self.horizontalFrame7.setObjectName("horizontalFrame7")
-        self.horizontalLayout_106 = QtWidgets.QHBoxLayout(self.horizontalFrame7)
+        self.horizontalLayout_100.addWidget(self.verticalFrame11)
+        self.verticalLayout_197.addWidget(self.horizontalFrame8)
+        self.horizontalFrame9 = QtWidgets.QFrame(self.frame_385)
+        self.horizontalFrame9.setMinimumSize(QtCore.QSize(0, 65))
+        self.horizontalFrame9.setMaximumSize(QtCore.QSize(16777215, 65))
+        self.horizontalFrame9.setObjectName("horizontalFrame9")
+        self.horizontalLayout_106 = QtWidgets.QHBoxLayout(self.horizontalFrame9)
         self.horizontalLayout_106.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_106.setObjectName("horizontalLayout_106")
-        self.verticalFrame8 = QtWidgets.QFrame(self.horizontalFrame7)
-        self.verticalFrame8.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame8.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame8.setObjectName("verticalFrame8")
-        self.verticalLayout_121 = QtWidgets.QVBoxLayout(self.verticalFrame8)
+        self.verticalFrame12 = QtWidgets.QFrame(self.horizontalFrame9)
+        self.verticalFrame12.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame12.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame12.setObjectName("verticalFrame12")
+        self.verticalLayout_121 = QtWidgets.QVBoxLayout(self.verticalFrame12)
         self.verticalLayout_121.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_121.setObjectName("verticalLayout_121")
-        self.client_fname_label_16 = QtWidgets.QLabel(self.verticalFrame8)
+        self.client_fname_label_16 = QtWidgets.QLabel(self.verticalFrame12)
         self.client_fname_label_16.setMinimumSize(QtCore.QSize(0, 16))
         self.client_fname_label_16.setMaximumSize(QtCore.QSize(350, 16777215))
         font = QtGui.QFont()
@@ -6931,7 +7257,7 @@ class Ui_MainWindow(object):
         self.client_fname_label_16.setFont(font)
         self.client_fname_label_16.setObjectName("client_fname_label_16")
         self.verticalLayout_121.addWidget(self.client_fname_label_16)
-        self.addpet_notes_input = QtWidgets.QLineEdit(self.verticalFrame8)
+        self.addpet_notes_input = QtWidgets.QLineEdit(self.verticalFrame12)
         self.addpet_notes_input.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_notes_input.setMaximumSize(QtCore.QSize(16777215, 36))
         font = QtGui.QFont()
@@ -6940,15 +7266,15 @@ class Ui_MainWindow(object):
         self.addpet_notes_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_notes_input.setObjectName("addpet_notes_input")
         self.verticalLayout_121.addWidget(self.addpet_notes_input)
-        self.horizontalLayout_106.addWidget(self.verticalFrame8)
-        self.verticalFrame9 = QtWidgets.QFrame(self.horizontalFrame7)
-        self.verticalFrame9.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame9.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame9.setObjectName("verticalFrame9")
-        self.verticalLayout_120 = QtWidgets.QVBoxLayout(self.verticalFrame9)
+        self.horizontalLayout_106.addWidget(self.verticalFrame12)
+        self.verticalFrame13 = QtWidgets.QFrame(self.horizontalFrame9)
+        self.verticalFrame13.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame13.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame13.setObjectName("verticalFrame13")
+        self.verticalLayout_120 = QtWidgets.QVBoxLayout(self.verticalFrame13)
         self.verticalLayout_120.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_120.setObjectName("verticalLayout_120")
-        self.label_109 = QtWidgets.QLabel(self.verticalFrame9)
+        self.label_109 = QtWidgets.QLabel(self.verticalFrame13)
         self.label_109.setMinimumSize(QtCore.QSize(0, 16))
         font = QtGui.QFont()
         font.setBold(True)
@@ -6956,29 +7282,32 @@ class Ui_MainWindow(object):
         self.label_109.setFont(font)
         self.label_109.setObjectName("label_109")
         self.verticalLayout_120.addWidget(self.label_109)
-        self.addpet_medical_input = QtWidgets.QLineEdit(self.verticalFrame9)
+        self.addpet_medical_input = QtWidgets.QLineEdit(self.verticalFrame13)
         self.addpet_medical_input.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_medical_input.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_medical_input.setFont(font)
         self.addpet_medical_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_medical_input.setObjectName("addpet_medical_input")
         self.verticalLayout_120.addWidget(self.addpet_medical_input)
-        self.horizontalLayout_106.addWidget(self.verticalFrame9)
-        self.verticalLayout_197.addWidget(self.horizontalFrame7)
-        self.horizontalFrame8 = QtWidgets.QFrame(self.frame_385)
-        self.horizontalFrame8.setMinimumSize(QtCore.QSize(0, 65))
-        self.horizontalFrame8.setMaximumSize(QtCore.QSize(16777215, 65))
-        self.horizontalFrame8.setObjectName("horizontalFrame8")
-        self.horizontalLayout_108 = QtWidgets.QHBoxLayout(self.horizontalFrame8)
+        self.horizontalLayout_106.addWidget(self.verticalFrame13)
+        self.verticalLayout_197.addWidget(self.horizontalFrame9)
+        self.horizontalFrame10 = QtWidgets.QFrame(self.frame_385)
+        self.horizontalFrame10.setMinimumSize(QtCore.QSize(0, 65))
+        self.horizontalFrame10.setMaximumSize(QtCore.QSize(16777215, 65))
+        self.horizontalFrame10.setObjectName("horizontalFrame10")
+        self.horizontalLayout_108 = QtWidgets.QHBoxLayout(self.horizontalFrame10)
         self.horizontalLayout_108.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_108.setObjectName("horizontalLayout_108")
-        self.verticalFrame10 = QtWidgets.QFrame(self.horizontalFrame8)
-        self.verticalFrame10.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame10.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame10.setObjectName("verticalFrame10")
-        self.verticalLayout_126 = QtWidgets.QVBoxLayout(self.verticalFrame10)
+        self.verticalFrame14 = QtWidgets.QFrame(self.horizontalFrame10)
+        self.verticalFrame14.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame14.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame14.setObjectName("verticalFrame14")
+        self.verticalLayout_126 = QtWidgets.QVBoxLayout(self.verticalFrame14)
         self.verticalLayout_126.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_126.setObjectName("verticalLayout_126")
-        self.label_110 = QtWidgets.QLabel(self.verticalFrame10)
+        self.label_110 = QtWidgets.QLabel(self.verticalFrame14)
         self.label_110.setMinimumSize(QtCore.QSize(0, 16))
         font = QtGui.QFont()
         font.setBold(True)
@@ -6986,21 +7315,24 @@ class Ui_MainWindow(object):
         self.label_110.setFont(font)
         self.label_110.setObjectName("label_110")
         self.verticalLayout_126.addWidget(self.label_110)
-        self.addpet_chip_input = QtWidgets.QLineEdit(self.verticalFrame10)
+        self.addpet_chip_input = QtWidgets.QLineEdit(self.verticalFrame14)
         self.addpet_chip_input.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_chip_input.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_chip_input.setFont(font)
         self.addpet_chip_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_chip_input.setObjectName("addpet_chip_input")
         self.verticalLayout_126.addWidget(self.addpet_chip_input)
-        self.horizontalLayout_108.addWidget(self.verticalFrame10)
-        self.verticalFrame11 = QtWidgets.QFrame(self.horizontalFrame8)
-        self.verticalFrame11.setMinimumSize(QtCore.QSize(0, 60))
-        self.verticalFrame11.setMaximumSize(QtCore.QSize(16777215, 60))
-        self.verticalFrame11.setObjectName("verticalFrame11")
-        self.verticalLayout_108 = QtWidgets.QVBoxLayout(self.verticalFrame11)
+        self.horizontalLayout_108.addWidget(self.verticalFrame14)
+        self.verticalFrame15 = QtWidgets.QFrame(self.horizontalFrame10)
+        self.verticalFrame15.setMinimumSize(QtCore.QSize(0, 60))
+        self.verticalFrame15.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.verticalFrame15.setObjectName("verticalFrame15")
+        self.verticalLayout_108 = QtWidgets.QVBoxLayout(self.verticalFrame15)
         self.verticalLayout_108.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_108.setObjectName("verticalLayout_108")
-        self.label_112 = QtWidgets.QLabel(self.verticalFrame11)
+        self.label_112 = QtWidgets.QLabel(self.verticalFrame15)
         self.label_112.setMinimumSize(QtCore.QSize(0, 16))
         font = QtGui.QFont()
         font.setBold(True)
@@ -7008,13 +7340,16 @@ class Ui_MainWindow(object):
         self.label_112.setFont(font)
         self.label_112.setObjectName("label_112")
         self.verticalLayout_108.addWidget(self.label_112)
-        self.addpet_vetname_input = QtWidgets.QLineEdit(self.verticalFrame11)
+        self.addpet_vetname_input = QtWidgets.QLineEdit(self.verticalFrame15)
         self.addpet_vetname_input.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_vetname_input.setFont(font)
         self.addpet_vetname_input.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_vetname_input.setObjectName("addpet_vetname_input")
         self.verticalLayout_108.addWidget(self.addpet_vetname_input)
-        self.horizontalLayout_108.addWidget(self.verticalFrame11)
-        self.verticalLayout_197.addWidget(self.horizontalFrame8)
+        self.horizontalLayout_108.addWidget(self.verticalFrame15)
+        self.verticalLayout_197.addWidget(self.horizontalFrame10)
         self.frame_386 = QtWidgets.QFrame(self.frame_385)
         self.frame_386.setMinimumSize(QtCore.QSize(600, 0))
         self.frame_386.setMaximumSize(QtCore.QSize(800, 16777215))
@@ -7026,30 +7361,51 @@ class Ui_MainWindow(object):
         self.addpet_apply_changes_btn = QtWidgets.QPushButton(self.frame_386)
         self.addpet_apply_changes_btn.setMinimumSize(QtCore.QSize(200, 35))
         self.addpet_apply_changes_btn.setMaximumSize(QtCore.QSize(200, 35))
-        self.addpet_apply_changes_btn.setStyleSheet("background-color: rgb(25, 135, 84);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.addpet_apply_changes_btn.setFont(font)
+        self.addpet_apply_changes_btn.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"     background-color:     rgb(25, 135, 84);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(28, 149, 93);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(28, 149, 93);\n"
+"}")
         self.addpet_apply_changes_btn.setObjectName("addpet_apply_changes_btn")
         self.horizontalLayout_167.addWidget(self.addpet_apply_changes_btn)
         self.addpet_new_pet_btn = QtWidgets.QPushButton(self.frame_386)
         self.addpet_new_pet_btn.setMinimumSize(QtCore.QSize(200, 35))
         self.addpet_new_pet_btn.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
         font.setUnderline(False)
         font.setStrikeOut(False)
         self.addpet_new_pet_btn.setFont(font)
-        self.addpet_new_pet_btn.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.addpet_new_pet_btn.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
         self.addpet_new_pet_btn.setObjectName("addpet_new_pet_btn")
         self.horizontalLayout_167.addWidget(self.addpet_new_pet_btn)
         self.verticalLayout_197.addWidget(self.frame_386, 0, QtCore.Qt.AlignHCenter)
@@ -7061,19 +7417,40 @@ class Ui_MainWindow(object):
         self.page_reports.setObjectName("page_reports")
         self.verticalLayout_98 = QtWidgets.QVBoxLayout(self.page_reports)
         self.verticalLayout_98.setObjectName("verticalLayout_98")
-        self.verticalFrame12 = QtWidgets.QFrame(self.page_reports)
-        self.verticalFrame12.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
-        self.verticalFrame12.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.verticalFrame12.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.verticalFrame12.setObjectName("verticalFrame12")
-        self.verticalLayout_32 = QtWidgets.QVBoxLayout(self.verticalFrame12)
+        self.verticalFrame16 = QtWidgets.QFrame(self.page_reports)
+        self.verticalFrame16.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.verticalFrame16.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.verticalFrame16.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.verticalFrame16.setObjectName("verticalFrame16")
+        self.verticalLayout_32 = QtWidgets.QVBoxLayout(self.verticalFrame16)
         self.verticalLayout_32.setContentsMargins(9, 9, 9, 9)
         self.verticalLayout_32.setObjectName("verticalLayout_32")
-        self.horizontalFrame9 = QtWidgets.QFrame(self.verticalFrame12)
-        self.horizontalFrame9.setObjectName("horizontalFrame9")
-        self.horizontalLayout_54 = QtWidgets.QHBoxLayout(self.horizontalFrame9)
+        self.verticalFrame17 = QtWidgets.QFrame(self.verticalFrame16)
+        self.verticalFrame17.setMinimumSize(QtCore.QSize(0, 40))
+        self.verticalFrame17.setObjectName("verticalFrame17")
+        self.verticalLayout_48 = QtWidgets.QVBoxLayout(self.verticalFrame17)
+        self.verticalLayout_48.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_48.setObjectName("verticalLayout_48")
+        self.label_126 = QtWidgets.QLabel(self.verticalFrame17)
+        self.label_126.setMinimumSize(QtCore.QSize(200, 40))
+        self.label_126.setMaximumSize(QtCore.QSize(200, 40))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setUnderline(False)
+        font.setWeight(75)
+        self.label_126.setFont(font)
+        self.label_126.setStyleSheet("background-color:rgba(0, 0, 0, 0.5);\n"
+"border-radius: 5px;")
+        self.label_126.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_126.setObjectName("label_126")
+        self.verticalLayout_48.addWidget(self.label_126, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.verticalLayout_32.addWidget(self.verticalFrame17, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.horizontalFrame11 = QtWidgets.QFrame(self.verticalFrame16)
+        self.horizontalFrame11.setObjectName("horizontalFrame11")
+        self.horizontalLayout_54 = QtWidgets.QHBoxLayout(self.horizontalFrame11)
         self.horizontalLayout_54.setObjectName("horizontalLayout_54")
-        self.frame_90 = QtWidgets.QFrame(self.horizontalFrame9)
+        self.frame_90 = QtWidgets.QFrame(self.horizontalFrame11)
         self.frame_90.setMaximumSize(QtCore.QSize(740, 16777215))
         self.frame_90.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_90.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -7102,7 +7479,7 @@ class Ui_MainWindow(object):
         self.report_page_title_l.setMinimumSize(QtCore.QSize(175, 35))
         self.report_page_title_l.setMaximumSize(QtCore.QSize(175, 35))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
         self.report_page_title_l.setFont(font)
@@ -7173,11 +7550,20 @@ class Ui_MainWindow(object):
         self.report_search_list.setUniformRowHeights(True)
         self.report_search_list.setItemsExpandable(True)
         self.report_search_list.setAllColumnsShowFocus(True)
-        self.report_search_list.setHeaderHidden(False)
+        self.report_search_list.setHeaderHidden(True)
         self.report_search_list.setColumnCount(3)
         self.report_search_list.setObjectName("report_search_list")
         self.report_search_list.headerItem().setTextAlignment(0, QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.report_search_list.headerItem().setFont(0, font)
         self.report_search_list.headerItem().setTextAlignment(1, QtCore.Qt.AlignLeading|QtCore.Qt.AlignVCenter)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.report_search_list.headerItem().setFont(1, font)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.report_search_list.headerItem().setFont(2, font)
         self.report_search_list.header().setVisible(False)
         self.report_search_list.header().setCascadingSectionResizes(False)
         self.report_search_list.header().setDefaultSectionSize(195)
@@ -7200,10 +7586,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_101 = QtWidgets.QVBoxLayout(self.verticalFrame_2)
         self.verticalLayout_101.setObjectName("verticalLayout_101")
         self.label_94 = QtWidgets.QLabel(self.verticalFrame_2)
-        self.label_94.setMinimumSize(QtCore.QSize(150, 35))
-        self.label_94.setMaximumSize(QtCore.QSize(150, 35))
+        self.label_94.setMinimumSize(QtCore.QSize(250, 35))
+        self.label_94.setMaximumSize(QtCore.QSize(250, 35))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.label_94.setFont(font)
         self.label_94.setStyleSheet("background-color:rgba(0, 0, 0, 0.5);\n"
 "border-radius: 5px;")
@@ -7232,6 +7618,18 @@ class Ui_MainWindow(object):
         self.payment_history_table.setUniformRowHeights(True)
         self.payment_history_table.setAllColumnsShowFocus(True)
         self.payment_history_table.setObjectName("payment_history_table")
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.payment_history_table.headerItem().setFont(0, font)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.payment_history_table.headerItem().setFont(1, font)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.payment_history_table.headerItem().setFont(2, font)
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.payment_history_table.headerItem().setFont(3, font)
         self.payment_history_table.header().setDefaultSectionSize(150)
         self.payment_history_table.header().setMinimumSectionSize(150)
         self.verticalLayout_103.addWidget(self.payment_history_table)
@@ -7246,32 +7644,34 @@ class Ui_MainWindow(object):
         self.get_single_receipt = QtWidgets.QPushButton(self.verticalFrame_3)
         self.get_single_receipt.setMinimumSize(QtCore.QSize(300, 32))
         self.get_single_receipt.setMaximumSize(QtCore.QSize(300, 32))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.get_single_receipt.setFont(font)
         self.get_single_receipt.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.get_single_receipt.setStyleSheet("QPushButton {    \n"
-"background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;\n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
 "}\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(33, 37, 43);\n"
+"background-color:     rgb(102, 124, 204);\n"
 "}\n"
 "QPushButton:pressed {    \n"
-"    background-color: rgb(85, 170, 255);\n"
-"}\n"
-"\n"
-"\n"
-"")
+"background-color:     rgb(102, 124, 204);\n"
+"}")
         self.get_single_receipt.setObjectName("get_single_receipt")
         self.verticalLayout_102.addWidget(self.get_single_receipt, 0, QtCore.Qt.AlignHCenter)
         self.verticalLayout_103.addWidget(self.verticalFrame_3)
         self.verticalLayout_36.addWidget(self.payment_history_frame)
         self.verticalLayout_100.addWidget(self.frame_99)
         self.horizontalLayout_54.addWidget(self.frame_90)
-        self.frame_84 = QtWidgets.QFrame(self.horizontalFrame9)
+        self.frame_84 = QtWidgets.QFrame(self.horizontalFrame11)
         self.frame_84.setMinimumSize(QtCore.QSize(0, 0))
         self.frame_84.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.frame_84.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -7279,29 +7679,37 @@ class Ui_MainWindow(object):
         self.frame_84.setObjectName("frame_84")
         self.verticalLayout_99 = QtWidgets.QVBoxLayout(self.frame_84)
         self.verticalLayout_99.setObjectName("verticalLayout_99")
-        self.verticalFrame13 = QtWidgets.QFrame(self.frame_84)
-        self.verticalFrame13.setMinimumSize(QtCore.QSize(0, 0))
-        self.verticalFrame13.setObjectName("verticalFrame13")
-        self.verticalLayout_106 = QtWidgets.QVBoxLayout(self.verticalFrame13)
+        self.verticalFrame18 = QtWidgets.QFrame(self.frame_84)
+        self.verticalFrame18.setMinimumSize(QtCore.QSize(0, 0))
+        self.verticalFrame18.setObjectName("verticalFrame18")
+        self.verticalLayout_106 = QtWidgets.QVBoxLayout(self.verticalFrame18)
         self.verticalLayout_106.setObjectName("verticalLayout_106")
-        self.verticalFrame14 = QtWidgets.QFrame(self.verticalFrame13)
-        self.verticalFrame14.setMinimumSize(QtCore.QSize(0, 0))
-        self.verticalFrame14.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.verticalFrame14.setObjectName("verticalFrame14")
-        self.verticalLayout_107 = QtWidgets.QVBoxLayout(self.verticalFrame14)
+        self.verticalFrame19 = QtWidgets.QFrame(self.verticalFrame18)
+        self.verticalFrame19.setMinimumSize(QtCore.QSize(0, 0))
+        self.verticalFrame19.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.verticalFrame19.setObjectName("verticalFrame19")
+        self.verticalLayout_107 = QtWidgets.QVBoxLayout(self.verticalFrame19)
         self.verticalLayout_107.setObjectName("verticalLayout_107")
-        self.receipts_frame = QtWidgets.QFrame(self.verticalFrame14)
+        self.receipts_frame = QtWidgets.QFrame(self.verticalFrame19)
         self.receipts_frame.setMinimumSize(QtCore.QSize(450, 600))
         self.receipts_frame.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.receipts_frame.setStyleSheet("QFrame#receipts_frame{\n"
-"\n"
 "}")
         self.receipts_frame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.receipts_frame.setObjectName("receipts_frame")
         self.verticalLayout_124 = QtWidgets.QVBoxLayout(self.receipts_frame)
         self.verticalLayout_124.setContentsMargins(50, 0, 50, 0)
         self.verticalLayout_124.setObjectName("verticalLayout_124")
-        self.report_page_title_3 = QtWidgets.QFrame(self.receipts_frame)
+        self.verticalFrame20 = QtWidgets.QFrame(self.receipts_frame)
+        self.verticalFrame20.setStyleSheet("QFrame {\n"
+"    background-color: rgb(66, 73, 90);\n"
+"    border-radius: 8px;\n"
+"}")
+        self.verticalFrame20.setObjectName("verticalFrame20")
+        self.verticalLayout_148 = QtWidgets.QVBoxLayout(self.verticalFrame20)
+        self.verticalLayout_148.setContentsMargins(9, 9, 9, 9)
+        self.verticalLayout_148.setObjectName("verticalLayout_148")
+        self.report_page_title_3 = QtWidgets.QFrame(self.verticalFrame20)
         self.report_page_title_3.setMinimumSize(QtCore.QSize(0, 50))
         self.report_page_title_3.setMaximumSize(QtCore.QSize(16777215, 50))
         self.report_page_title_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -7315,15 +7723,15 @@ class Ui_MainWindow(object):
         self.label_90.setMaximumSize(QtCore.QSize(150, 32))
         self.label_90.setBaseSize(QtCore.QSize(0, 0))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.label_90.setFont(font)
         self.label_90.setStyleSheet("background-color:rgba(0, 0, 0, 0.5);\n"
 "border-radius: 5px;")
         self.label_90.setAlignment(QtCore.Qt.AlignCenter)
         self.label_90.setObjectName("label_90")
         self.horizontalLayout_89.addWidget(self.label_90)
-        self.verticalLayout_124.addWidget(self.report_page_title_3)
-        self.horizontalFrame_2 = QtWidgets.QFrame(self.receipts_frame)
+        self.verticalLayout_148.addWidget(self.report_page_title_3)
+        self.horizontalFrame_2 = QtWidgets.QFrame(self.verticalFrame20)
         self.horizontalFrame_2.setMinimumSize(QtCore.QSize(0, 50))
         self.horizontalFrame_2.setMaximumSize(QtCore.QSize(16777215, 50))
         self.horizontalFrame_2.setObjectName("horizontalFrame_2")
@@ -7334,7 +7742,7 @@ class Ui_MainWindow(object):
         self.report_date_start.setMinimumSize(QtCore.QSize(100, 0))
         self.report_date_start.setMaximumSize(QtCore.QSize(300, 32))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.report_date_start.setFont(font)
@@ -7347,7 +7755,7 @@ class Ui_MainWindow(object):
         self.report_date_end.setMinimumSize(QtCore.QSize(100, 0))
         self.report_date_end.setMaximumSize(QtCore.QSize(300, 32))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
         self.report_date_end.setFont(font)
@@ -7356,55 +7764,83 @@ class Ui_MainWindow(object):
         self.report_date_end.setDateTime(QtCore.QDateTime(QtCore.QDate(2020, 1, 1), QtCore.QTime(0, 0, 0)))
         self.report_date_end.setObjectName("report_date_end")
         self.horizontalLayout_94.addWidget(self.report_date_end)
-        self.verticalLayout_124.addWidget(self.horizontalFrame_2)
-        self.horizontalFrame10 = QtWidgets.QFrame(self.receipts_frame)
-        self.horizontalFrame10.setMinimumSize(QtCore.QSize(0, 50))
-        self.horizontalFrame10.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.horizontalFrame10.setObjectName("horizontalFrame10")
-        self.horizontalLayout_97 = QtWidgets.QHBoxLayout(self.horizontalFrame10)
+        self.verticalLayout_148.addWidget(self.horizontalFrame_2)
+        self.horizontalFrame12 = QtWidgets.QFrame(self.verticalFrame20)
+        self.horizontalFrame12.setMinimumSize(QtCore.QSize(0, 50))
+        self.horizontalFrame12.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.horizontalFrame12.setObjectName("horizontalFrame12")
+        self.horizontalLayout_97 = QtWidgets.QHBoxLayout(self.horizontalFrame12)
         self.horizontalLayout_97.setContentsMargins(-1, 0, -1, 0)
         self.horizontalLayout_97.setObjectName("horizontalLayout_97")
-        self.date_customer_receipt_button = QtWidgets.QPushButton(self.horizontalFrame10)
+        self.date_customer_receipt_button = QtWidgets.QPushButton(self.horizontalFrame12)
         self.date_customer_receipt_button.setMinimumSize(QtCore.QSize(150, 32))
         self.date_customer_receipt_button.setMaximumSize(QtCore.QSize(300, 32))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.date_customer_receipt_button.setFont(font)
         self.date_customer_receipt_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.date_customer_receipt_button.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.date_customer_receipt_button.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
         self.date_customer_receipt_button.setObjectName("date_customer_receipt_button")
         self.horizontalLayout_97.addWidget(self.date_customer_receipt_button)
-        self.verticalLayout_124.addWidget(self.horizontalFrame10)
-        self.horizontalFrame11 = QtWidgets.QFrame(self.receipts_frame)
-        self.horizontalFrame11.setMinimumSize(QtCore.QSize(0, 50))
-        self.horizontalFrame11.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.horizontalFrame11.setObjectName("horizontalFrame11")
-        self.horizontalLayout_78 = QtWidgets.QHBoxLayout(self.horizontalFrame11)
+        self.verticalLayout_148.addWidget(self.horizontalFrame12)
+        self.verticalLayout_124.addWidget(self.verticalFrame20, 0, QtCore.Qt.AlignVCenter)
+        self.verticalFrame21 = QtWidgets.QFrame(self.receipts_frame)
+        self.verticalFrame21.setStyleSheet("QFrame {\n"
+"    background-color: rgb(66, 73, 90);\n"
+"    border-radius: 8px;\n"
+"}")
+        self.verticalFrame21.setObjectName("verticalFrame21")
+        self.verticalLayout_149 = QtWidgets.QVBoxLayout(self.verticalFrame21)
+        self.verticalLayout_149.setContentsMargins(9, 9, 9, 9)
+        self.verticalLayout_149.setObjectName("verticalLayout_149")
+        self.horizontalFrame13 = QtWidgets.QFrame(self.verticalFrame21)
+        self.horizontalFrame13.setMinimumSize(QtCore.QSize(0, 50))
+        self.horizontalFrame13.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.horizontalFrame13.setStyleSheet("QFrame {\n"
+"    background-color: rgb(66, 73, 90);\n"
+"    border-raius:8px;\n"
+"}\n"
+"\n"
+"\n"
+"")
+        self.horizontalFrame13.setObjectName("horizontalFrame13")
+        self.horizontalLayout_78 = QtWidgets.QHBoxLayout(self.horizontalFrame13)
         self.horizontalLayout_78.setContentsMargins(-1, 0, -1, 0)
         self.horizontalLayout_78.setObjectName("horizontalLayout_78")
-        self.label_89 = QtWidgets.QLabel(self.horizontalFrame11)
+        self.label_89 = QtWidgets.QLabel(self.horizontalFrame13)
         self.label_89.setMinimumSize(QtCore.QSize(0, 32))
         self.label_89.setMaximumSize(QtCore.QSize(150, 32))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.label_89.setFont(font)
         self.label_89.setStyleSheet("background-color:rgba(0, 0, 0, 0.5);\n"
 "border-radius: 5px;")
         self.label_89.setAlignment(QtCore.Qt.AlignCenter)
         self.label_89.setObjectName("label_89")
         self.horizontalLayout_78.addWidget(self.label_89)
-        self.verticalLayout_124.addWidget(self.horizontalFrame11)
-        self.horizontalFrame12 = QtWidgets.QFrame(self.receipts_frame)
-        self.horizontalFrame12.setMinimumSize(QtCore.QSize(0, 50))
-        self.horizontalFrame12.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.horizontalFrame12.setObjectName("horizontalFrame12")
-        self.horizontalLayout_90 = QtWidgets.QHBoxLayout(self.horizontalFrame12)
+        self.verticalLayout_149.addWidget(self.horizontalFrame13)
+        self.horizontalFrame14 = QtWidgets.QFrame(self.verticalFrame21)
+        self.horizontalFrame14.setMinimumSize(QtCore.QSize(0, 50))
+        self.horizontalFrame14.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.horizontalFrame14.setObjectName("horizontalFrame14")
+        self.horizontalLayout_90 = QtWidgets.QHBoxLayout(self.horizontalFrame14)
         self.horizontalLayout_90.setContentsMargins(-1, 0, -1, 0)
         self.horizontalLayout_90.setObjectName("horizontalLayout_90")
-        self.label_92 = QtWidgets.QLabel(self.horizontalFrame12)
+        self.label_92 = QtWidgets.QLabel(self.horizontalFrame14)
         self.label_92.setMinimumSize(QtCore.QSize(100, 32))
         self.label_92.setMaximumSize(QtCore.QSize(100, 32))
         font = QtGui.QFont()
@@ -7412,14 +7848,15 @@ class Ui_MainWindow(object):
         self.label_92.setFont(font)
         self.label_92.setObjectName("label_92")
         self.horizontalLayout_90.addWidget(self.label_92)
-        self.comboBox_4 = QtWidgets.QComboBox(self.horizontalFrame12)
+        self.comboBox_4 = QtWidgets.QComboBox(self.horizontalFrame14)
         self.comboBox_4.setMinimumSize(QtCore.QSize(100, 32))
         self.comboBox_4.setMaximumSize(QtCore.QSize(16777215, 32))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.comboBox_4.setFont(font)
         self.comboBox_4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBox_4.setStyleSheet("background-color: rgb(90, 100, 120);")
+        self.comboBox_4.setStyleSheet("background-color: rgb(90, 100, 120);\n"
+"")
         self.comboBox_4.setObjectName("comboBox_4")
         self.comboBox_4.addItem("")
         self.comboBox_4.addItem("")
@@ -7434,7 +7871,7 @@ class Ui_MainWindow(object):
         self.comboBox_4.addItem("")
         self.comboBox_4.addItem("")
         self.horizontalLayout_90.addWidget(self.comboBox_4)
-        self.label_91 = QtWidgets.QLabel(self.horizontalFrame12)
+        self.label_91 = QtWidgets.QLabel(self.horizontalFrame14)
         self.label_91.setMinimumSize(QtCore.QSize(100, 32))
         self.label_91.setMaximumSize(QtCore.QSize(100, 32))
         font = QtGui.QFont()
@@ -7442,14 +7879,15 @@ class Ui_MainWindow(object):
         self.label_91.setFont(font)
         self.label_91.setObjectName("label_91")
         self.horizontalLayout_90.addWidget(self.label_91)
-        self.comboBox_5 = QtWidgets.QComboBox(self.horizontalFrame12)
+        self.comboBox_5 = QtWidgets.QComboBox(self.horizontalFrame14)
         self.comboBox_5.setMinimumSize(QtCore.QSize(100, 32))
         self.comboBox_5.setMaximumSize(QtCore.QSize(16777215, 32))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.comboBox_5.setFont(font)
         self.comboBox_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBox_5.setStyleSheet("background-color: rgb(90, 100, 120);")
+        self.comboBox_5.setStyleSheet("background-color: rgb(90, 100, 120);\n"
+"")
         self.comboBox_5.setObjectName("comboBox_5")
         self.comboBox_5.addItem("")
         self.comboBox_5.addItem("")
@@ -7464,48 +7902,70 @@ class Ui_MainWindow(object):
         self.comboBox_5.addItem("")
         self.comboBox_5.addItem("")
         self.horizontalLayout_90.addWidget(self.comboBox_5)
-        self.verticalLayout_124.addWidget(self.horizontalFrame12)
-        self.horizontalFrame13 = QtWidgets.QFrame(self.receipts_frame)
-        self.horizontalFrame13.setMinimumSize(QtCore.QSize(0, 50))
-        self.horizontalFrame13.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.horizontalFrame13.setObjectName("horizontalFrame13")
-        self.horizontalLayout_98 = QtWidgets.QHBoxLayout(self.horizontalFrame13)
+        self.verticalLayout_149.addWidget(self.horizontalFrame14)
+        self.horizontalFrame15 = QtWidgets.QFrame(self.verticalFrame21)
+        self.horizontalFrame15.setMinimumSize(QtCore.QSize(0, 50))
+        self.horizontalFrame15.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.horizontalFrame15.setObjectName("horizontalFrame15")
+        self.horizontalLayout_98 = QtWidgets.QHBoxLayout(self.horizontalFrame15)
         self.horizontalLayout_98.setContentsMargins(-1, 0, -1, 0)
         self.horizontalLayout_98.setObjectName("horizontalLayout_98")
-        self.monthly_report_button = QtWidgets.QPushButton(self.horizontalFrame13)
+        self.monthly_report_button = QtWidgets.QPushButton(self.horizontalFrame15)
         self.monthly_report_button.setMinimumSize(QtCore.QSize(0, 0))
         self.monthly_report_button.setMaximumSize(QtCore.QSize(300, 32))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.monthly_report_button.setFont(font)
         self.monthly_report_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.monthly_report_button.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.monthly_report_button.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
         self.monthly_report_button.setObjectName("monthly_report_button")
         self.horizontalLayout_98.addWidget(self.monthly_report_button)
-        self.annual_report_button = QtWidgets.QPushButton(self.horizontalFrame13)
+        self.annual_report_button = QtWidgets.QPushButton(self.horizontalFrame15)
         self.annual_report_button.setMinimumSize(QtCore.QSize(0, 0))
         self.annual_report_button.setMaximumSize(QtCore.QSize(300, 32))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.annual_report_button.setFont(font)
         self.annual_report_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.annual_report_button.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;\n"
-"")
+        self.annual_report_button.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
         self.annual_report_button.setObjectName("annual_report_button")
         self.horizontalLayout_98.addWidget(self.annual_report_button)
-        self.verticalLayout_124.addWidget(self.horizontalFrame13)
-        self.verticalLayout_107.addWidget(self.receipts_frame, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
-        self.verticalLayout_106.addWidget(self.verticalFrame14)
-        self.verticalLayout_99.addWidget(self.verticalFrame13)
+        self.verticalLayout_149.addWidget(self.horizontalFrame15)
+        self.verticalLayout_124.addWidget(self.verticalFrame21, 0, QtCore.Qt.AlignVCenter)
+        self.verticalLayout_107.addWidget(self.receipts_frame)
+        self.verticalLayout_106.addWidget(self.verticalFrame19)
+        self.verticalLayout_99.addWidget(self.verticalFrame18)
         self.horizontalLayout_54.addWidget(self.frame_84)
-        self.verticalLayout_32.addWidget(self.horizontalFrame9)
-        self.verticalLayout_98.addWidget(self.verticalFrame12)
+        self.verticalLayout_32.addWidget(self.horizontalFrame11)
+        self.verticalLayout_98.addWidget(self.verticalFrame16)
         self.Content_stacked_Widget.addWidget(self.page_reports)
         self.page_newpet = QtWidgets.QWidget()
         self.page_newpet.setObjectName("page_newpet")
@@ -7635,6 +8095,9 @@ class Ui_MainWindow(object):
         self.addpet_pet_type_4 = QtWidgets.QComboBox(self.verticalFrame_29)
         self.addpet_pet_type_4.setMinimumSize(QtCore.QSize(150, 36))
         self.addpet_pet_type_4.setMaximumSize(QtCore.QSize(350, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_type_4.setFont(font)
         self.addpet_pet_type_4.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_type_4.setObjectName("addpet_pet_type_4")
@@ -7663,7 +8126,7 @@ class Ui_MainWindow(object):
         self.addpet_pet_gender_4.setMinimumSize(QtCore.QSize(150, 36))
         self.addpet_pet_gender_4.setMaximumSize(QtCore.QSize(350, 36))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.addpet_pet_gender_4.setFont(font)
         self.addpet_pet_gender_4.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
@@ -7699,6 +8162,9 @@ class Ui_MainWindow(object):
         self.addpet_pet_size_4 = QtWidgets.QLineEdit(self.verticalFrame_31)
         self.addpet_pet_size_4.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_pet_size_4.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_size_4.setFont(font)
         self.addpet_pet_size_4.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_pet_size_4.setObjectName("addpet_pet_size_4")
         self.verticalLayout_160.addWidget(self.addpet_pet_size_4)
@@ -7722,6 +8188,9 @@ class Ui_MainWindow(object):
         self.addpet_weight_input_4 = QtWidgets.QLineEdit(self.verticalFrame_32)
         self.addpet_weight_input_4.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_weight_input_4.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_weight_input_4.setFont(font)
         self.addpet_weight_input_4.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_weight_input_4.setObjectName("addpet_weight_input_4")
         self.verticalLayout_161.addWidget(self.addpet_weight_input_4)
@@ -7790,6 +8259,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_162.addWidget(self.label_135)
         self.addpet_pet_neutered_4 = QtWidgets.QComboBox(self.verticalFrame_33)
         self.addpet_pet_neutered_4.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_neutered_4.setFont(font)
         self.addpet_pet_neutered_4.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_neutered_4.setObjectName("addpet_pet_neutered_4")
@@ -7815,6 +8287,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_163.addWidget(self.label_136)
         self.addpet_pet_vaccinated_4 = QtWidgets.QComboBox(self.verticalFrame_34)
         self.addpet_pet_vaccinated_4.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_vaccinated_4.setFont(font)
         self.addpet_pet_vaccinated_4.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_vaccinated_4.setObjectName("addpet_pet_vaccinated_4")
@@ -7839,6 +8314,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_164.addWidget(self.label_137)
         self.addpet_pet_inactive_4 = QtWidgets.QComboBox(self.verticalFrame_35)
         self.addpet_pet_inactive_4.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_pet_inactive_4.setFont(font)
         self.addpet_pet_inactive_4.setStyleSheet("background-color: rgb(65, 75, 90);\n"
 "")
         self.addpet_pet_inactive_4.setObjectName("addpet_pet_inactive_4")
@@ -7899,6 +8377,9 @@ class Ui_MainWindow(object):
         self.addpet_medical_input_4 = QtWidgets.QLineEdit(self.verticalFrame_37)
         self.addpet_medical_input_4.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_medical_input_4.setMaximumSize(QtCore.QSize(16777215, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_medical_input_4.setFont(font)
         self.addpet_medical_input_4.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_medical_input_4.setObjectName("addpet_medical_input_4")
         self.verticalLayout_166.addWidget(self.addpet_medical_input_4)
@@ -7929,6 +8410,9 @@ class Ui_MainWindow(object):
         self.addpet_chip_input_4 = QtWidgets.QLineEdit(self.verticalFrame_38)
         self.addpet_chip_input_4.setMinimumSize(QtCore.QSize(0, 36))
         self.addpet_chip_input_4.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_chip_input_4.setFont(font)
         self.addpet_chip_input_4.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_chip_input_4.setObjectName("addpet_chip_input_4")
         self.verticalLayout_167.addWidget(self.addpet_chip_input_4)
@@ -7950,6 +8434,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_168.addWidget(self.label_140)
         self.addpet_vetname_input_4 = QtWidgets.QLineEdit(self.verticalFrame_39)
         self.addpet_vetname_input_4.setMinimumSize(QtCore.QSize(0, 36))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_vetname_input_4.setFont(font)
         self.addpet_vetname_input_4.setStyleSheet("background-color: rgb(65, 75, 90);")
         self.addpet_vetname_input_4.setObjectName("addpet_vetname_input_4")
         self.verticalLayout_168.addWidget(self.addpet_vetname_input_4)
@@ -7967,22 +8454,68 @@ class Ui_MainWindow(object):
         self.addpet_new_pet_btn_4.setMinimumSize(QtCore.QSize(200, 35))
         self.addpet_new_pet_btn_4.setMaximumSize(QtCore.QSize(200, 35))
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(11)
+        font.setBold(True)
         font.setUnderline(False)
+        font.setWeight(75)
         font.setStrikeOut(False)
         self.addpet_new_pet_btn_4.setFont(font)
-        self.addpet_new_pet_btn_4.setStyleSheet("background-color: rgb(93, 113, 185);\n"
-"  border: none;\n"
-"  color: white;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  display: inline-block;\n"
-"  font-size: 14px;border-radius: 5px;")
+        self.addpet_new_pet_btn_4.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"     background-color:     rgb(25, 135, 84);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    transition: all 0.5s;\n"
+"\n"
+"}\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(28, 149, 93);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(28, 149, 93);\n"
+"}")
         self.addpet_new_pet_btn_4.setObjectName("addpet_new_pet_btn_4")
         self.horizontalLayout_170.addWidget(self.addpet_new_pet_btn_4)
         self.verticalLayout_201.addWidget(self.frame_392)
         self.verticalLayout_33.addWidget(self.frame_391)
         self.verticalLayout_156.addWidget(self.frame_85, 0, QtCore.Qt.AlignHCenter)
+        self.frame_4 = QtWidgets.QFrame(self.frame_83)
+        self.frame_4.setMinimumSize(QtCore.QSize(0, 40))
+        self.frame_4.setMaximumSize(QtCore.QSize(16777215, 60))
+        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_4.setObjectName("frame_4")
+        self.verticalLayout_151 = QtWidgets.QVBoxLayout(self.frame_4)
+        self.verticalLayout_151.setObjectName("verticalLayout_151")
+        self.addpet_back_btn = QtWidgets.QPushButton(self.frame_4)
+        self.addpet_back_btn.setMinimumSize(QtCore.QSize(200, 35))
+        self.addpet_back_btn.setMaximumSize(QtCore.QSize(200, 35))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addpet_back_btn.setFont(font)
+        self.addpet_back_btn.setStyleSheet("QPushButton {    \n"
+"    border: none;\n"
+"    background-color: rgb(93, 113, 185);\n"
+"    text-align: center;\n"
+"    border-radius: 8px;\n"
+"    color: white;\n"
+"    display: inline-block;\n"
+"    background-repeat :norepeat;\n"
+"    background-position:center;\n"
+"    background-image: url( :/20x20/icons/20x20/cil-arrow-circle-left.png); \n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"background-color:     rgb(102, 124, 204);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"background-color:     rgb(102, 124, 204);\n"
+"}")
+        self.addpet_back_btn.setText("")
+        self.addpet_back_btn.setObjectName("addpet_back_btn")
+        self.verticalLayout_151.addWidget(self.addpet_back_btn)
+        self.verticalLayout_156.addWidget(self.frame_4, 0, QtCore.Qt.AlignLeft)
         self.verticalLayout_169.addWidget(self.frame_83)
         self.verticalLayout_132.addWidget(self.frame_58)
         self.Content_stacked_Widget.addWidget(self.page_newpet)
@@ -8038,7 +8571,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.frame_grip)
         self.horizontalLayout_2.addWidget(self.frame_content_right)
         self.verticalLayout.addWidget(self.frame_center)
-        self.horizontalLayout.addWidget(self.frame_main)
+        self.verticalLayout_49.addWidget(self.frame_main)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -8063,15 +8596,17 @@ class Ui_MainWindow(object):
         self.label_user_icon.setText(_translate("MainWindow", "Inn"))
         self.menu_btn_settings.setText(_translate("MainWindow", "Admin Panel"))
         self.home_page_title_3.setText(_translate("MainWindow", "New Client Information"))
-        self.client_fname_label.setText(_translate("MainWindow", "First Name"))
-        self.client_email_label.setText(_translate("MainWindow", "E-Mail"))
-        self.client_address_label.setText(_translate("MainWindow", "Address"))
-        self.client_zipcode_label.setText(_translate("MainWindow", "ZIP Code"))
-        self.client_hcontact_label.setText(_translate("MainWindow", "Contact(Molbile)"))
+        self.client_fname_label.setText(_translate("MainWindow", "First Name:"))
+        self.client_address_label.setText(_translate("MainWindow", "Address:"))
+        self.client_zipcode_label.setText(_translate("MainWindow", "ZIP Code:"))
+        self.client_hcontact_label.setText(_translate("MainWindow", "Phone Number:"))
+        self.label_123.setText(_translate("MainWindow", "Emergency Contact Name:"))
         self.client_allow_mailings_label.setText(_translate("MainWindow", "Allow Mailings"))
-        self.client_lname_label.setText(_translate("MainWindow", "Last Name"))
-        self.client_town_label.setText(_translate("MainWindow", "Town"))
-        self.client_wcontact_label.setText(_translate("MainWindow", "Contact(Alternate)"))
+        self.client_lname_label.setText(_translate("MainWindow", "Last Name:"))
+        self.client_town_label.setText(_translate("MainWindow", "Town:"))
+        self.client_email_label.setText(_translate("MainWindow", "E-Mail:"))
+        self.client_wcontact_label.setText(_translate("MainWindow", "Phone Number (Alternate):"))
+        self.label_124.setText(_translate("MainWindow", "Emergency Contact Phone:"))
         self.xlabel_3.setText(_translate("MainWindow", "Name:"))
         self.ylabel_3.setText(_translate("MainWindow", "Size:"))
         self.label_54.setText(_translate("MainWindow", "Breed:"))
@@ -8124,16 +8659,17 @@ class Ui_MainWindow(object):
         self.mpayment_other_goods.setText(_translate("MainWindow", "0.0"))
         self.mpayment_discount.setText(_translate("MainWindow", "0.0"))
         self.label_47.setText(_translate("MainWindow", "Payment"))
-        self.label_48.setText(_translate("MainWindow", "Payment Type:"))
-        self.label_49.setText(_translate("MainWindow", "Previous Balance:"))
+        self.label_49.setText(_translate("MainWindow", "Current Balance:"))
         self.label_50.setText(_translate("MainWindow", "Charge:"))
-        self.label_51.setText(_translate("MainWindow", "Total Balance:"))
+        self.label_51.setText(_translate("MainWindow", "Updated Balance:"))
+        self.label_48.setText(_translate("MainWindow", "Payment Type:"))
         self.label_52.setText(_translate("MainWindow", "Amt Recieved:"))
         self.comboBox_3.setItemText(0, _translate("MainWindow", "Debit"))
         self.comboBox_3.setItemText(1, _translate("MainWindow", "Cheque"))
         self.comboBox_3.setItemText(2, _translate("MainWindow", "Cash"))
         self.comboBox_3.setItemText(3, _translate("MainWindow", "Credit"))
         self.mpayment_amt_recieved.setText(_translate("MainWindow", "0.0"))
+        self.label_129.setText(_translate("MainWindow", "* Put 0 if no payment is received."))
         self.mpayment_make_payment_btn.setText(_translate("MainWindow", "Make Payment"))
         self.mpayment_cancel_payment_btn.setText(_translate("MainWindow", "Cancel"))
         self.weekly_date_page_title.setText(_translate("MainWindow", "Weekly Schedule"))
@@ -8263,7 +8799,6 @@ class Ui_MainWindow(object):
         self.res_list.headerItem().setText(0, _translate("MainWindow", "Animal Name"))
         self.res_list.headerItem().setText(1, _translate("MainWindow", "Owner Name"))
         self.res_selected_days.headerItem().setText(0, _translate("MainWindow", "Selected Days"))
-        self.res_cancel.setText(_translate("MainWindow", "Cancel"))
         self.res_remove.setText(_translate("MainWindow", "Remove Day"))
         self.res_submit.setText(_translate("MainWindow", "Submit"))
         self.home_page_title.setText(_translate("MainWindow", "Daily Schedule"))
@@ -8283,6 +8818,7 @@ class Ui_MainWindow(object):
         self.home_checkout_tree.headerItem().setText(1, _translate("MainWindow", "Pet Name"))
         self.home_checkout_tree.headerItem().setText(2, _translate("MainWindow", "Checkout Date"))
         self.home_pay_btn.setText(_translate("MainWindow", "Pay"))
+        self.label_127.setText(_translate("MainWindow", "Payments Page"))
         self.home_page_title_2.setText(_translate("MainWindow", "Select Customer"))
         self.pay_search_label.setText(_translate("MainWindow", "Search:"))
         self.pay_search_list.headerItem().setText(0, _translate("MainWindow", "Client Name"))
@@ -8301,18 +8837,17 @@ class Ui_MainWindow(object):
         self.label_26.setText(_translate("MainWindow", "E-mail:"))
         self.label_28.setText(_translate("MainWindow", "Balance:"))
         self.label_15.setText(_translate("MainWindow", "         Client "))
-        self.home_page_title_10.setText(_translate("MainWindow", "All Bookings"))
+        self.home_page_title_10.setText(_translate("MainWindow", "All Bookings:"))
         self.pay_list_widget.headerItem().setText(4, _translate("MainWindow", "Status"))
         self.label_86.setText(_translate("MainWindow", "Take Payment"))
         self.pay_total_charge_label_4.setText(_translate("MainWindow", "Amount Recieved:"))
         self.pay_services_amt_recieved_2.setText(_translate("MainWindow", "0.00"))
         self.pay_take_payment_btn_2.setText(_translate("MainWindow", "Take Payment"))
-        self.label_9.setText(_translate("MainWindow", "New Service"))
+        self.label_9.setText(_translate("MainWindow", "Add New Service"))
         self.label_30.setText(_translate("MainWindow", "Daycare Rate:"))
         self.label_31.setText(_translate("MainWindow", "Extras:"))
         self.label_41.setText(_translate("MainWindow", "Other Goods:"))
         self.label_35.setText(_translate("MainWindow", "Discount:"))
-        self.label_32.setText(_translate("MainWindow", "NY State Tax:"))
         self.label_33.setText(_translate("MainWindow", "Payment Type:"))
         self.label_34.setText(_translate("MainWindow", "Cost:"))
         self.pay_total_charge_label_2.setText(_translate("MainWindow", "Amount Recieved:"))
@@ -8328,17 +8863,13 @@ class Ui_MainWindow(object):
         self.pay_services_hair.setText(_translate("MainWindow", "Hair"))
         self.pay_services_other_goods.setText(_translate("MainWindow", "0.00"))
         self.pay_services_discount.setText(_translate("MainWindow", "0.00"))
-        self.pay_nys_tax.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.comboBox_2.setItemText(0, _translate("MainWindow", "Debit"))
         self.comboBox_2.setItemText(1, _translate("MainWindow", "Cheque"))
         self.comboBox_2.setItemText(2, _translate("MainWindow", "Cash"))
         self.comboBox_2.setItemText(3, _translate("MainWindow", "Credit"))
+        self.label_32.setText(_translate("MainWindow", "Tax:"))
         self.pay_services_amt_recieved.setText(_translate("MainWindow", "0.00"))
-        self.pay_take_payment_btn.setText(_translate("MainWindow", "Create Service"))
+        self.pay_take_payment_btn.setText(_translate("MainWindow", "Add Service"))
         self.home_page_title_9.setText(_translate("MainWindow", "Edit Client"))
         self.pay_search_label_2.setText(_translate("MainWindow", "Search:"))
         self.editclient_search_list.headerItem().setText(0, _translate("MainWindow", "Client Name"))
@@ -8346,6 +8877,7 @@ class Ui_MainWindow(object):
         self.label_78.setText(_translate("MainWindow", "Address:"))
         self.label_79.setText(_translate("MainWindow", "Cellphone:"))
         self.label_80.setText(_translate("MainWindow", "E-mail:"))
+        self.label_81.setText(_translate("MainWindow", "Emergency:"))
         self.label_82.setText(_translate("MainWindow", "Balance:"))
         self.label_83.setText(_translate("MainWindow", "         Client "))
         self.xlabel_4.setText(_translate("MainWindow", "Name:"))
@@ -8363,6 +8895,8 @@ class Ui_MainWindow(object):
         self.client_fname_label_7.setText(_translate("MainWindow", "Zipcode:"))
         self.client_fname_label_5.setText(_translate("MainWindow", "Contact (Mobile):"))
         self.client_fname_label_8.setText(_translate("MainWindow", "Contact (Alternate):"))
+        self.label_84.setText(_translate("MainWindow", "Emergency Contact Name:"))
+        self.label_125.setText(_translate("MainWindow", "Emergency Contact Phone:"))
         self.edit_client_submit_btn.setText(_translate("MainWindow", "Submit Change"))
         self.label_113.setText(_translate("MainWindow", "Add / Edit Pet"))
         self.home_page_title_19.setText(_translate("MainWindow", "Select Pet"))
@@ -8410,12 +8944,13 @@ class Ui_MainWindow(object):
         self.label_112.setText(_translate("MainWindow", "Vet Name:"))
         self.addpet_apply_changes_btn.setText(_translate("MainWindow", "Apply Changes"))
         self.addpet_new_pet_btn.setText(_translate("MainWindow", "Add New Pet"))
+        self.label_126.setText(_translate("MainWindow", "Reports"))
         self.report_page_title_l.setText(_translate("MainWindow", "Clients List"))
         self.report_search_label.setText(_translate("MainWindow", "Search:"))
         self.report_search_list.headerItem().setText(0, _translate("MainWindow", "Client Name"))
         self.report_search_list.headerItem().setText(1, _translate("MainWindow", "Animal Name"))
         self.report_search_list.headerItem().setText(2, _translate("MainWindow", "Balance"))
-        self.label_94.setText(_translate("MainWindow", "Payment History"))
+        self.label_94.setText(_translate("MainWindow", "Client Payment History"))
         self.payment_history_table.headerItem().setText(0, _translate("MainWindow", "Payment Date"))
         self.payment_history_table.headerItem().setText(1, _translate("MainWindow", "Payment Type"))
         self.payment_history_table.headerItem().setText(2, _translate("MainWindow", "Payment Amount"))

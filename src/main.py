@@ -236,26 +236,26 @@ class MainWindow(QMainWindow):
 
         self.ui.mpayment_cancel_services_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
         self.ui.mpayment_cancel_payment_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
-        self.ui.res_cancel.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
 
 
-        #self.ui.btn_Menu1_3.clicked.connect(lambda: self.ui.Pages_Widget.setCurrentWidget(self.ui.page_5))
-       # self.ui.btn_vet_detail_3.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_vet))
-       # self.ui.btn_vet_detail_4.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_vet))
-       # self.ui.btn_vet_detail_2.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_vet))
 
         
         self.ui.client_pet_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_animal))
         self.ui.addpet_new_pet_btn_2.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_vet))
-        self.ui.vet_submit_btn.clicked.connect(lambda: BackEndFunctions.CREATE_CLIENT(self))
-        self.ui.vet_submit_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
-      #  self.ui.btn_client_info_3.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_client))
-      #  self.ui.btn_client_info_4.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_client))
+
+        self.ui.addpet_back_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_addpet))
+        self.ui.addpet_back_btn_2.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_client))
+
+        self.ui.addpet_new_pet_btn_2.clicked.connect(lambda: BackEndFunctions.CREATE_CLIENT(self)) # Create client with animal
+        self.ui.addpet_new_pet_btn_2.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_client) ) # Go to first page
+
+        # self.ui.addpet_new_pet_btn_4.clicked.connect(lambda: ) # Create animal with client ID
+        self.ui.addpet_new_pet_btn_4.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_addpet) ) # Go to first page
 
 
-     #   self.ui.btn_animal_info_4.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_animal))
-     #   self.ui.btn_animal_info_3.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_animal))
-     #   self.ui.btn_animal_info_2.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_animal))
+        # self.ui.vet_submit_btn.clicked.connect(lambda: BackEndFunctions.CREATE_CLIENT(self))
+        # self.ui.vet_submit_btn.clicked.connect(lambda: self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home))
+
      ## ==> START PAGE
         self.ui.Content_stacked_Widget.setCurrentWidget(self.ui.page_home)
         ## ==> END ##

@@ -12,7 +12,7 @@ class EditClientFunctions(MainWindow):
             animalID = str(obj[3]) 
             clientID = str(obj[4]) 
          
-            ownerName = "Client Name: "+obj[0] + " " + obj[1] 
+            ownerName = "Client: "+obj[0] + " " + obj[1] 
             self.ui.editclient_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName ,animalID,clientID] ) )
     def updateSearchList(self):
 

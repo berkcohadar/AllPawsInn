@@ -4,6 +4,7 @@ from asyncio.windows_events import NULL
 from http import client
 from Reports_functions import *
 from datetime import datetime
+from PyQt5.QtGui import QColor
 
 class PaymentFunctions(MainWindow):
 
@@ -267,7 +268,7 @@ class PaymentFunctions(MainWindow):
         object = Database_Class()
 
         result = object.findAllReservations(animalID=animalId,clientID=clientId)
-       
+        index = -1
         for item in result:
             if item['checkedIn'] == 1:
                 status = "Checked In"
@@ -279,9 +280,17 @@ class PaymentFunctions(MainWindow):
 
             if item['completed'] == 1:
                 status = "Completed"
-            
-            
+
             self.ui.pay_list_widget.addTopLevelItem(QtWidgets.QTreeWidgetItem([  item["resStartDate"].strftime("%m/%d/%Y"), item["resEndDate"].strftime("%m/%d/%Y"), animalName ,"{:.2f}".format(float(item["subTotal"])), status, str(clientId), str(animalId), str(item["serviceID"])] ))
+            index += 1
+            today = datetime.now().date()
+            if (today>=item["resStartDate"].date() and today<=item["resEndDate"].date() and item['completed'] != 1):
+
+                self.ui.pay_list_widget.topLevelItem(index).setBackground(0, QColor(25, 135, 84, 255) )
+                self.ui.pay_list_widget.topLevelItem(index).setBackground(1, QColor(25, 135, 84, 255) )
+                self.ui.pay_list_widget.topLevelItem(index).setBackground(2, QColor(25, 135, 84, 255) )
+                self.ui.pay_list_widget.topLevelItem(index).setBackground(3, QColor(25, 135, 84, 255) )
+                self.ui.pay_list_widget.topLevelItem(index).setBackground(4, QColor(25, 135, 84, 255) )
 
     def payForClient(self,serviceID=NULL,paymentAmount=NULL):
         if (self.ui.pay_search_list.currentItem()):

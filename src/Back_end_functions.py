@@ -103,6 +103,7 @@ class BackEndFunctions(MainWindow):
                         print(paw)
                         self.paws.remove(paw)
             BackEndFunctions.update_display(self)
+
     def DirectCheckIn(self):
         bookingID = self.ui.treeWidget_2.currentItem().text(4)
         row = (bookingID ,"CheckedIn")
@@ -117,102 +118,129 @@ class BackEndFunctions(MainWindow):
         for w in self:
             w.setVisible(False)                    
             
-            
+    def clearCreateClientForms(self):
+        self.ui.client_fname.clear()
+        self.ui.client_lname.clear()
+        self.ui.client_address.clear()
+        self.ui.client_town.clear()
+        self.ui.client_zipcode.clear()
+        self.ui.client_email.clear()
+        self.ui.client_hcontact.clear()
+        self.ui.client_wcontact.clear()
+        self.ui.client_emergency_name.clear()
+        self.ui.client_emergency_phone.clear()
+
+        self.ui.addpet_name_input_2.clear()
+        self.ui.addpet_pet_size_2.clear()
+        self.ui.addpet_breed_input_2.clear()
+        self.ui.addpet_age_input_2.clear()
+        self.ui.addpet_medical_input_2.clear()
+        self.ui.addpet_notes_input_2.clear()
+        self.ui.addpet_foodtype_input_2.clear()
+        self.ui.addpet_weight_input_2.clear()
+        self.ui.addpet_chip_input_2.clear()
+        self.ui.addpet_vetname_input_2.clear()
+        self.ui.addpet_pet_neutered_2.clear()
+        self.ui.addpet_pet_type_2.clear()
+        self.ui.addpet_pet_gender_2.clear()
+        self.ui.addpet_pet_inactive_2.clear()
+
     def CREATE_CLIENT(self):
-        obj=Client()
-        result =1
+        client = {}
+        pet = {}
+
+        result = 1
         errorStyle = "border:1px solid rgb(255,0,0);"
+
         if not self.ui.client_fname.text():
             self.ui.client_fname.setStyleSheet(errorStyle)
-            result =0 
+            result = 0 
         else:
-            obj.FirstName=self.ui.client_fname.text()
+            client["FirstName"] = self.ui.client_fname.text()
 
         if not self.ui.client_lname.text():
             self.ui.client_lname.setStyleSheet(errorStyle)
-            result =0 
+            result = 0 
         else:
-            obj.LastName=self.ui.client_lname.text()
+            client["LastName"] = self.ui.client_lname.text()
+        
+        client["Address1"] = self.ui.client_address.text()
+        client["Town"] = self.ui.client_town.text()
+        client["PostcodeZIP"] = self.ui.client_zipcode.text()
+        client["Email"] = self.ui.client_email.text()
+        client["CellMobile"] = self.ui.client_hcontact.text()
+        client["TelHome"] = self.ui.client_wcontact.text()
+        client["EmergencyContact"] = self.ui.client_emergency_name.text()
+        client["EmergencyPhone"] = self.ui.client_emergency_phone.text()
+        client["Mailings"] = self.ui.client_amailing_check.isChecked()
 
-        if not self.ui.client_email.text():
-            self.ui.client_email.setStyleSheet(errorStyle)
-            result =0 
+        if (client["Mailings"] == True):
+            client["Mailings"] = 1
         else:
-            obj.Email=self.ui.client_email.text()
+            client["Mailings"] = 0
 
-        if not self.ui.client_address.text():
-            self.ui.client_address.setStyleSheet(errorStyle)
-            result =0 
-        else:
-            obj.Address1=self.ui.client_address.text()
-    
-        #obj.Country=self.ui.clientco.text()
-        #obj.Region=self.ui.region_bar.text()
-        obj.Town=self.ui.client_town.text()   
-        obj.TelHome=self.ui.client_wcontact.text()     
-        obj.PostCodeZIP=self.ui.client_zipcode.text()       
-        obj.CellMobile=self.ui.client_hcontact.text()     
-       # obj.Archived=bool(self.ui.clientma.text())
-        obj.Mailings=bool(self.ui.client_amailing_check.text())
         #----------------------------------------------------------------
-        if not self.ui.pet_name.text():
+
+        if not self.ui.addpet_name_input_2.text():
             self.ui.pet_name.setStyleSheet(errorStyle)
-            result =0 
+            result = 0 
         else:
-            obj.AnimalName=self.ui.pet_name.text()
+            pet["AnimalName"] = self.ui.addpet_name_input_2.text()
 
-        if not self.ui.pet_breed.text():
-            self.ui.pet_breed.setStyleSheet(errorStyle)
-            result =0 
+        pet["Size"] = self.ui.addpet_pet_size_2.text()
+        pet["Breed"] = self.ui.addpet_breed_input_2.text()
+        pet["DateOfBirth"] = self.ui.addpet_age_input_2.text()
+        pet["MedicalConditions"] = self.ui.addpet_medical_input_2.text()
+        pet["AnimalNotes"] = self.ui.addpet_notes_input_2.text()
+        pet["FoodNotes"] = self.ui.addpet_foodtype_input_2.text() # food notes
+        pet["Weight"] = float(self.ui.addpet_weight_input_2.text())
+        pet["MicrochipID"] = self.ui.addpet_chip_input_2.text()
+        pet["AnimalVet"] = self.ui.addpet_vetname_input_2.text()
+
+        pet["NeuteredSpayed"] = self.ui.addpet_pet_neutered_2.currentText()
+        pet["AnimalType"] = self.ui.addpet_pet_type_2.currentText()
+        pet["Sex"] = self.ui.addpet_pet_gender_2.currentText()
+        pet["Vaccinated"] = self.ui.addpet_pet_vaccinated_2.currentText()
+        pet["Deceased"] = self.ui.addpet_pet_inactive_2.currentText()
+
+        if pet["AnimalType"] == "Dog":
+            pet["TypeID"] = 2
         else:
-            obj.Breed=self.ui.pet_breed.text()
+            pet["TypeID"] = 1
 
-        obj.Sex=self.ui.comboBox.currentText()
-        print(obj.Sex)
-        obj.Food1Amount=self.ui.pet_food_amount.text()
-        obj.Food1Type=self.ui.pet_food_type.text()
-        obj.Age=self.ui.pet_age.text()
-        obj.ShareKennel=self.ui.pet_kennel_unit.text()
-        obj.MedicalConditions=self.ui.pet_medical_details.text()
-        obj.DiscountA=self.ui.pet_discount.text()
-        obj.Food1Freq=self.ui.pet_food_frequency.text()
-
-        #-------------------------------------------------------
-        if not self.ui.vet_pname.text():
-            self.ui.vet_pname.setStyleSheet(errorStyle)
-            result =0 
+        if (pet["NeuteredSpayed"] == "Yes"):
+            pet["NeuteredSpayed"] = 1
         else:
-            obj.PracticeName=self.ui.vet_pname.text()
+            pet["NeuteredSpayed"] = 0
 
-        if not self.ui.vet_vname.text():
-            self.ui.vet_vname.setStyleSheet(errorStyle)
-            result =0 
+        if (pet["Vaccinated"] == "Yes"):
+            pet["Vaccinated"] = 1
         else:
-            obj.VetName=self.ui.vet_vname.text()
+            pet["Vaccinated"] = 0
 
-    
-        obj.ContactNo=self.ui.vet_contact.text()     
-        obj.Address1Vet=self.ui.vet_address.text()   
-        obj.TownVet=self.ui.vet_town.text() 
+        if (pet["Deceased"] == "Yes"):
+            pet["Deceased"] = 1
+        else:
+            pet["Deceased"] = 0
 
         
-        
-        
-          #clienttada address var?
-                 #clientda da town var iki tane town oluyor?
-    
-        
-        
-        if(result ==1):
-            print(obj.FirstName)
+        try:
+            if (pet["DateOfBirth"]):
+                today = datetime.now()
+                birthdate = datetime.strptime(pet["DateOfBirth"], '%Y-%m-%d')
+                age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+                pet["Age"] = int(age)
+        except:
+            pet["DateOfBirth"] = ""
+
+        #----------------------------------------------------------------
+
+        if(result == 1):
             object=Database_Class()
-            client_row=(obj.LastName, obj.FirstName, '?', obj.Address1, '?', '?', '?', obj.PostCodeZIP, '?', obj.Email, obj.TelHome, '?', obj.CellMobile, 1, 1, '?', obj.Mailings, '?', '?', '?', '?', False, 2.0, obj.Town)
-            animal_row = (obj.AnimalName, 2, obj.Breed, obj.Sex, False, True, obj.ShareKennel, obj.MedicalConditions, 'AnimalNotes', obj.Food1Type, obj.Food1Freq, obj.Food1Amount, True, obj.Age, '', '', '', '', '', 0, '', '', '', '', '', 0, 0, '', '')
-            vet_row=(obj.PracticeName, obj.VetName, obj.ContactNo, obj.Address1Vet,'' ,obj.TownVet, '', '','')
-            print(client_row,animal_row,vet_row)
-            object.setNewClient(client_row, animal_row, vet_row)
-        else:
+            object.setNewClient(client, pet)
 
+            BackEndFunctions.clearCreateClientForms(self)
+        else:
             print("Error")
 
 

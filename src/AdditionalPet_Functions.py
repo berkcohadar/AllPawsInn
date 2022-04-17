@@ -23,7 +23,7 @@ class AddPetFunctions(MainWindow):
                 animalRow["FoodNotes"] = self.ui.addpet_foodtype_input_4.text()
                 animalRow["Weight"] = float(self.ui.addpet_weight_input_4.text())
                 animalRow["MicrochipID"] = self.ui.addpet_chip_input_4.text()
-                animalRow["animalVetname"] = self.ui.addpet_vetname_input_4.text()
+                animalRow["AnimalVet"] = self.ui.addpet_vetname_input_4.text()
 
                 animalRow["NeuteredSpayed"] = self.ui.addpet_pet_neutered_4.currentText()
                 animalRow["AnimalType"] = self.ui.addpet_pet_type_4.currentText()
@@ -50,13 +50,16 @@ class AddPetFunctions(MainWindow):
                     animalRow["Deceased"] = 1
                 else:
                     animalRow["Deceased"] = 0
-
-                if (animalRow["DateOfBirth"]):
-                    today = datetime.datetime.now()
-                    birthdate = datetime.datetime.strptime(animalRow["DateOfBirth"], '%Y-%m-%d')
-                    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
-                    animalRow["Age"] = int(age)
-
+                
+                try:
+                    if (animalRow["DateOfBirth"]):
+                        today = datetime.datetime.now()
+                        birthdate = datetime.datetime.strptime(animalRow["DateOfBirth"], '%Y-%m-%d')
+                        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+                        animalRow["Age"] = int(age)
+                except:
+                    animalRow["DateOfBirth"] = ""
+                    
                 object.CreateAnimal(animalRow)
                 AddPetFunctions.clearSearchList(self)
 
@@ -88,6 +91,7 @@ class AddPetFunctions(MainWindow):
         else:
 
             MainWindow.show_popup(self,"Missing Pet!","Please choose any pet from List")
+    
     def clearSearchList(self):
         self.ui.addpet_search_list.clear()
                  
@@ -104,6 +108,7 @@ class AddPetFunctions(MainWindow):
         self.ui.addpet_foodtype_input.setText("")  
 
         self.ui.addpet_age_input.setText("")
+    
     def updateSearchListDisplay(self):  
         self.ui.addpet_search_list.clear()
         for obj in self.paws:  
@@ -112,6 +117,7 @@ class AddPetFunctions(MainWindow):
             animalName = obj[2] 
             ownerName = "Client: "+obj[0] + " " + obj[1] + " Pet: ("+obj[2]+")"
             self.ui.addpet_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName ,animalID,clientID] ) )
+    
     def updateSearchList(self):
 
             text = self.ui.addpet_search_bar.text()
@@ -175,6 +181,7 @@ class AddPetFunctions(MainWindow):
             animalWeight = item['Weight']
             animalMicrochipID = item['MicrochipID']
             animalInactive = item['Deceased']
+            animalVet = item["AnimalVet"]
 
         self.ui.addpet_animal_name.setText(animalName)
         self.ui.addpet_animal_age.setText(str(animalAge))
@@ -236,7 +243,7 @@ class AddPetFunctions(MainWindow):
         self.ui.addpet_foodtype_input.setText(animalFoodNotes) # food notes
         self.ui.addpet_notes_input.setText(animalNotes)
         self.ui.addpet_chip_input.setText(animalMicrochipID)
-        # self.ui.addpet_vetname_input.setText()
+        self.ui.addpet_vetname_input.setText(animalVet)
 
         # combo box
         self.ui.addpet_pet_neutered.setCurrentText(animalNeutered)
@@ -244,7 +251,6 @@ class AddPetFunctions(MainWindow):
         self.ui.addpet_pet_gender.setCurrentText(animalGender)
         self.ui.addpet_pet_vaccinated.setCurrentText(animalVaccinated)
         self.ui.addpet_pet_inactive.setCurrentText(animalInactive)
-
 
     def updateAnimalDetails(self):
         object = Database_Class()
@@ -260,7 +266,7 @@ class AddPetFunctions(MainWindow):
         row["Weight"] = float(self.ui.addpet_weight_input.text())
         row["MicrochipID"] = self.ui.addpet_chip_input.text()
         row["AnimalID"] = int(self.ui.addpet_search_list.currentItem().text(1))
-        # row["animalVetname"] = self.ui.addpet_vetname_input.text()
+        row["AnimalVet"] = self.ui.addpet_vetname_input.text()
 
         row["NeuteredSpayed"] = self.ui.addpet_pet_neutered.currentText()
         row["AnimalType"] = self.ui.addpet_pet_type.currentText()
@@ -268,6 +274,10 @@ class AddPetFunctions(MainWindow):
         row["Vaccinated"] = self.ui.addpet_pet_vaccinated.currentText()
         row["Deceased"] = self.ui.addpet_pet_inactive.currentText()
 
+        if row["AnimalType"] == "Dog":
+            row["TypeID"] = 2
+        else:
+            row["TypeID"] = 1
 
         if (row["NeuteredSpayed"] == "Yes"):
             row["NeuteredSpayed"] = 1
@@ -284,10 +294,15 @@ class AddPetFunctions(MainWindow):
         else:
             row["Deceased"] = 0
 
-        if (row["DateOfBirth"]):
-            today = datetime.datetime.now()
-            birthdate = datetime.datetime.strptime(row["DateOfBirth"], '%Y-%m-%d')
-            age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
-            row["Age"] = int(age)
+        try:
+            if (row["DateOfBirth"]):
+                today = datetime.datetime.now()
+                birthdate = datetime.datetime.strptime(row["DateOfBirth"], '%Y-%m-%d')
+                age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+                row["Age"] = int(age)
+        except:
+            row["DateOfBirth"] = ""
 
-        object.UpdateAnimalDetails(row)    
+
+        object.UpdateAnimalDetails(row)
+        AddPetFunctions.DisplayDetail(self)
