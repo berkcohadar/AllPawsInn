@@ -25,6 +25,8 @@ class PaymentFunctions(MainWindow):
             self.ui.pay_search_list.addTopLevelItem( QtWidgets.QTreeWidgetItem([ownerName , animalName, str(clientBalance) ,animalID,clientID] ) )
 
     def updatePaymentList(self):
+        self.ui.pay_search_list.setHeaderHidden(False)
+        self.ui.pay_list_widget.setHeaderHidden(False)
 
         text = self.ui.pay_search_bar.text()
             

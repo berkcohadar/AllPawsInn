@@ -729,23 +729,18 @@ class Database_Class(object):
 
             #---------------ADMIN PAGE  FUNCTIONS STARTS-----------------------
 
-    def GetAdminList(self):
-        cursor = conn.cursor()
-        query=""" SELECT AdminSetting.ProfileName,AdminSetting.DayCareRate, AdminSetting.Tax, AdminSetting.Discount, AdminSetting.IsActive,AdminSetting.BookingRate
-                        FROM AdminSetting """
-        results=cursor.execute(query)
-        return results
-
     def GetAdminListWithID(self):
         cursor = conn.cursor()
-        query=""" SELECT AdminSetting.ProfileName,AdminSetting.DayCareRate, AdminSetting.Tax, AdminSetting.Discount, AdminSetting.IsActive,AdminSetting.BookingRate,AdminSetting.ID
+        query=""" SELECT AdminSetting.ProfileName,AdminSetting.DayCareRate, AdminSetting.Tax, AdminSetting.IsActive,AdminSetting.ID
                         FROM AdminSetting """
         results=cursor.execute(query)
         return results
 
-    def SetAdminSetting(self,profilename,daycarerate,tax,discount,IsActive,bookingrate):
+    def SetAdminSetting(self,profilename,daycarerate,tax,IsActive):
+        if (IsActive):
+            Database_Class.SetAllInActive(self)
         cursor = conn.cursor()
-        query="""INSERT INTO AdminSetting (ProfileName,DayCareRate,Tax,Discount,IsActive,BookingRate) VALUES ('%s','%f','%f','%f','%d','%f')"""%(profilename,daycarerate,tax,discount,IsActive,bookingrate)
+        query="""INSERT INTO AdminSetting (ProfileName,DayCareRate,Tax,IsActive) VALUES ('%s','%f','%f','%d')"""%(profilename,daycarerate,tax,IsActive)
         cursor.execute(query)
         conn.commit()
 
@@ -759,13 +754,6 @@ class Database_Class(object):
         query="""UPDATE AdminSetting SET IsActive='%d' WHERE ID='%d'"""%(1,id)
         cursor.execute(query)
         conn.commit()
-
-    def GetActiveProfile(self,id):
-        cursor = conn.cursor()
-        query=""" SELECT AdminSetting.DayCareRate, AdminSetting.Tax, AdminSetting.Discount, AdminSetting.BookingRate
-                        FROM AdminSetting WHERE AdminSetting.IsActive=%d """%(1) 
-        results=cursor.execute(query)
-        return results
 
     def DeleteProfile(self,id):
         cursor = conn.cursor()

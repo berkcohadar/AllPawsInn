@@ -1,24 +1,25 @@
 
 from AdditionalPet_Functions import *
 day_swicher = 0
+# admin_discount
+# admin_is_active
 class AdminFunctions(MainWindow):
 
     def DisplayAdminList(self):
+        self.ui.admin_profile_list.setHeaderHidden(False)
+        self.ui.admin_service_list.setHeaderHidden(False)
         object = Database_Class()
 
         result = object.GetAdminListWithID()
         
-    
         self.ui.admin_profile_list.clear()
         for obj in result:  
             ProfileName = obj[0]
             DayCareRate = str(obj[1] )  
             Tax =str( obj[2])
-            Discount =str( obj[3])
-            IsActive =str(obj[4]  )        
-            BookingRate = str(obj[5])
-            ID = str(obj[6])
-            item = QtWidgets.QTreeWidgetItem(self.ui.admin_profile_list,[ ProfileName,DayCareRate,BookingRate,Tax,Discount, IsActive,ID])
+            IsActive =str(obj[3])
+            ID = str(obj[4])
+            item = QtWidgets.QTreeWidgetItem(self.ui.admin_profile_list,[ ProfileName,DayCareRate,Tax, IsActive,ID])
             self.ui.admin_profile_list.addTopLevelItem(item)
 
     def AddAdminSetting(self):
@@ -27,26 +28,27 @@ class AdminFunctions(MainWindow):
         profilename = self.ui.admin_profile_name.text()
         daycarerate = self.ui.admin_daycare_rate.text()
         tax = self.ui.admin_tax.text()
-        discount = self.ui.admin_discount.text()
+        active = self.ui.admin_is_active.currentText()
 
-        if(profilename=='' or daycarerate=='' or tax=='' or discount=='' or daycarerate==''):
+        if active == "False":
+            active = 0
+        else: 
+            active = 1
+
+        if(profilename=='' or daycarerate=='' or tax=='' or daycarerate==''):
             print("error")
         else:
-            daycare = float(daycarerate)
-            bookingrate = daycare + daycare*float(tax)/100
-
-
-      
+            daycare = float(daycarerate)   
        
-            object.SetAdminSetting(profilename,daycare,float(tax),float(discount),False,bookingrate)
+            object.SetAdminSetting(profilename,daycare,float(tax),active)
             AdminFunctions.DisplayAdminList(self)
 
     def ActivateProfile(self):
         object = Database_Class()
 
-        active = self.ui.admin_profile_list.currentItem().text(5)
+        active = self.ui.admin_profile_list.currentItem().text(3)
         if(active == "False"):
-            id = self.ui.admin_profile_list.currentItem().text(6)
+            id = self.ui.admin_profile_list.currentItem().text(4)
             object.SetAllInActive()
             object.SetActive(int(id))
             AdminFunctions.DisplayAdminList(self)
@@ -54,12 +56,15 @@ class AdminFunctions(MainWindow):
 
     def DeleteProfile(self):
         object = Database_Class()
-        active = self.ui.admin_profile_list.currentItem().text(5)
+        active = self.ui.admin_profile_list.currentItem().text(3)
         if(active == "False"):
-            id = self.ui.admin_profile_list.currentItem().text(6)
+            id = self.ui.admin_profile_list.currentItem().text(4)
           
             object.DeleteProfile(int(id))
             AdminFunctions.DisplayAdminList(self)
+        else:
+            MainWindow.show_popup(self,"Invalid Action!","You cannot delete an active profile. First activate another profile.")
+
 
 
     def GetServices(self):
