@@ -682,21 +682,24 @@ class Database_Class(object):
         cursor.execute(query)
         conn.commit()
 
-    def GetServices(self):
+    def GetServices(self, adminProfile):
         cursor = conn.cursor()
         query="""SELECT Services.ServiceName, Services.Cost
                      FROM Services
-                     """
+                     WHERE adminProfile='%d'
+                     """%(int(adminProfile))
         results=cursor.execute(query)
         return results
-    def ChangeServiceCost(self,cost,name):
+
+    def ChangeServiceCost(self,cost,name,adminProfile):
         cursor = conn.cursor()
-        query="""UPDATE Services SET Cost='%f' WHERE ServiceName='%s'"""%(cost,name)
+        query="""UPDATE Services SET Cost='%f' WHERE ServiceName='%s' AND adminProfile='%d' """%(cost,name,adminProfile)
         cursor.execute(query)
         conn.commit()
-    def AddService(self,name,cost):
+
+    def AddService(self,name,cost,isActive,adminProfile):
         cursor = conn.cursor()
-        query="""INSERT INTO Services (Name,Cost) VALUES ('%s','%d')"""%(name,cost)
+        query="""INSERT INTO Services (ServiceName, Cost, IsActive, adminProfile) VALUES ('%s','%d','%d','%d')"""%(name,cost,isActive,adminProfile)
         cursor.execute(query)
         conn.commit()
    
@@ -742,7 +745,15 @@ class Database_Class(object):
         cursor = conn.cursor()
         query="""INSERT INTO AdminSetting (ProfileName,DayCareRate,Tax,IsActive) VALUES ('%s','%f','%f','%d')"""%(profilename,daycarerate,tax,IsActive)
         cursor.execute(query)
+
+        query="""SELECT TOP (1) [ID] FROM [AdminSetting] ORDER BY ID DESC"""
+        row=cursor.execute(query)
+        profileID=row.fetchone()
+
         conn.commit()
+        return profileID[0]
+
+
 
     def SetAllInActive(self):
         cursor = conn.cursor()

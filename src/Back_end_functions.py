@@ -182,7 +182,7 @@ class BackEndFunctions(MainWindow):
         #----------------------------------------------------------------
 
         if not self.ui.addpet_name_input_2.text():
-            self.ui.pet_name.setStyleSheet(errorStyle)
+            self.ui.addpet_name_input_4.setStyleSheet(errorStyle)
             result = 0 
         else:
             pet["AnimalName"] = self.ui.addpet_name_input_2.text()
@@ -193,7 +193,12 @@ class BackEndFunctions(MainWindow):
         pet["MedicalConditions"] = self.ui.addpet_medical_input_2.text()
         pet["AnimalNotes"] = self.ui.addpet_notes_input_2.text()
         pet["FoodNotes"] = self.ui.addpet_foodtype_input_2.text() # food notes
-        pet["Weight"] = float(self.ui.addpet_weight_input_2.text())
+        try:
+            pet["Weight"] = float(self.ui.addpet_weight_input_2.text())
+        except:
+            MainWindow.show_popup(self,"Invalid Action!","Weight field must be a number!")
+            self.ui.addpet_weight_input_2.setText("0.00")
+            return
         pet["MicrochipID"] = self.ui.addpet_chip_input_2.text()
         pet["AnimalVet"] = self.ui.addpet_vetname_input_2.text()
 

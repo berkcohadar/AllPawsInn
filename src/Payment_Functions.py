@@ -163,21 +163,27 @@ class PaymentFunctions(MainWindow):
 
         if self.ui.pay_services_nails.isChecked():
             servicesSubTotal += nailFee
+        try:
+            floatTotal = float(servicesSubTotal)
+            floatTotal+= float(daycarerate) + float(othergoods) - float(discount) 
 
-        floatTotal = float(servicesSubTotal)
-        floatTotal+= float(daycarerate) + float(othergoods) - float(discount) 
 
+            totalCharges =   format((floatTotal * tax/100 + floatTotal),'.2f' )
 
-        totalCharges =   format((floatTotal * tax/100 + floatTotal),'.2f' )
+            pay_remaining = float(totalCharges) - float(amount_received)
+            self.ui.pay_remaining.setText("{:.2f}".format(pay_remaining))
 
-        pay_remaining = float(totalCharges) - float(amount_received)
-        self.ui.pay_remaining.setText("{:.2f}".format(pay_remaining))
+            x = Decimal(totalCharges)
+            output = round(x,2)
 
-        x = Decimal(totalCharges)
-        output = round(x,2)
-
-        round(Decimal(),2)   
-        self.ui.pay_subtotal.setText("{:.2f}".format(output))
+            round(Decimal(),2)   
+            self.ui.pay_subtotal.setText("{:.2f}".format(output))
+        except:
+            MainWindow.show_popup(self,"Invalid Action!","Cost fields must be a number!")
+            self.ui.pay_services_other_goods.setText("0.00")
+            self.ui.pay_services_discount.setText("0.00")
+            self.ui.pay_services_amt_recieved.setText("0.00")
+            return
 
     def AddServiceDetail(self):
         global TotalCharges
@@ -308,7 +314,12 @@ class PaymentFunctions(MainWindow):
             else:
                 amount_received = 0.0
                 if (self.ui.pay_services_amt_recieved_2.text() != ''):
-                    amount_received = float(self.ui.pay_services_amt_recieved_2.text())                  
+                    try:
+                        amount_received = float(self.ui.pay_services_amt_recieved_2.text())         
+                    except:
+                        MainWindow.show_popup(self,"Invalid Action!","Amount Received field must be a number!")
+                        self.ui.pay_services_amt_recieved_2.setText("0.00")
+                        return
                 
                 paymentId = object.createPayment(customerId=clientId, paymentAmount=amount_received, paymentDate= today, paymentType="", serviceID=NULL)
                 ReportFunctions.printReceiptWithoutService(ReportFunctions, customerID=clientId, paymentID=paymentId)

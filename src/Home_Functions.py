@@ -156,8 +156,12 @@ class HomeFunctions(MainWindow):
             totalDayCare = daysIn*daycarerate
             servicesSubTotal += totalDayCare
         self.ui.mpayment_daycare_total.setText(str(totalDayCare))
-            
-        floatTotal= float(servicesSubTotal) + float(othergoods) - float(discount)
+        
+        try:
+            floatTotal= float(servicesSubTotal) + float(othergoods) - float(discount)
+        except:
+            MainWindow.show_popup(self,"Invalid Action!","Cost fields must be numbers!")
+            return
 
         totalCharges =   floatTotal * tax/100 + floatTotal
         x = Decimal(totalCharges)
@@ -179,7 +183,11 @@ class HomeFunctions(MainWindow):
     def CheckOutWithPaymentMakePayment(self):
 
         if(self.ui.mpayment_amt_recieved.text()):
-            paymentAmount =  float(self.ui.mpayment_amt_recieved.text())
+            try:
+                paymentAmount =  float(self.ui.mpayment_amt_recieved.text())
+            except:
+                MainWindow.show_popup(self,"Invalid Action!","Payment Amount field must be a number!")
+                return
             bookingId = int(self.ui.home_checkout_tree.currentItem().text(4))
             customerId = int(self.ui.home_checkout_tree.currentItem().text(5))
             paymentDate = QtCore.QDate.currentDate().toString("yyyy-MM-dd")

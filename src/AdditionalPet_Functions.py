@@ -254,55 +254,62 @@ class AddPetFunctions(MainWindow):
 
     def updateAnimalDetails(self):
         object = Database_Class()
+        if(self.ui.addpet_search_list.currentItem()):
+            row = {}
+            row["AnimalName"] = self.ui.addpet_name_input.text()
+            row["Size"] = self.ui.addpet_pet_size.text()
+            row["Breed"] = self.ui.addpet_breed_input.text()
+            row["DateOfBirth"] = self.ui.addpet_age_input.text()
+            row["MedicalConditions"] = self.ui.addpet_medical_input.text()
+            row["AnimalNotes"] = self.ui.addpet_notes_input.text()
+            row["FoodNotes"] = self.ui.addpet_foodtype_input.text() # food notes
+            row["MicrochipID"] = self.ui.addpet_chip_input.text()
+            try:
+                row["Weight"] = float(self.ui.addpet_weight_input.text())
+            except:
+                MainWindow.show_popup(self,"Invalid Action!","Weight field must be a number!")
+                self.ui.addpet_weight_input.setText("0.00")
+                return
+            row["AnimalID"] = int(self.ui.addpet_search_list.currentItem().text(1))
+            row["AnimalVet"] = self.ui.addpet_vetname_input.text()
 
-        row = {}
-        row["AnimalName"] = self.ui.addpet_name_input.text()
-        row["Size"] = self.ui.addpet_pet_size.text()
-        row["Breed"] = self.ui.addpet_breed_input.text()
-        row["DateOfBirth"] = self.ui.addpet_age_input.text()
-        row["MedicalConditions"] = self.ui.addpet_medical_input.text()
-        row["AnimalNotes"] = self.ui.addpet_notes_input.text()
-        row["FoodNotes"] = self.ui.addpet_foodtype_input.text() # food notes
-        row["Weight"] = float(self.ui.addpet_weight_input.text())
-        row["MicrochipID"] = self.ui.addpet_chip_input.text()
-        row["AnimalID"] = int(self.ui.addpet_search_list.currentItem().text(1))
-        row["AnimalVet"] = self.ui.addpet_vetname_input.text()
+            row["NeuteredSpayed"] = self.ui.addpet_pet_neutered.currentText()
+            row["AnimalType"] = self.ui.addpet_pet_type.currentText()
+            row["Sex"] = self.ui.addpet_pet_gender.currentText()
+            row["Vaccinated"] = self.ui.addpet_pet_vaccinated.currentText()
+            row["Deceased"] = self.ui.addpet_pet_inactive.currentText()
 
-        row["NeuteredSpayed"] = self.ui.addpet_pet_neutered.currentText()
-        row["AnimalType"] = self.ui.addpet_pet_type.currentText()
-        row["Sex"] = self.ui.addpet_pet_gender.currentText()
-        row["Vaccinated"] = self.ui.addpet_pet_vaccinated.currentText()
-        row["Deceased"] = self.ui.addpet_pet_inactive.currentText()
+            if row["AnimalType"] == "Dog":
+                row["TypeID"] = 2
+            else:
+                row["TypeID"] = 1
 
-        if row["AnimalType"] == "Dog":
-            row["TypeID"] = 2
+            if (row["NeuteredSpayed"] == "Yes"):
+                row["NeuteredSpayed"] = 1
+            else:
+                row["NeuteredSpayed"] = 0
+
+            if (row["Vaccinated"] == "Yes"):
+                row["Vaccinated"] = 1
+            else:
+                row["Vaccinated"] = 0
+
+            if (row["Deceased"] == "Yes"):
+                row["Deceased"] = 1
+            else:
+                row["Deceased"] = 0
+
+            try:
+                if (row["DateOfBirth"]):
+                    today = datetime.datetime.now()
+                    birthdate = datetime.datetime.strptime(row["DateOfBirth"], '%Y-%m-%d')
+                    age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+                    row["Age"] = int(age)
+            except:
+                row["DateOfBirth"] = ""
+
+
+            object.UpdateAnimalDetails(row)
+            AddPetFunctions.DisplayDetail(self)
         else:
-            row["TypeID"] = 1
-
-        if (row["NeuteredSpayed"] == "Yes"):
-            row["NeuteredSpayed"] = 1
-        else:
-            row["NeuteredSpayed"] = 0
-
-        if (row["Vaccinated"] == "Yes"):
-            row["Vaccinated"] = 1
-        else:
-            row["Vaccinated"] = 0
-
-        if (row["Deceased"] == "Yes"):
-            row["Deceased"] = 1
-        else:
-            row["Deceased"] = 0
-
-        try:
-            if (row["DateOfBirth"]):
-                today = datetime.datetime.now()
-                birthdate = datetime.datetime.strptime(row["DateOfBirth"], '%Y-%m-%d')
-                age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
-                row["Age"] = int(age)
-        except:
-            row["DateOfBirth"] = ""
-
-
-        object.UpdateAnimalDetails(row)
-        AddPetFunctions.DisplayDetail(self)
+            MainWindow.show_popup(self,"Invalid Action!","Please select a pet before to operate an action.!")
