@@ -124,7 +124,7 @@ class MainWindow(QMainWindow):
         # self.ui.menu_btn_settings.clicked.connect(lambda: AdminFunctions.GetServices(self))
         self.ui.admin_profile_list.itemClicked.connect(lambda: AdminFunctions.GetServices(self))
         self.ui.admin_add_service_btn.clicked.connect(lambda : AdminFunctions.AddServices(self,"","",""))
-
+        self.ui.admin_service_delete_btn.clicked.connect(lambda : AdminFunctions.DeleteServices(self))
         
         self.ui.pay_services_discount.textChanged.connect(lambda : PaymentFunctions.calculateService(self))
         self.ui.pay_services_food.clicked.connect(lambda : PaymentFunctions.calculateService(self))

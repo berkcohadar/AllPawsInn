@@ -43,6 +43,9 @@ class AdminFunctions(MainWindow):
         else:
             try:
                 daycare = float(daycarerate)
+                if (not(daycare)):
+                    MainWindow.show_popup(self,"Invalid Action!","Daycare cannot be 0!")
+                    return
             except:
                 MainWindow.show_popup(self,"Invalid Action!","Daycare field is not valid. Please enter a number to continue!")
                 return
@@ -51,10 +54,22 @@ class AdminFunctions(MainWindow):
             except:
                 MainWindow.show_popup(self,"Invalid Action!","Tax field is not valid. Please enter a number to continue!")
                 return
+            try:
+                foodFee = float(self.ui.lineEdit.text())
+                hairFee = float(self.ui.lineEdit_2.text())
+                nailsFee = float(self.ui.lineEdit_3.text())
+                if (not(foodFee and hairFee and nailsFee)):
+                    MainWindow.show_popup(self,"Invalid Action!","Cost fields cannot be 0!")
+                    return   
+            except:
+                MainWindow.show_popup(self,"Invalid Action!","Cost fields are not valid. Please enter a number to continue!")
+                return
+
             profileId = object.SetAdminSetting(profilename,daycare,tax,active)
-            AdminFunctions.AddServices(self,"food",25.0,profileId)
-            AdminFunctions.AddServices(self,"nails",10.0,profileId)
-            AdminFunctions.AddServices(self,"hair",10.0,profileId)
+
+            AdminFunctions.AddServices(self,"food",foodFee,profileId)
+            AdminFunctions.AddServices(self,"nails",hairFee,profileId)
+            AdminFunctions.AddServices(self,"hair",nailsFee,profileId)
 
             self.ui.admin_profile_name.clear()
             self.ui.admin_daycare_rate.clear()
@@ -99,12 +114,14 @@ class AdminFunctions(MainWindow):
         for obj in services:  
             Name = obj[0]
             Cost = str(obj[1] )  
+            ServiceID = str(obj[2] )  
+
           
-            item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile)])
+            item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile),ServiceID])
             self.ui.admin_service_list.addTopLevelItem(item)
 
-
     def AddServices(self,name,cost,adminProfile):
+        global selectedAdminProfile
         if (name and cost and adminProfile):
             pass
         else:
@@ -112,11 +129,23 @@ class AdminFunctions(MainWindow):
             cost = self.ui.admin_service_cost.text()
             adminProfile = selectedAdminProfile
 
+        print(name, cost, adminProfile)
+
+        if (adminProfile == -1):
+            MainWindow.show_popup(self,"Invalid Action!","Please select an Admin Profile to create a new service!")
+            return
+
         isActive = 1
 
         object = Database_Class()
         if (name and cost and adminProfile):
-            object.AddService(name,int(cost),isActive,adminProfile)
+            try:
+                object.AddService(name,float(cost),isActive,adminProfile)
+            except:
+                MainWindow.show_popup(self,"Invalid Action!","Please enter a number to the cost field!")
+                self.ui.admin_service_cost.clear()
+                return
+
 
             services = object.GetServices(adminProfile)
             self.ui.admin_service_list.clear()
@@ -125,22 +154,43 @@ class AdminFunctions(MainWindow):
             for obj in services:  
                 Name = obj[0]
                 Cost = str(obj[1] )  
-            
-                item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile)])
+                ServiceID = str(obj[2] ) 
+                item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile),ServiceID])
                 self.ui.admin_service_list.addTopLevelItem(item)
         else:
             MainWindow.show_popup(self,"Invalid Action!","Please enter Service Name and Cost!")
 
+    def DeleteServices(self):
+        global selectedAdminProfile
+        if (self.ui.admin_service_list.currentItem()):
+            object = Database_Class()
+            serviceID = int(self.ui.admin_service_list.currentItem().text(3))
+            object.DeleteService(serviceID)
 
+            adminProfile = selectedAdminProfile
+            services = object.GetServices(adminProfile)
+            self.ui.admin_service_list.clear()
+            self.ui.admin_service_name_label.clear()
+            self.ui.admin_service_cost_box.clear()
+            for obj in services:  
+                Name = obj[0]
+                Cost = str(obj[1] )  
+                ServiceID = str(obj[2] ) 
+            
+                item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile),ServiceID])
+                self.ui.admin_service_list.addTopLevelItem(item)
+        else:
+            MainWindow.show_popup(self,"Invalid Action!","Please select a service to delete.")
 
     def ChangeServiceCost(self):
+        global selectedAdminProfile
         object = Database_Class()
         if (self.ui.admin_service_list.currentItem()):
             newcost = self.ui.admin_service_cost_box.text()
             adminProfile = selectedAdminProfile
 
-            name = self.ui.admin_service_list.currentItem().text(0)
-            object.ChangeServiceCost(float(newcost),name, adminProfile)
+            serviceID = int(self.ui.admin_service_list.currentItem().text(3))
+            object.ChangeServiceCost(float(newcost), serviceID, adminProfile)
 
             services = object.GetServices(adminProfile)
             self.ui.admin_service_list.clear()
@@ -149,8 +199,9 @@ class AdminFunctions(MainWindow):
             for obj in services:  
                 Name = obj[0]
                 Cost = str(obj[1] )  
+                ServiceID = str(obj[2] ) 
             
-                item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile)])
+                item = QtWidgets.QTreeWidgetItem(self.ui.admin_service_list,[ Name,Cost,str(adminProfile),ServiceID])
                 self.ui.admin_service_list.addTopLevelItem(item)
         else:
             MainWindow.show_popup(self,"Invalid Action!","Please select a profile to operate the action.")

@@ -684,25 +684,30 @@ class Database_Class(object):
 
     def GetServices(self, adminProfile):
         cursor = conn.cursor()
-        query="""SELECT Services.ServiceName, Services.Cost
+        query="""SELECT Services.ServiceName, Services.Cost, Services.ID
                      FROM Services
                      WHERE adminProfile='%d'
                      """%(int(adminProfile))
         results=cursor.execute(query)
         return results
 
-    def ChangeServiceCost(self,cost,name,adminProfile):
+    def ChangeServiceCost(self,cost,serviceID,adminProfile):
         cursor = conn.cursor()
-        query="""UPDATE Services SET Cost='%f' WHERE ServiceName='%s' AND adminProfile='%d' """%(cost,name,adminProfile)
+        query="""UPDATE Services SET Cost='%.2f' WHERE ID='%d' AND adminProfile='%d' """%(cost,serviceID,adminProfile)
         cursor.execute(query)
         conn.commit()
 
     def AddService(self,name,cost,isActive,adminProfile):
         cursor = conn.cursor()
-        query="""INSERT INTO Services (ServiceName, Cost, IsActive, adminProfile) VALUES ('%s','%d','%d','%d')"""%(name,cost,isActive,adminProfile)
+        query="""INSERT INTO Services (ServiceName, Cost, IsActive, adminProfile) VALUES ('%s','%.2f','%d','%d')"""%(name,cost,isActive,adminProfile)
         cursor.execute(query)
         conn.commit()
-   
+        
+    def DeleteService(self,serviceID):
+        cursor = conn.cursor()
+        query="""DELETE FROM Services WHERE ID='%d'"""%(serviceID)
+        cursor.execute(query)
+        conn.commit()
 
 
     #---------------SERVICE FUNCTIONS END-----------------------
@@ -768,8 +773,13 @@ class Database_Class(object):
 
     def DeleteProfile(self,id):
         cursor = conn.cursor()
+
         query="""DELETE FROM AdminSetting WHERE AdminSetting.ID='%d' """%(id)
         cursor.execute(query)
+
+        query="""DELETE FROM Services WHERE adminProfile='%d' """%(id)
+        cursor.execute(query)
+        
         conn.commit()
         #---------------ADMIN PAGE FUNCTIONS END-----------------------
 

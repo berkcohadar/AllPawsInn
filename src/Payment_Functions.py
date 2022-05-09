@@ -245,6 +245,9 @@ class PaymentFunctions(MainWindow):
         subTotal += (careFee + othergoods - discount)
         taxTotal = subTotal * tax 
         subTotal += taxTotal
+        if subTotal <= 0.0:
+            MainWindow.show_popup(self,"Invalid Operation!","You must determine the services!")
+            return
 
         received = 0.0
         if (self.ui.pay_services_amt_recieved.text() != ''):
@@ -302,30 +305,32 @@ class PaymentFunctions(MainWindow):
 
     def payForClient(self,serviceID=NULL,paymentAmount=NULL):
         if (self.ui.pay_search_list.currentItem()):
-            
-            object = Database_Class()
-            clientId = int(self.ui.pay_search_list.currentItem().text(4))
-            today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            if(float(self.ui.pay_services_amt_recieved_2.text())  > 0):
+                object = Database_Class()
+                clientId = int(self.ui.pay_search_list.currentItem().text(4))
+                today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            if (serviceID!=NULL):
-                paymentId = object.createPayment(customerId=clientId, paymentAmount=paymentAmount, paymentDate= today, paymentType="", serviceID=serviceID)
-                ReportFunctions.printReceiptWithService(ReportFunctions, customerID=clientId, serviceID=serviceID)
+                if (serviceID!=NULL):
+                    paymentId = object.createPayment(customerId=clientId, paymentAmount=paymentAmount, paymentDate= today, paymentType="", serviceID=serviceID)
+                    ReportFunctions.printReceiptWithService(ReportFunctions, customerID=clientId, serviceID=serviceID)
 
+                else:
+                    amount_received = 0.0
+                    if (self.ui.pay_services_amt_recieved_2.text() != ''):
+                        try:
+                            amount_received = float(self.ui.pay_services_amt_recieved_2.text())         
+                        except:
+                            MainWindow.show_popup(self,"Invalid Action!","Amount Received field must be a number!")
+                            self.ui.pay_services_amt_recieved_2.setText("0.00")
+                            return
+                    
+                    paymentId = object.createPayment(customerId=clientId, paymentAmount=amount_received, paymentDate= today, paymentType="", serviceID=NULL)
+                    ReportFunctions.createReportsFolder(ReportFunctions)
+                    ReportFunctions.printReceiptWithoutService(ReportFunctions, customerID=clientId, paymentID=paymentId)
+
+                PaymentFunctions.refreshPaymentPage(self)
             else:
-                amount_received = 0.0
-                if (self.ui.pay_services_amt_recieved_2.text() != ''):
-                    try:
-                        amount_received = float(self.ui.pay_services_amt_recieved_2.text())         
-                    except:
-                        MainWindow.show_popup(self,"Invalid Action!","Amount Received field must be a number!")
-                        self.ui.pay_services_amt_recieved_2.setText("0.00")
-                        return
-                
-                paymentId = object.createPayment(customerId=clientId, paymentAmount=amount_received, paymentDate= today, paymentType="", serviceID=NULL)
-                ReportFunctions.printReceiptWithoutService(ReportFunctions, customerID=clientId, paymentID=paymentId)
-
-            PaymentFunctions.refreshPaymentPage(self)
-            
+                MainWindow.show_popup(self,"Invalid Operation!","Payment amount must be greater than 0!")
         else:
             MainWindow.show_popup(self,"Invalid Operation!","Please select a customer to take payment!")
 
